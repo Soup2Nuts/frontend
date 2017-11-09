@@ -5,8 +5,8 @@ angular.module('s2n', [
     'ngMaterial',
     'ngRoute',
     's2n.viewToolbar',
-    's2n.viewHome',
-    's2n.view2',
+    's2n.viewAbout',
+    's2n.viewAccount',
     's2n.version'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
