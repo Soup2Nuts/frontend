@@ -9,12 +9,13 @@ angular.module('s2n', [
     's2n.viewAccount',
     's2n.version'
 ]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
-    $routeProvider.otherwise({redirectTo: '/home'});
-}]).
+    config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+        $locationProvider.hashPrefix('!');
+        $routeProvider.otherwise({redirectTo: '/home'});
+    }]).
     config(function($mdThemingProvider){
         $mdThemingProvider.theme('default')
             .primaryPalette('green')
             .accentPalette('orange');
-            //.backgroundPalette('light-green');
+        //.backgroundPalette('light-green');
     });

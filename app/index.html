@@ -33,8 +33,8 @@
         <!-- The project Components -->
         <script src="app.js"></script>
         <script src="ctrlToolbar.js"></script>
-        <script src="viewHome/ctrlHome.js"></script>
-        <script src="view2/view2.js"></script>
+        <script src="viewAbout/ctrlAbout.js"></script>
+        <script src="viewAccount/ctrlAccount.js"></script>
         <script src="components/version/version.js"></script>
         <script src="components/version/version-directive.js"></script>
         <script src="components/version/interpolate-filter.js"></script>
@@ -49,23 +49,28 @@
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
                 <h2 flex md-truncate>Soup2Nuts</h2>
-
                 <md-menu>
                     <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdMenu, $event)">
                         <md-icon md-menu-origin>more_vert</md-icon>
                     </md-button>
                     <md-menu-content width="4">
                         <md-menu-item>
-                            <md-button ng-click="ctrl.redial($event)">
-                                <md-icon md-menu-align-target>dialpad</md-icon>
-                                Redial
+                            <md-button href="#!/about">
+                                <md-icon md-menu-align-target>info</md-icon>
+                                About
+                            </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button href="#!/account">
+                                <md-icon md-menu-align-target>account_circle</md-icon>
+                                Account Settings
                             </md-button>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item>
-                            <md-button ng-click="ctrl.toggleNotifications()">
-                                <md-icon md-svg-icon="social:notifications-{{ctrl.notificationsEnabled ? 'off' : 'on'}}"></md-icon>
-                                {{ctrl.notificationsEnabled ? 'Disable' : 'Enable' }} notifications
+                            <md-button href="https://github.com/Soup2Nuts">
+                                <md-icon>code</md-icon>
+                                GitHub
                             </md-button>
                         </md-menu-item>
                     </md-menu-content>
