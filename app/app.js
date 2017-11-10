@@ -9,7 +9,8 @@ angular.module('s2n', [
     's2n.viewAccount',
     's2n.viewSearch',
     's2n.viewTemplate',
-    's2n.version'
+    's2n.version',
+    's2n.viewPantry',
     's2n.version',
     's2n.viewPantry'
 
