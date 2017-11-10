@@ -9,6 +9,13 @@ angular.module('s2n.viewAccount', ['ngRoute'])
   });
 }])
 
-.controller('ViewAccountCtrl', [function() {
+.controller('ViewAccountCtrl', ['$scope', function($scope) {
+
+        $scope.account = {
+            "name": "Dora The Explorer",
+            "email": "dora@noswiping.com",
+            "confirmPassword": "",
+            "changePassword": ""
+        }
 
 }]);
