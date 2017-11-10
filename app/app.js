@@ -6,10 +6,9 @@ angular.module('s2n', [
     'ngRoute',
     's2n.viewToolbar',
     's2n.viewAbout',
-    's2n.viewAccount',
     's2n.viewRegister',
     's2n.viewLogin',
-    's2n.services',
+    's2n.services.authentication',
     's2n.version'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
