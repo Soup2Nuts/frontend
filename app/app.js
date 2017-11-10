@@ -1,7 +1,9 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('s2n', [
+angular
+
+.module('s2n', [
     'ngMaterial',
     'ngRoute',
     's2n.viewToolbar',
@@ -10,11 +12,13 @@ angular.module('s2n', [
     's2n.viewLogin',
     's2n.services.authentication',
     's2n.version'
-]).
-config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+])
+
+.config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
     $routeProvider.otherwise({redirectTo: '/home'});
-}]).
-    config(function($mdThemingProvider){
+}])
+
+.config(function($mdThemingProvider){
         $mdThemingProvider.theme('default')
             .primaryPalette('green')
             .accentPalette('orange');

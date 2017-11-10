@@ -3,7 +3,7 @@
 angular
     .module('s2n.services.authentication', ['ngRoute'])
 
-    .factory('Authentication', ['$http', '$cookies', '$locationProvider', function($locationProvider, $http, $cookies) {
+    .factory('Authentication', ['$http', '$cookies', function($http, $cookies) {
         var authentication = {
             login: login,
             register: register,
@@ -29,7 +29,7 @@ angular
 
             function registerFailureFn(data, status, headers, config) {
                 console.error('Comrade, your registration failed mother country...');
-                $location.path('/register');
+                //$location.path('/register');
             }            
         }
 
@@ -41,12 +41,12 @@ angular
 
             function loginSuccessFn(data, status, headers, config) {
                 Authentication.setAuthenticatedAccount(data.data);
-                $location.path('/');
+                //$location.path('/');
             }
 
             function loginFailureFn(data, status, headers, config) {
                 console.error('Your login failed mate...');
-                $location.path('/');
+                //$location.path('/');
             }
         }
 
@@ -76,7 +76,7 @@ angular
 
             function logoutSuccessFn(data, status, headers, config) {
                 Authentication.unauthenticate();
-                $location.path('/');
+                //$location.path('/');
             }
 
             function logoutFailureFn(data, status, headers, config) {

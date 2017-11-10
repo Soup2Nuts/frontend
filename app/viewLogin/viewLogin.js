@@ -3,7 +3,7 @@
 angular
 	.module('s2n.viewLogin', ['ngRoute'])
 
-	.config(['$routeProvider', function($routeProvider) {
+	.config(['$routeProvider', function($routeProvider, $locationProvider) {
 	    $routeProvider.when('/login', {
 	        templateUrl: 'viewLogin/viewLogin.html',
 	        controller: 'LoginController',
@@ -11,7 +11,7 @@ angular
 	    });
 	}])
 
-	.controller('LoginController', ['$location', '$scope', 'Authentication', function($location, $scope, Authentication) {
+	.controller('LoginController', ['$location', 'Authentication', function($location , Authentication) {
 		var vm = this;
 
 		vm.login = login;
@@ -27,4 +27,4 @@ angular
 		function login() {
 			Authentication.login(vm.username, vm.password);
 		}
-}]);
+	}]);
