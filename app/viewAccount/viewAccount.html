@@ -1,6 +1,6 @@
 <div layout="row" layout-fill  layout-align="center center">
     <md-content class="md-padding" layout-fill layout="row" layout-align="center center">
-            <md-card flex-gt-sm="40">
+        <md-card flex>
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">Account Details</span>
@@ -25,9 +25,12 @@
                     </md-input-container>
                     <md-input-container>
                         <label>Confirm Password</label>
-                        <input ng-model="account.confirmPassword" type="password">
+                        <input ng-model="account.confirmPassword" ng-change="validatepw()" type="password">
                     </md-input-container>
-                    <md-button class="md-primary"><md-icon>settings</md-icon>Change Password</md-button>
+                    <md-button ng-disabled="validpw" class="md-raised md-warn">
+                        <md-icon>settings</md-icon>
+                        Change Password
+                    </md-button>
                 </md-card-actions>
             </md-card>
     </md-content>
