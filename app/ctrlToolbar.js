@@ -10,4 +10,12 @@ angular.module('s2n.viewToolbar', ['ngRoute'])
             $mdMenu.open(ev);
         };
 
+        this.routeAbout = function(){
+            $location.path('/about');
+        };
+
+        this.routeAccount = function(){
+            $location.path('/account');
+        };
+
     }]);
