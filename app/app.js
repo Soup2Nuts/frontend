@@ -7,6 +7,7 @@ angular.module('s2n', [
     's2n.viewToolbar',
     's2n.viewAbout',
     's2n.viewAccount',
+    's2n.viewTemplate',
     's2n.version'
 ]).
     config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
