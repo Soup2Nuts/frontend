@@ -14,7 +14,7 @@ angular.module('s2n', [
 ]).
     config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');
-        $routeProvider.otherwise({redirectTo: '/home'});
+        $routeProvider.otherwise({redirectTo: '/pantry'});
     }]).
     config(function($mdThemingProvider){
         $mdThemingProvider.theme('default')
