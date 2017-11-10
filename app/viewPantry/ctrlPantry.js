@@ -9,5 +9,9 @@ angular.module('s2n.viewPantry', ['ngRoute'])
   });
 }])
     .controller('PantryCtrl', [function() {
-      
+      angular.module('fabSpeedDialDemoBasicUsage', ['ngMaterial'])
+      this.topDirections = ['left', 'up'];
+      this.bottomDirections = ['down', 'right'];
+      this.isOpen = false;
+      this.selectedDirection = 'up';
 }]);

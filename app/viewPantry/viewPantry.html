@@ -1,27 +1,45 @@
 <div layout="row" layout-fill layout-align="center center" >
-    <md-content class="md-padding" flex-gt-sm="80">
-          <div>
-            <md-card>
-              <md-card-title>
-                <md-card-title-text>
-                  <span class="md-headline">Pantry</span>
-                </md-card-title-text>
-              </md-card-title>
-              <md-card-content>
-                <p>
-                  TEST
-                </p>
-              </md-card-content>
-              <md-card-actions layout="row" layout-align="center center">
-                <md-button href="#!/search" class="md-icon-button md-raised md-primary" aria-label="Search">
-                  <md-icon>search</md-icon>
-                </md-button>
-                <md-button href="#!/favorites" class="md-icon-button md-raised md-primary" aria-label="Favorite">
-                  <md-icon class="md-accent">favorite</md-icon>
-                </md-button>
-              </md-card-actions>
-            </md-card>
-          </div>
+  <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" >
+    <md-fab-trigger>
+      <md-button aria-label="menu" class="md-fab md-warn">
+        <md-icon>menu</md-icon>
+      </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+      <md-button href="#!/search" class="md-fab md-raised md-primary" aria-label="Search">
+        <md-icon>search</md-icon>
+      </md-button>
+      <md-button href="#!/favorites" class="md-fab md-raised md-primary" aria-label="Favorites">
+        <md-icon class="md-accent">favorite</md-icon>
+      </md-button>
+      <md-button href="#!/delete" class="md-fab md-raised md-primary" aria-label="Delete">
+        <md-icon class="md-accent">delete</md-icon>
+      </md-button>
+    </md-fab-actions>
+  </md-fab-speed-dial>
 
-    </md-content>
+  <md-content class="md-padding" flex-gt-sm="80">
+      <div>
+        <md-card>
+
+          <md-card-title>
+            <md-card-title-text>
+              <span class="md-headline">Pantry</span>
+            </md-card-title-text>
+          </md-card-title>
+
+          <md-card-content>
+            <p>
+              TEST
+            </p>
+          </md-card-content>
+
+
+
+          <md-card-actions layout="row" layout-align="center center">
+
+          </md-card-actions>
+        </md-card>
+      </div>
+  </md-content>
 </div>
