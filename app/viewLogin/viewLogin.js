@@ -11,7 +11,7 @@ angular
 	    });
 	}])
 
-	.controller('LoginController', ['$locationProvider', '$scope', 'Authentication', function($location, $scope, Authentication) {
+	.controller('LoginController', ['$locationProvider', '$scope', 'Authentication', function($locationProvider, $scope, Authentication) {
 	
 		var vm = this;
 

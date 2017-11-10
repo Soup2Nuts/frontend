@@ -2,90 +2,88 @@
 
 angular
     .module('s2n.services.authentication', ['ngRoute'])
-    .factory('Authentication', Authentication);
 
-Authentication.$inject = ['$http', '$cookies', '$locationProvider' /*'$rootScope', 'UserService'*/];
-function Authentication($http, $cookies, /*$rootScope, UserService*/) {
-    var authentication = {
-        login: login,
-        register: register,
-        logout: logout,
-        getAuthenticatedAccount: getAuthenticatedAccount,
-        setAuthenticatedAccount: setAuthenticatedAccount,
-        isAuthenticated: isAuthenticated,
-        unauthenticate: unauthenticate
+    .factory('Authentication', ['$http', '$cookies', '$locationProvider', function($locationProvider, $http, $cookies) {
+        var authentication = {
+            login: login,
+            register: register,
+            logout: logout,
+            getAuthenticatedAccount: getAuthenticatedAccount,
+            setAuthenticatedAccount: setAuthenticatedAccount,
+            isAuthenticated: isAuthenticated,
+            unauthenticate: unauthenticate
 
-    };
+        };
 
-    return authentication;
+        return authentication;
 
-    function register(password, username) {
-        return $http.post('/dummypath', { //TODO: update this
-            username: username,
-            password: password
-        }).then(registerSuccessFn, registerFailureFn);
+        function register(password, username) {
+            return $http.post('/dummypath', { //TODO: update this
+                username: username,
+                password: password
+            }).then(registerSuccessFn, registerFailureFn);
 
-        function registerSuccessFn(data, status, headers, config) {
-            Authentication.login(username, password);
+            function registerSuccessFn(data, status, headers, config) {
+                Authentication.login(username, password);
+            }
+
+            function registerFailureFn(data, status, headers, config) {
+                console.error('Comrade, your registration failed mother country...');
+                $location.path('/register');
+            }            
         }
 
-        function registerFailureFn(data, status, headers, config) {
-            console.error('Comrade, your registration failed mother country...');
-            $location.path('/register');
-        }            
-    }
+        function login(username, password) {
+            return $http.post('/dummypath', { //TODO: update this
+                username: username, 
+                password: password
+            } ).then(loginSuccessFn, loginFailureFn);
 
-    function login(username, password) {
-        return $http.post('/dummypath', { //TODO: update this
-            username: username, 
-            password: password
-        } ).then(loginSuccessFn, loginFailureFn);
+            function loginSuccessFn(data, status, headers, config) {
+                Authentication.setAuthenticatedAccount(data.data);
+                $location.path('/');
+            }
 
-        function loginSuccessFn(data, status, headers, config) {
-            Authentication.setAuthenticatedAccount(data.data);
-            $location.path('/');
+            function loginFailureFn(data, status, headers, config) {
+                console.error('Your login failed mate...');
+                $location.path('/');
+            }
         }
 
-        function loginFailureFn(data, status, headers, config) {
-            console.error('Your login failed mate...');
-            $location.path('/');
-        }
-    }
-
-    function setAuthenticatedAccount() {
-        $cookies.authenticatedAccount = JSON.stringify(account);
-    }
-
-    function getAuthenticatedAccount() {
-        if(!$cookies.authenticatedAccount) {
-            return;
+        function setAuthenticatedAccount() {
+            $cookies.authenticatedAccount = JSON.stringify(account);
         }
 
-        return JSON.parse($cookies.authenticatedAccount);
-    }
+        function getAuthenticatedAccount() {
+            if(!$cookies.authenticatedAccount) {
+                return;
+            }
 
-    function isAuthenticated() {
-        return !!$cookies.authenticatedAccount;
-    }
-
-    function unauthenticate() {
-        delete $cookies.authenticatedAccount;
-    }
-
-    function logout() {
-        return $http.post('/logoutpath') //TODO add this
-            .then(logoutSuccessFn, logoutFailureFn);
-
-        function logoutSuccessFn(data, status, headers, config) {
-            Authentication.unauthenticate();
-            $location.path('/');
+            return JSON.parse($cookies.authenticatedAccount);
         }
 
-        function logoutFailureFn(data, status, headers, config) {
-            console.error('Logout Failed... ?')
+        function isAuthenticated() {
+            return !!$cookies.authenticatedAccount;
         }
-    }
-}
+
+        function unauthenticate() {
+            delete $cookies.authenticatedAccount;
+        }
+
+        function logout() {
+            return $http.post('/logoutpath') //TODO add this
+                .then(logoutSuccessFn, logoutFailureFn);
+
+            function logoutSuccessFn(data, status, headers, config) {
+                Authentication.unauthenticate();
+                $location.path('/');
+            }
+
+            function logoutFailureFn(data, status, headers, config) {
+                console.error('Logout Failed... ?')
+            }
+        }
+}]);
 
 
 

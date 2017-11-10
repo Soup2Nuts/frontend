@@ -9,7 +9,7 @@ angular.module('s2n', [
     's2n.viewAccount',
     's2n.viewRegister',
     's2n.viewLogin',
-    's2n.services.authentication',
+    's2n.services',
     's2n.version'
 ]).
 config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

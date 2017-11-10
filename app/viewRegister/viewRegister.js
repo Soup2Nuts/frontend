@@ -11,7 +11,7 @@ angular
         });
     }])
 
-    .controller('RegisterController', ['$locationProvider', '$scope', 'Authentication', function($location, $scope, Authentication) {
+    .controller('RegisterController', ['$locationProvider', '$scope', 'Authentication', function($locationProvider, $scope, Authentication) {
         var vm = this;
 
         vm.register = register;
