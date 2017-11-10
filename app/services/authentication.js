@@ -18,7 +18,7 @@ angular
         return authentication;
 
         function register(password, username) {
-            return $http.post('/dummypath', { //TODO: update this
+            return $http.post('/dummypath', { //TODO: update this!
                 username: username,
                 password: password
             }).then(registerSuccessFn, registerFailureFn);
