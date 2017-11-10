@@ -18,4 +18,10 @@ angular.module('s2n.viewToolbar', ['ngRoute'])
             $location.path('/account');
         };
 
+
+        this.routeSearch = function(){
+            $location.path('/search');
+        };
+
+
     }]);

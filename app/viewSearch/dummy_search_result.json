@@ -1,0 +1,21 @@
+{
+  "REQUEST": "OK",
+  "Result": {
+    "Lemon Chicken": {
+        "Substitution":"1",
+        "Source":"Beth's Baking"
+    },
+    "Lime Chicken": {
+        "Substitution":"1",
+        "Source":"Dan's Cooking"
+    },
+    "Friend Chicken": {
+        "Substitution":"1",
+        "Source":"Moore's Kitchen"
+    },
+    "Orange Chicken":{
+        "Substitution":"1",
+        "Source":"Rocky's Oven"
+    }
+  }
+}
