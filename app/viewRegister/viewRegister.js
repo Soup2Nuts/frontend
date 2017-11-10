@@ -26,5 +26,5 @@ angular
 
         function register() {
             Authentication.register(vm.username, vm.password);
-    }
+        }
 }]);

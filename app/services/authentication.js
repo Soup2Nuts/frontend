@@ -3,7 +3,7 @@
 angular
     .module('s2n.services.authentication', ['ngRoute'])
 
-    .factory('Authentication', ['$http', '$cookies', '$location', function($location, $http, $cookies) {
+    .factory('Authentication', ['$http', '$cookies', '$locationProvider', function($locationProvider, $http, $cookies) {
         var authentication = {
             login: login,
             register: register,
