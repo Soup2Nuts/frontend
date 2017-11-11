@@ -1,7 +1,20 @@
-search me.
-hi
+<p>
+</p>
 <div ng-app="s2n.viewSearchapp">
     <div ng-controller="MockController">
-        
+        <md-list>
+            <md-list-item class="md-2-line" ng-repeat="(key,data) in ingredients.Ingredients">
+                <div class="md-list-item-text" >
+                    <h3 ng-click="doPrimaryAction($event)">{{key}}</h3>
+                    <md-list>
+                        <md-list-item class="md-2-line" ng-repeat="d in data">
+                            <div class="md-list-item-text">
+                                <md-checkbox>{{d}}</md-checkbox>
+                            </div>
+                        </md-list-item>
+                    </md-list>
+                </div>
+            </md-list-item>
+        </md-list>
     </div>
 </div>
