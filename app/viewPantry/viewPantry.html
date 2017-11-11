@@ -1,25 +1,53 @@
 <div layout="row" layout-fill layout-align="center center" >
-    <md-content class="md-padding" flex-gt-sm="50">
-        <div>
-            <md-card>
-                <img ng-src="media/soup2nuts_image_landscape_color_lineart.png" class=md-card-image" alt="Washed Out">
+  <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" >
+    <md-fab-trigger>
+      <md-button aria-label="menu" class="md-fab md-warn">
+        <md-icon>menu</md-icon>
+      </md-button>
+    </md-fab-trigger>
+    <md-fab-actions>
+      <md-button href="#!/search" class="md-fab md-raised md-primary" aria-label="Search">
+        <md-icon>search</md-icon>
+      </md-button>
+      <md-button href="#!/favorites" class="md-fab md-raised md-primary" aria-label="Favorites">
+        <md-icon class="md-accent">favorite</md-icon>
+      </md-button>
+      <md-button href="#!/delete" class="md-fab md-raised md-primary" aria-label="Delete">
+        <md-icon class="md-accent">delete</md-icon>
+      </md-button>
+    </md-fab-actions>
+  </md-fab-speed-dial>
 
-                <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Template Page</span>
-                    </md-card-title-text>
-                </md-card-title>
-                <md-card-content>
-                    <p>
-                        Soup2Nuts allows users to create a personal digital pantry by entering food ingredients. This pantry will help users find recipes that they can cook from the ingredients that they have available. Soup2Nuts considers known ingredient substitutions to find additional recipes that can be cooked using a particular user’s pantry. Modified versions of these recipes are displayed, showing the substitutions that were made. For example, if there is a recipe for lemon chicken that calls for lemon, salt, chicken and butter, and the user’s pantry contained only lime, salt, chicken and oil olive, a modified version of this recipe would be displayed. The modified recipe would reflect that the lime had been substituted for the lemon and the oil olive had been substituted for the butter. This lets users find new ways to use the ingredients they have around house possibly saving them the time and cost of a trip to the grocery store.
-                    </p>
-                </md-card-content>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button href="https://github.com/Soup2Nuts"
-                               title="Check Out Our GitHub"
-                               class="md-raised md-primary"><md-icon>code</md-icon>GitHub</md-button>
-                </md-card-actions>
-            </md-card>
+  <md-content class="md-padding" flex-gt-sm="65">
+    <div>
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Pantry</span>
+          </md-card-title-text>
+        </md-card-title>
+
+        <div layout="row" layout-align="right center">
+          <md-autocomplete md-clear-button="true" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display" placeholder = "Enter a food item">
+            <md-item-template>
+              <span md-highlight-text="searchText">{{item.display}}</span>
+            </md-item-template>
+            <md-not-found>
+              No matches found.
+            </md-not-found>
+          </md-autocomplete>
+          <md-button class="md-primary"><md-icon>add</md-icon>Add item</md-button>
         </div>
-    </md-content>
+
+        <br>
+        <md-divider></md-divider>
+
+        <md-subheader class="md-no-sticky">Current Pantry Items</md-subheader>
+        <md-list-item ng-repeat="food in foods">
+          <p> {{ food.name }} </p>
+          <md-checkbox class="md-secondary" ng-model="food.selected"></md-checkbox>
+        </md-list-item>
+      </md-card>
+    </div>
+  </md-content>
 </div>

@@ -1,21 +1,37 @@
-<div layout="row" layout-fill layout-align="center center" >
-    <md-content class="md-padding" flex-gt-sm="50">
-        <div>
-            <md-card>
+<div layout="row" layout-fill  layout-align="center center">
+    <md-content class="md-padding" layout-fill layout="row" layout-align="center center">
+        <md-card flex>
                 <md-card-title>
                     <md-card-title-text>
                         <span class="md-headline">Account Details</span>
                     </md-card-title-text>
                 </md-card-title>
-                <md-card-content>
-                    <p>
-                        Account Details Go Here
-                    </p>
+                <md-card-content layout="column">
+                    <md-input-container>
+                        <label>Account Name</label>
+                        <md-icon>person</md-icon>
+                        <input ng-model="account.name" disabled>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Email</label>
+                        <md-icon>email</md-icon>
+                        <input ng-model="account.email" type="email" disabled>
+                    </md-input-container>
                 </md-card-content>
-                <md-card-actions layout="row" layout-align="end center">
-                    <md-button><md-icon>file</md-icon>Commit Changes</md-button>
+                <md-card-actions layout="column" layout-align="">
+                    <md-input-container>
+                        <label>Change Password</label>
+                        <input ng-model="account.changePassword" type="password">
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Confirm Password</label>
+                        <input ng-model="account.confirmPassword" ng-change="validatepw()" type="password">
+                    </md-input-container>
+                    <md-button ng-disabled="validpw" class="md-raised md-warn">
+                        <md-icon>settings</md-icon>
+                        Change Password
+                    </md-button>
                 </md-card-actions>
             </md-card>
-        </div>
     </md-content>
 </div>
