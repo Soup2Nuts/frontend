@@ -18,28 +18,36 @@
     </md-fab-actions>
   </md-fab-speed-dial>
 
-  <md-content class="md-padding" flex-gt-sm="80">
-      <div>
-        <md-card>
+  <md-content class="md-padding" flex-gt-sm="65">
+    <div>
+      <md-card>
+        <md-card-title>
+          <md-card-title-text>
+            <span class="md-headline">Pantry</span>
+          </md-card-title-text>
+        </md-card-title>
 
-          <md-card-title>
-            <md-card-title-text>
-              <span class="md-headline">Pantry</span>
-            </md-card-title-text>
-          </md-card-title>
+        <div layout="row" layout-align="right center">
+          <md-autocomplete md-clear-button="true" md-selected-item="selectedItem" md-search-text="searchText" md-items="item in getMatches(searchText)" md-item-text="item.display" placeholder = "Enter a food item">
+            <md-item-template>
+              <span md-highlight-text="searchText">{{item.display}}</span>
+            </md-item-template>
+            <md-not-found>
+              No matches found.
+            </md-not-found>
+          </md-autocomplete>
+          <md-button class="md-primary"><md-icon>add</md-icon>Add item</md-button>
+        </div>
 
-          <md-card-content>
-            <p>
-              TEST
-            </p>
-          </md-card-content>
+        <br>
+        <md-divider></md-divider>
 
-
-
-          <md-card-actions layout="row" layout-align="center center">
-
-          </md-card-actions>
-        </md-card>
-      </div>
+        <md-subheader class="md-no-sticky">Current Pantry Items</md-subheader>
+        <md-list-item ng-repeat="food in foods">
+          <p> {{ food.name }} </p>
+          <md-checkbox class="md-secondary" ng-model="food.selected"></md-checkbox>
+        </md-list-item>
+      </md-card>
+    </div>
   </md-content>
 </div>
