@@ -1,33 +1,28 @@
 <div layout="row" layout-fill layout-align="center center" ng-controller="PantryCtrl as ctrl">
   <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" >
     <md-fab-trigger>
-      <md-button aria-label="menu" class="md-fab md-warn">
+      <md-button aria-label="menu" class="md-fab md-accent md-hue-3">
         <md-icon>menu</md-icon>
       </md-button>
     </md-fab-trigger>
     <md-fab-actions>
-      <md-button href="#!/search" class="md-fab md-raised md-primary" aria-label="Search">
+      <md-button href="#!/search" class="md-fab md-raised md-accent md-hue-2" aria-label="Search">
         <md-icon>search</md-icon>
       </md-button>
-      <md-button href="#!/favorites" class="md-fab md-raised md-primary" aria-label="Favorites">
+      <md-button href="#!/favorites" class="md-fab md-raised md-accent md-hue-1" aria-label="Favorites">
         <md-icon class="md-accent">favorite</md-icon>
-      </md-button>
-      <md-button ng-click="deletePantryItems()" class="md-fab md-raised md-primary" aria-label="Delete">
-        <md-icon class="md-accent">delete</md-icon>
       </md-button>
     </md-fab-actions>
   </md-fab-speed-dial>
 
   <md-content class="md-padding" flex-gt-sm="50">
     <div>
-      <md-card>
+      <md-card flex>
         <md-card-title>
-          <md-card-title-text>
-            <span class="md-headline">Pantry</span>
-          </md-card-title-text>
+          <md-card-title-text><span class="md-headline">Manage Pantry</span></md-card-title-text>
         </md-card-title>
-
-        <div layout-align="right center" ng-cloak>
+        <md-divider></md-divider>
+        <div class="md-padding" flex layout-align="right center" ng-cloak>
           <form name="addFood">
             <md-autocomplete  md-no-cache="ctrl.noCache" required md-require-match="true" md-selected-item="selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)|orderBy:'toString()'" md-item-text="item" md-min-length="0" placeholder="Enter a food name">
               <md-item-template>
@@ -40,32 +35,26 @@
             <md-button ng-disabled="addFood.$invalid" ng-click="addToPantry()" class="md-raised md-primary"><md-icon>add</md-icon>Add item</md-button>
           </form>
         </div>
-        <br>
-        <div layout="row" layout-wrap >
-          <div flex="100" layout="column">
-            <div>
-              <!-- In IE, we cannot apply flex directly to <fieldset> -->
-              <fieldset >
-                <legend>Current Pantry Items</legend>
-                <div layout="row" layout-wrap flex>
-                <div flex-xs flex="50">
-                  <md-checkbox aria-label="Select All"
-                               ng-checked="isChecked()"
-                               md-indeterminate="isIndeterminate()"
-                               ng-click="toggleAll()">
-                    <span ng-if="isChecked()">Un-</span>select all
-                  </md-checkbox>
-                </div>
-                  <div flex="100" ng-repeat="item in pantryItems|orderBy: 'toString()'">
-                    <md-checkbox ng-checked="exists(item, selected)" ng-click="toggle(item, selected)">
-                     {{ item }}
-                    </md-checkbox>
-                  </div>
-                </div>
-              </fieldset>
-            </div>
-          </div>
       </md-card>
+      <br>
+      <md-card>
+        <md-card-title>
+          <md-card-title-text><span class="md-headline">Current Pantry Items</span></md-card-title-text>
+          <md-button ng-disabled="pantryItems.length == 0" ng-click="confirmDeleteAll($event)" class="md-icon-button md-warn" aria-label="Delete">
+            <md-icon class="md-accent">delete_forever</md-icon>
+          </md-button>
+        </md-card-title>
+        <md-divider></md-divider>
+        <md-list flex>
+          <md-list-item flex = "100" ng-repeat="item in pantryItems|orderBy: 'toString()'" ng-style="hoverActive?{'background-color':'LightGray'}:{}">
+            <p>{{ item }}</p>
+            <md-button ng-click="deletePantryItem(item)" class="md-icon-button md-warn" aria-label="Delete" ng-mouseover="hoverActive=true" ng-mouseleave="hoverActive=false">
+              <md-icon class="md-accent">delete</md-icon>
+            </md-button>
+          </md-list-item>
+
+      </md-card>
+
     </div>
   </md-content>
 </div>

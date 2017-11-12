@@ -8,7 +8,7 @@ angular.module('s2n.viewPantry', ['ngRoute'])
     controller: 'PantryCtrl'
   });
 }])
-    .controller('PantryCtrl', ['$scope', function($scope, $http) {
+    .controller('PantryCtrl', function($scope, $http, $mdDialog) {
       angular.module('fabSpeedDialDemoBasicUsage', ['ngMaterial'])
       this.topDirections = ['left', 'up'];
       this.bottomDirections = ['down', 'right'];
@@ -53,8 +53,6 @@ angular.module('s2n.viewPantry', ['ngRoute'])
        'red wine vinegar'
      ];
 
-     $scope.selected = []
-
      // $scope.querySearch = function(query) {
      //    return $http
      //    .get(BACKEND_URL + '/items/' + query)
@@ -87,45 +85,24 @@ angular.module('s2n.viewPantry', ['ngRoute'])
       }
     }
 
-    $scope.toggle = function(item, list){
-      var idx = list.indexOf(item);
-      if (idx > -1) {
-        list.splice(idx, 1);
-      }
-      else {
-        list.push(item);
-      }
-      };
-
-      $scope.exists = function (item, list) {
-      return list.indexOf(item) > -1;
-      };
-
-      $scope.isIndeterminate = function() {
-      return ($scope.selected.length !== 0 &&
-          $scope.selected.length !== $scope.pantryItems.length);
-      };
-
-      $scope.isChecked = function() {
-      return $scope.selected.length === $scope.pantryItems.length;
-      };
-
-      $scope.toggleAll = function() {
-      if ($scope.selected.length === $scope.pantryItems.length) {
-        $scope.selected = [];
-      } else if ($scope.selected.length === 0 || $scope.selected.length > 0) {
-        $scope.selected = $scope.pantryItems.slice(0);
-      }
-      };
-
-      $scope.deletePantryItems = function() {
-        for(var idx = 0; idx < $scope.pantryItems.length; idx++){
-          if($scope.selected.indexOf($scope.pantryItems[idx]) > -1){
-            $scope.pantryItems.splice(idx, 1);
-            idx--;
-          }
-        }
-        $scope.selected = []
+      $scope.deletePantryItem = function($item) {
+        var index = $scope.pantryItems.indexOf($item)
+        $scope.pantryItems.splice(index, 1);
       }
 
-}]);
+      $scope.confirmDeleteAll = function(ev) {
+        var confirm = $mdDialog.confirm()
+              .title('Would you like to delete all of the items in your pantry?')
+              .textContent('Pantry items can not be recovered once deleted.')
+              .ariaLabel('Delete all')
+              .targetEvent(ev)
+              .ok('Yes, I\'m sure.')
+              .cancel('No, thank you.');
+        $mdDialog.show(confirm).then(function() {
+          $scope.pantryItems = []
+        }, function() {
+        });
+      };
+
+
+});
