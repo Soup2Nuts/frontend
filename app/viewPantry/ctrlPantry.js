@@ -8,7 +8,7 @@ angular.module('s2n.viewPantry', ['ngRoute'])
     controller: 'PantryCtrl'
   });
 }])
-    .controller('PantryCtrl', function($scope, $http, $mdDialog) {
+    .controller('PantryCtrl', ['$scope', '$http', '$mdDialog', function($scope, $http, $mdDialog) {
       angular.module('fabSpeedDialDemoBasicUsage', ['ngMaterial'])
       this.topDirections = ['left', 'up'];
       this.bottomDirections = ['down', 'right'];
@@ -105,4 +105,4 @@ angular.module('s2n.viewPantry', ['ngRoute'])
       };
 
 
-});
+}]);
