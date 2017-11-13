@@ -1,20 +1,20 @@
 {
   "REQUEST": "OK",
-  "Ingredients": {
-    "Milk and Milk Products": [
+  "Ingredients": [
+    "Milk and Milk Products",
       "cheese",
-      "milk"
-    ],
-    "Meat, Pultry and Fish": [
+      "milk",
+    
+    "Meat, Pultry and Fish",
       "Beef",
       "Chicken",
       "Tilapia",
       "Tuna",
-      "Crab"
-    ],
-    "Eggs": [
+      "Crab",
+    
+    "Eggs",
       "Chicken egg",
       "Duck egg"
-    ]
-  }
+    
+  ]
 }

@@ -1,9 +1,11 @@
 <p>
 </p>
+
+<!--
 <div ng-app="s2n.viewSearchapp">
     <div ng-controller="MockController">
         <md-list>
-            <md-list-item class="md-2-line" ng-repeat="(key,data) in ingredients.Ingredients">
+            <md-list-item class="md-2-line" ng-repeat="(d) in ingredients.Ingredients">
                 <div class="md-list-item-text" >
                     <h3 ng-click="doPrimaryAction($event)">{{key}}</h3>
                     <md-list>
@@ -17,4 +19,31 @@
             </md-list-item>
         </md-list>
     </div>
+</div>--><div layout="row" layout-fill layout-align="center center">
+
+<md-content class="md-padding" flex-gt-sm="50">
+    <div>
+      <md-card flex>
+          
+          <md-card-header-text md-colors = {'background':'green'}>
+            <span class="md-title">Select Ingredients</span>
+            
+          </md-card-header-text>
+          
+<div layout="row" layout-fill layout-align="center center" >
+<div ng-app="s2n.viewSearchapp">
+    <div ng-controller="MockController">
+        <md-list>
+            <md-list-item class="md-5-line" ng-repeat="d in ingredients.Ingredients">
+                <div class="md-list-item-text" >
+                    <md-checkbox>{{d}}</md-checkbox>
+                </div>
+            </md-list-item>
+        </md-list>
+    </div>
+</div>
+</div>
+      </md-card>
+    </div>
+</md-content>
 </div>
