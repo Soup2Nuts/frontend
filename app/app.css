@@ -23,3 +23,13 @@
   content: "|";
   padding-right: 0.3em;
 }
+
+.logo-image {
+    height: 100%;
+    width: 100%;
+}
+
+.md-button.logo {
+    height: 7rem;
+    width: 7rem;
+}
