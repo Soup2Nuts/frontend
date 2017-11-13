@@ -11,7 +11,7 @@ angular
         });
     }])
 
-    .controller('RegisterController', ['$location', /*Authentication, */function($location/*, Authentication*/) {
+    .controller('RegisterController', ['$location', /*AuthFactory, */function($location/*, AuthFactory*/) {
         var vm = this;
 
         vm.register = register;
@@ -19,12 +19,12 @@ angular
         activate();
 
         function activate() {
-            // if(Authentication.isAuthenticated()) {
+            // if(AuthFactory.isAuthenticated()) {
                 $location.path('/');
             // }
         }
 
         function register() {
-            // Authentication.register(vm.username, vm.password);
+            // AuthFactory.register(vm.username, vm.password);
         }
     }]);

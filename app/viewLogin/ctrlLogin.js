@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('s2n.viewLogin', ['ngRoute'])
+	.module('s2n.viewLogin', ['ngRoute', 's2n.services'])
 
 	.config(['$routeProvider', function($routeProvider, $locationProvider) {
 	    $routeProvider.when('/login', {
@@ -11,7 +11,7 @@ angular
 	    });
 	}])
 
-	.controller('LoginController', ['$location', 'Authentication', function($location , Authentication) {
+	.controller('LoginController', ['$location', AuthFactory, function(AuthFactory, $location) {
 		var vm = this;
 
 		vm.login = login;
@@ -19,12 +19,12 @@ angular
 		activate();
 
 		function activate() {
-			if(Authentication.isAuthenticated()) {
-				$location.path('/');
-			}
+			//if(AuthFactory.isAuthenticated()) {
+			//	$location.path('/');
+			//}
 		}
 
 		function login() {
-			Authentication.login(vm.username, vm.password);
+			//AuthFactory.login(vm.username, vm.password);
 		}
 	}]);

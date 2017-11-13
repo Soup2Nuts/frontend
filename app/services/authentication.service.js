@@ -1,30 +1,18 @@
 'use strict';
 
 angular
-    .module('s2n.services.authentication', ['ngRoute'])
+    .module('s2n.services', ['ngRoute'])
 
-    .factory('Authentication', ['$http', '$cookies', function($http, $cookies) {
-        var authentication = {
-            login: login,
-            register: register,
-            logout: logout,
-            getAuthenticatedAccount: getAuthenticatedAccount,
-            setAuthenticatedAccount: setAuthenticatedAccount,
-            isAuthenticated: isAuthenticated,
-            unauthenticate: unauthenticate
+    .factory('AuthFactory', ['$http', '$cookies', function($http, $cookies) {
 
-        };
-
-        return authentication;
-
-        function register(password, username) {
+        AuthFactory.register = function(password, username) {
             return $http.post('/dummypath', { //TODO: update this!
                 username: username,
                 password: password
             }).then(registerSuccessFn, registerFailureFn);
 
             function registerSuccessFn(data, status, headers, config) {
-                Authentication.login(username, password);
+                AuthenticationFactory.login(username, password);
             }
 
             function registerFailureFn(data, status, headers, config) {
@@ -33,14 +21,14 @@ angular
             }            
         }
 
-        function login(username, password) {
+        AuthFactory.login = function(username, password) {
             return $http.post('/dummypath', { //TODO: update this
                 username: username, 
                 password: password
             } ).then(loginSuccessFn, loginFailureFn);
 
             function loginSuccessFn(data, status, headers, config) {
-                Authentication.setAuthenticatedAccount(data.data);
+                AuthFactory.setAuthenticatedAccount(data.data);
                 //$location.path('/');
             }
 
@@ -62,7 +50,7 @@ angular
             return JSON.parse($cookies.authenticatedAccount);
         }
 
-        function isAuthenticated() {
+        AuthFactory.isAuthenticated = function() {
             return !!$cookies.authenticatedAccount;
         }
 
@@ -75,7 +63,7 @@ angular
                 .then(logoutSuccessFn, logoutFailureFn);
 
             function logoutSuccessFn(data, status, headers, config) {
-                Authentication.unauthenticate();
+                AuthFactory.unauthenticate();
                 //$location.path('/');
             }
 
@@ -83,6 +71,18 @@ angular
                 console.error('Logout Failed... ?')
             }
         }
+
+        var AuthFactory = {};
+
+            AuthFactory.login = login;
+            AuthFactory.register = register;
+            AuthFactory.logout = logout;
+            AuthFactory.getAuthenticatedAccount = getAuthenticatedAccount;
+            AuthFactory.setAuthenticatedAccount = setAuthenticatedAccount;
+            AuthFactory.isAuthenticated = isAuthenticated;
+            AuthFactory.unauthenticate = unauthenticate;
+
+        return AuthFactory;
 }]);
 
 
