@@ -10,6 +10,8 @@ angular.module('s2n', [
     's2n.viewSearch',
     's2n.viewTemplate',
     's2n.version',
+    's2n.viewRegister',
+    's2n.viewLogin',
     's2n.viewPantry',
     's2n.viewFavorites'
 ]).
