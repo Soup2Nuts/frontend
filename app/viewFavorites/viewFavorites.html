@@ -1,14 +1,36 @@
-<div layout="row" layout-fill layout-align="center center" >
+<div layout="row" layout-fill layout-align="center center" ng-controller="FavoritesCtrl as ctrl">
     <md-content class="md-padding" flex-gt-sm="50">
         <div>
             <md-card>
                 <md-card-title>
-                    <md-card-title-text>
-                        <span class="md-headline">Favorites Page</span>
-                    </md-card-title-text>
+                    <md-card-title-text layout = "row"><span class="md-headline">Favorites</span></md-card-title-text>
+                    <!-- <div layout-align="end center">
+                      <md-menu>
+                        <md-button aria-label="sort menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+                          <md-icon md-menu-origin>sort</md-icon>
+                        </md-button>
+                        <md-menu-content width="2">
+                          <md-menu-item ng-repeat="item in ['title', 'cuisines']">
+                            <md-button md-menu-align-target ng-click="vm.announceClick($index)">
+                                <div layout="row" flex="">
+                                  <p flex="">Sort by: {{item}}</p>
+                                </div>
+                            </md-button>
+                          </md-menu-item>
+                        </md-menu-content>
+                      </md-menu>
+                    </div> -->
                 </md-card-title>
+                <md-divider></md-divider>
                 <md-card-content>
-                    <p>STUFF</p>
+                  <md-list>
+                    <md-list-item flex ng-repeat="recipe in recipes|orderBy:'item'" ng-click="showRecipeDialog($event)" class="noright">
+                      <p>{{ recipe.title }}</p>
+                      <md-button ng-click="deleteFavorite(recipe)" class="md-icon-button md-warn" aria-label="Delete" ng-mouseover="hoverActive=true" ng-mouseleave="hoverActive=false">
+                        <md-icon class="md-accent">{{hoverActive?'favorite_border':'favorite'}}</md-icon>
+                      </md-button>
+                    </md-list-item>
+                  </md-list>
                 </md-card-content>
             </md-card>
         </div>
