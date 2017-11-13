@@ -4,13 +4,14 @@
 angular
 
 .module('s2n', [
-    'ngMaterial',
-    'ngRoute',
-    's2n.viewToolbar',
-    's2n.viewAbout',
-    's2n.viewRegister',
-    's2n.viewLogin',
-    's2n.version'
+        'ngMaterial',
+        'ngRoute',/*
+        'ngCookies',*/
+        's2n.viewToolbar',
+        's2n.viewAbout',
+        's2n.viewRegister',
+        's2n.viewLogin',
+        's2n.version'
 ])
 
 .config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {

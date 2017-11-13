@@ -1,11 +1,11 @@
 'use strict';
 
 angular
-    .module('s2n.services', ['ngRoute'])
+    .module('s2n.services', ['ngRoute', 'ngCookies'])
 
     .factory('AuthFactory', ['$http', '$cookies', function($http, $cookies) {
 
-        AuthFactory.register = function(password, username) {
+        this.register = function(password, username) {
             return $http.post('/dummypath', { //TODO: update this!
                 username: username,
                 password: password
@@ -21,7 +21,7 @@ angular
             }            
         }
 
-        AuthFactory.login = function(username, password) {
+        this.login = function(username, password) {
             return $http.post('/dummypath', { //TODO: update this
                 username: username, 
                 password: password
@@ -50,7 +50,7 @@ angular
             return JSON.parse($cookies.authenticatedAccount);
         }
 
-        AuthFactory.isAuthenticated = function() {
+        this.isAuthenticated = function() {
             return !!$cookies.authenticatedAccount;
         }
 
@@ -74,15 +74,15 @@ angular
 
         var AuthFactory = {};
 
-            AuthFactory.login = login;
-            AuthFactory.register = register;
-            AuthFactory.logout = logout;
+            AuthFactory.login = this.login;
+            AuthFactory.register = this.register;
+            AuthFactory.logout = this.logout;
             AuthFactory.getAuthenticatedAccount = getAuthenticatedAccount;
             AuthFactory.setAuthenticatedAccount = setAuthenticatedAccount;
-            AuthFactory.isAuthenticated = isAuthenticated;
-            AuthFactory.unauthenticate = unauthenticate;
+            AuthFactory.isAuthenticated = this.isAuthenticated;
+            AuthFactory.unauthenticate = this.unauthenticate;
 
-        return AuthFactory;
+        return this;
 }]);
 
 
