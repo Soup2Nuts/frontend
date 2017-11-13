@@ -11,7 +11,7 @@ angular
 	    });
 	}])
 
-	.controller('LoginController', ['$location', 'AuthFactory', function(AuthFactory, $location) {
+	.controller('LoginController', ['$location', 'AuthFactory', function($location, AuthFactory) {
 		var vm = this;
 
 		vm.login = login;

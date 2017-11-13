@@ -45,7 +45,7 @@ angular
 
             function loginFailureFn(data, status, headers, config) {
                 console.error('Your login failed mate...');
-                $location.path('/');
+                $location.path('/login');
             }
         }
 
