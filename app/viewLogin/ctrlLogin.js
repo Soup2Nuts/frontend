@@ -11,7 +11,7 @@ angular
 	    });
 	}])
 
-	.controller('LoginController', ['$location', AuthFactory, function(AuthFactory, $location) {
+	.controller('LoginController', ['$location', 'AuthFactory', function(AuthFactory, $location) {
 		var vm = this;
 
 		vm.login = login;
@@ -19,12 +19,12 @@ angular
 		activate();
 
 		function activate() {
-			//if(AuthFactory.isAuthenticated()) {
-			//	$location.path('/');
-			//}
+			if(AuthFactory.isAuthenticated()) {
+				$location.path('/');
+			}
 		}
 
 		function login() {
-			//AuthFactory.login(vm.username, vm.password);
+			AuthFactory.login(vm.username, vm.password);
 		}
 	}]);

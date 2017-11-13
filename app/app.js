@@ -10,6 +10,7 @@ angular
     's2n.viewAbout',
     's2n.viewRegister',
     's2n.viewLogin',
+    's2n.services',
     's2n.version'
 ])
 

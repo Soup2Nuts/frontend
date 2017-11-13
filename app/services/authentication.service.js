@@ -82,7 +82,7 @@ angular
             AuthFactory.isAuthenticated = isAuthenticated;
             AuthFactory.unauthenticate = unauthenticate;
 
-        return AuthFactory;
+        return this;
 }]);
 
 
