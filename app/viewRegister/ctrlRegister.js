@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-    .module('s2n.viewRegister', ['ngRoute'])
+    .module('s2n.viewRegister', ['ngRoute', 's2n.services'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/register', {
@@ -11,7 +11,7 @@ angular
         });
     }])
 
-    .controller('RegisterController', ['$location', /*AuthFactory, */function($location/*, AuthFactory*/) {
+    .controller('RegisterController', ['$location', 'AuthFactory', function($location, AuthFactory) {
         var vm = this;
 
         vm.register = register;
@@ -19,12 +19,12 @@ angular
         activate();
 
         function activate() {
-            // if(AuthFactory.isAuthenticated()) {
+            if(AuthFactory.isAuthenticated()) {
                 $location.path('/');
-            // }
+            }
         }
 
         function register() {
-            // AuthFactory.register(vm.username, vm.password);
+            AuthFactory.register(vm.username, vm.password);
         }
     }]);

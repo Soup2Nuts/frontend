@@ -1,11 +1,22 @@
 'use strict';
 
 angular
-    .module('s2n.services', ['ngRoute'])
+    .module('s2n.services', ['ngRoute', 'ngCookies'])
 
-    .factory('AuthFactory', ['$http', '$cookies', function($http, $cookies) {
+    .factory('AuthFactory', ['$http', '$cookies', '$location', function($http, $cookies, $location) {
+        var authenticate = {}
 
-        AuthFactory.register = function(password, username) {
+        authenticate.login = login;
+        authenticate.register = register;
+        authenticate.logout = logout;
+        authenticate.getAuthenticatedAccount = getAuthenticatedAccount;
+        authenticate.setAuthenticatedAccount = setAuthenticatedAccount;
+        authenticate.isAuthenticated = isAuthenticated;
+        authenticate.unauthenticate = unauthenticate;
+
+        return authenticate;
+
+        function register(password, username) {
             return $http.post('/dummypath', { //TODO: update this!
                 username: username,
                 password: password
@@ -17,11 +28,11 @@ angular
 
             function registerFailureFn(data, status, headers, config) {
                 console.error('Comrade, your registration failed mother country...');
-                //$location.path('/register');
+                $location.path('/register');
             }            
         }
 
-        AuthFactory.login = function(username, password) {
+        function login(username, password) {
             return $http.post('/dummypath', { //TODO: update this
                 username: username, 
                 password: password
@@ -29,12 +40,12 @@ angular
 
             function loginSuccessFn(data, status, headers, config) {
                 AuthFactory.setAuthenticatedAccount(data.data);
-                //$location.path('/');
+                $location.path('/');
             }
 
             function loginFailureFn(data, status, headers, config) {
                 console.error('Your login failed mate...');
-                //$location.path('/');
+                $location.path('/');
             }
         }
 
@@ -49,8 +60,8 @@ angular
 
             return JSON.parse($cookies.authenticatedAccount);
         }
-
-        AuthFactory.isAuthenticated = function() {
+        
+        function isAuthenticated() {
             return !!$cookies.authenticatedAccount;
         }
 
@@ -64,25 +75,13 @@ angular
 
             function logoutSuccessFn(data, status, headers, config) {
                 AuthFactory.unauthenticate();
-                //$location.path('/');
+                $location.path('/');
             }
 
             function logoutFailureFn(data, status, headers, config) {
                 console.error('Logout Failed... ?')
             }
         }
-
-        var AuthFactory = {};
-
-            AuthFactory.login = login;
-            AuthFactory.register = register;
-            AuthFactory.logout = logout;
-            AuthFactory.getAuthenticatedAccount = getAuthenticatedAccount;
-            AuthFactory.setAuthenticatedAccount = setAuthenticatedAccount;
-            AuthFactory.isAuthenticated = isAuthenticated;
-            AuthFactory.unauthenticate = unauthenticate;
-
-        return this;
 }]);
 
 
