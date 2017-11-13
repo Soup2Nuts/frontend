@@ -10,7 +10,8 @@ angular.module('s2n', [
     's2n.viewSearch',
     's2n.viewTemplate',
     's2n.version',
-    's2n.viewPantry'
+    's2n.viewPantry',
+    's2n.viewFavorites'
 ]).
     config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');
@@ -19,6 +20,7 @@ angular.module('s2n', [
     config(function($mdThemingProvider){
         $mdThemingProvider.theme('default')
             .primaryPalette('green')
-            .accentPalette('orange');
+            .accentPalette('orange')
+            .warnPalette('red');
         //.backgroundPalette('light-green');
     });
