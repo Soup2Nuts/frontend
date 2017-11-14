@@ -7,7 +7,7 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
     controller: 'FavoritesCtrl'
   });
 }])
-    .controller('FavoritesCtrl', ['$scope',function($scope) {
+    .controller('FavoritesCtrl', ['$scope', '$mdDialog', function($scope, $mdDialog) {
     $scope.recipes = [
           {
               "title": "Banana Split Oatmeal",
@@ -189,6 +189,37 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
     $scope.deleteFavorite = function($recipe){
       var index = $scope.recipes.indexOf($recipe)
       $scope.recipes.splice(index, 1);
+    }
+
+    //I assume this is the problem, also why isn't it $ev?
+    $scope.showRecipeDialog = function(ev){
+      $mdDialog.show({
+        controller: DialogController,
+        templateUrl: 'recipeDialog.tmpl.html',  //NOT OKAY
+        parent: angular.element(document.body),
+        targetEvent: ev,
+        clickOutsideToClose:true,
+        fullscreen: true
+      })
+      .then(function(answer) {
+        $scope.status = 'You said the information was "' + answer + '".';
+      }, function() {
+        $scope.status = 'You cancelled the dialog.';
+      });
+    };
+
+    function DialogController($scope, $mdDialog) {
+      $scope.hide = function() {
+        $mdDialog.hide();
+      };
+
+      $scope.cancel = function() {
+        $mdDialog.cancel();
+      };
+
+      $scope.answer = function(answer) {
+        $mdDialog.hide(answer);
+      };
     }
 
 }]);
