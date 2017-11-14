@@ -191,11 +191,20 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
       $scope.recipes.splice(index, 1);
     }
 
+    //REMOVE LATER
+    var dialogTemplate =
+                          "<div layout=\"row\" layout-fill layout-align=\"center center\" >" +
+                            "<p>"+
+                                "STUFF"+
+                            "</p>"+
+                          "</div>";
+
     //I assume this is the problem, also why isn't it $ev?
     $scope.showRecipeDialog = function(ev){
       $mdDialog.show({
         controller: DialogController,
-        templateUrl: 'recipeDialog.tmpl.html',  //NOT OKAY
+        //templateUrl: 'recipeDialog.tmpl.html',  //NOT OKAY
+        template: dialogTemplate,
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true,

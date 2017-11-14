@@ -25,10 +25,10 @@
           <form name="addFood">
             <md-autocomplete  md-no-cache="ctrl.noCache" required md-require-match="true" md-selected-item="selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)|orderBy:'toString()'" md-item-text="item" md-min-length="0" placeholder="Enter a food name">
               <md-item-template>
-                <span md-highlight-text="searchText" md-highlight-flags="^i">{{item}}</span>
+                <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
               </md-item-template>
               <md-not-found>
-                No foods matching "{{searchText}}" were found.
+                No foods matching "{{ctrl.searchText}}" were found.
               </md-not-found>
             </md-autocomplete>
             <md-button ng-disabled="addFood.$invalid" ng-click="addToPantry()" class="md-raised md-primary"><md-icon>add</md-icon>Add item</md-button>
