@@ -7,11 +7,19 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
     controller: 'FavoritesCtrl'
   });
 }])
-    .controller('FavoritesCtrl', ['$scope', '$mdDialog', function($scope, $mdDialog) {
+    .controller('FavoritesCtrl', ['$scope', '$mdDialog', '$window', function($scope, $mdDialog, $window) {
     this.announceClick = announceClick;
     $scope.properties = ['title', 'cuisines', 'courses'];
     $scope.selectedProperty = 'title';
 
+    $scope.desktopTemplate = false;
+    $scope.mobileTemplate = false;
+    var screenWidth = $window.innerWidth;
+    if (screenWidth < 700){
+        $scope.mobileTemplate = true;
+    }else{
+        $scope.desktopTemplate = true;
+    }
     //NOTE: recipe's courses and cuisines should be pre-sorted alphabetically
     $scope.recipes = [
           {

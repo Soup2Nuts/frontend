@@ -23,28 +23,24 @@
                 </md-card-title>
                 <md-divider></md-divider>
                 <md-card-content flex>
-                  <table flex align="center">
+                  <table flex>
                     <tr>
                       <th>
-                        <span>Title</span>
+                        <span>Recipes</span>
                       </th>
                       <th>
-                      	<span>Cuisines</span>
+                        <span ng-if="desktopTemplate">Unfavorite?</span>
                       </th>
                       <th>
-                      	<span>Courses</span>
-                      </th>
-                      <th>
-                        <span>Unfavorite?</span>
-                      </th>
-                      <th>
-                        <span>View Recipe</span>
+                        <span ng-if="desktopTemplate">View Recipe</span>
                       </th>
                     </tr>
                     <tr ng-repeat="recipe in recipes | orderBy:selectedProperty">
-                      <td>{{recipe.title}}</td>
-                      <td>{{getCuisineList(recipe)}}</td>
-                      <td>{{getCourseList(recipe)}}</td>
+                      <td>
+                        <h3>{{recipe.title}}</h3>
+                        <p><b>{{recipe.cuisines.length>1?"Cuisines: ":"Cuisine: "}}</b>{{recipe.cuisines.length==0?"None":getCuisineList(recipe)}}</p>
+                        <p><b>{{recipe.courses.length>1?"Courses: ":"Course: "}}</b>{{recipe.courses.length==0?"None":getCourseList(recipe)}}</p>
+                      </td>
                     	<td>
                         <md-button ng-click="deleteFavorite(recipe)" class="md-icon-button md-warn" aria-label="Unfavorite recipe" ng-mouseover="favHoverActive=true" ng-mouseleave="favHoverActive=false">
                           <md-icon>{{favHoverActive?'favorite_border':'favorite'}}</md-icon>
