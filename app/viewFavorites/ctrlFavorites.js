@@ -209,7 +209,7 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
       $scope.getStringIngredients = function(){
           var results = [];
           $scope.recipe.ingredients.forEach(function(ingredient){
-            results.push(ingredient.quantity.fraction + " " + ingredient.quantity.unit + " " + ingredient.food + " " + ingredient.notes);
+            results.push(ingredient.quantity.fraction + " " + ingredient.quantity.unit + " " + ingredient.food + ", " + ingredient.notes);
           });
           return results;
       };
