@@ -8,6 +8,11 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
   });
 }])
     .controller('FavoritesCtrl', ['$scope', '$mdDialog', function($scope, $mdDialog) {
+    this.announceClick = announceClick;
+    $scope.properties = ['title', 'cuisines', 'courses'];
+    $scope.selectedProperty = 'title';
+
+    //NOTE: recipe's courses and cuisines should be pre-sorted alphabetically
     $scope.recipes = [
           {
               "title": "Banana Split Oatmeal",
@@ -97,7 +102,7 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
           {
               "title": "Chicken Vegetable Soup with Kale",
               "source": "https://whatscooking.fns.usda.gov/recipes/supplemental-nutrition-assistance-program-snap/chicken-vegetable-soup-kale",
-              "cuisines": [],
+              "cuisines": ["American"],
               "courses": [
                   "Soup"
               ],
@@ -186,6 +191,9 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
           }
     ];
 
+    function announceClick($index){
+      $scope.selectedProperty = $scope.properties[$index];
+    }
     $scope.deleteFavorite = function($recipe){
       var index = $scope.recipes.indexOf($recipe)
       $scope.recipes.splice(index, 1);
@@ -225,7 +233,7 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
             list += ", ";
         }
         return list;
-      }
+      };
       $scope.getCuisineList = function(){
         var list = ""
         for(var i = 0; i < $scope.recipe.cuisines.length; i++)
@@ -235,7 +243,7 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
             list += ", ";
         }
         return list;
-      }
+      };
       $scope.hide = function() {
         $mdDialog.hide();
       };
@@ -244,5 +252,25 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
         $mdDialog.cancel();
       };
     }
+    $scope.getCourseList = function($recipe){
+      var list = ""
+      for(var i = 0; i < $recipe.courses.length; i++)
+      {
+        list += $recipe.courses[i];
+        if(i != ($recipe.courses.length-1))
+          list += ", ";
+      }
+      return list;
+    };
+    $scope.getCuisineList = function($recipe){
+      var list = ""
+      for(var i = 0; i < $recipe.cuisines.length; i++)
+      {
+        list += $recipe.cuisines[i];
+        if(i != ($recipe.cuisines.length-1))
+          list += ", ";
+      }
+      return list;
+    };
 
 }]);
