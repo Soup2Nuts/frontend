@@ -24,7 +24,7 @@
                 <md-divider></md-divider>
                 <md-card-content>
                   <md-list>
-                    <md-list-item flex ng-repeat="recipe in recipes|orderBy:'item'" ng-click="showRecipeDialog($event)" class="noright">
+                    <md-list-item flex ng-repeat="recipe in recipes|orderBy:'item'" ng-click="showRecipeDialog($event, recipe)">
                       <p>{{ recipe.title }}</p>
                       <md-button ng-click="deleteFavorite(recipe)" class="md-icon-button md-warn" aria-label="Delete" ng-mouseover="hoverActive=true" ng-mouseleave="hoverActive=false">
                         <md-icon class="md-accent">{{hoverActive?'favorite_border':'favorite'}}</md-icon>

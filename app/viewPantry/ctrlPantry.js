@@ -79,7 +79,7 @@ angular.module('s2n.viewPantry', ['ngRoute'])
         $scope.pantryItems.push(lowercaseItem);
         $scope.selectedItem = "";
       }
-    }
+    };
 
     //Removes the specified item from the pantry, if it is in the pantry
       $scope.deletePantryItem = function($item) {
@@ -87,7 +87,7 @@ angular.module('s2n.viewPantry', ['ngRoute'])
         if(index >= 0){
           $scope.pantryItems.splice(index, 1);
         }
-      }
+      };
 
     //Prompts the user with a dialog to confirm whether they want to delete all pantry Items
     //Deletes all pantry items upon user confirmation

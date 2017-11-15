@@ -12,7 +12,7 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
           {
               "title": "Banana Split Oatmeal",
               "source": "https://whatscooking.fns.usda.gov/recipes/supplemental-nutrition-assistance-program-snap/banana-split-oatmeal",
-              "cuisines": [],
+              "cuisines": ["American"],
               "courses": [
                   "Breakfast"
               ],
@@ -189,45 +189,57 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
     $scope.deleteFavorite = function($recipe){
       var index = $scope.recipes.indexOf($recipe)
       $scope.recipes.splice(index, 1);
-    }
+    };
 
-    //REMOVE LATER
-    var dialogTemplate =
-                          "<div layout=\"row\" layout-fill layout-align=\"center center\" >" +
-                            "<p>"+
-                                "STUFF"+
-                            "</p>"+
-                          "</div>";
-
-    //I assume this is the problem, also why isn't it $ev?
-    $scope.showRecipeDialog = function(ev){
+    //Shows the custom recipe dialog
+    $scope.showRecipeDialog = function(ev, $recipe){
       $mdDialog.show({
         controller: DialogController,
-        //templateUrl: 'recipeDialog.tmpl.html',  //NOT OKAY
-        template: dialogTemplate,
+        templateUrl:'viewFavorites/recipeDialog.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true,
-        fullscreen: true
-      })
-      .then(function(answer) {
-        $scope.status = 'You said the information was "' + answer + '".';
-      }, function() {
-        $scope.status = 'You cancelled the dialog.';
+        fullscreen: true,
+        locals: {recipe: $recipe}
       });
     };
 
-    function DialogController($scope, $mdDialog) {
+    function DialogController($scope, $mdDialog, recipe) {
+      $scope.recipe = recipe;
+      $scope.getStringIngredients = function(){
+          var results = [];
+          $scope.recipe.ingredients.forEach(function(ingredient){
+            results.push(ingredient.quantity.fraction + " " + ingredient.quantity.unit + " " + ingredient.food + " " + ingredient.notes);
+          });
+          return results;
+      };
+
+      $scope.getCourseList = function(){
+        var list = ""
+        for(var i = 0; i < $scope.recipe.courses.length; i++)
+        {
+          list += $scope.recipe.courses[i];
+          if(i != ($scope.recipe.courses.length-1))
+            list += ", ";
+        }
+        return list;
+      }
+      $scope.getCuisineList = function(){
+        var list = ""
+        for(var i = 0; i < $scope.recipe.cuisines.length; i++)
+        {
+          list += $scope.recipe.cuisines[i];
+          if(i != ($scope.recipe.cuisines.length-1))
+            list += ", ";
+        }
+        return list;
+      }
       $scope.hide = function() {
         $mdDialog.hide();
       };
-
       $scope.cancel = function() {
-        $mdDialog.cancel();
-      };
 
-      $scope.answer = function(answer) {
-        $mdDialog.hide(answer);
+        $mdDialog.cancel();
       };
     }
 
