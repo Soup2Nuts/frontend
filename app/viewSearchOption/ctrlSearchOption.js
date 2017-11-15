@@ -8,7 +8,7 @@ var searchModule = angular.module('s2n.viewSearchOption',['ngRoute'])
             });
     }]);
 
-var viewSearchOptionController = function($scope,coursesFactory,cuisinesFactory){
+var viewSearchOptionController = function($scope,coursesFactory,cuisinesFactory,$log){
 
     
     $scope.name = ['micky'];
@@ -18,9 +18,11 @@ var viewSearchOptionController = function($scope,coursesFactory,cuisinesFactory)
     };
 
     init();
+
+    
 };
 
-viewSearchOptionController.$inject = ['$scope','coursesFactory','cuisinesFactory'];
+viewSearchOptionController.$inject = ['$scope','coursesFactory','cuisinesFactory','$log'];
 
 searchModule.controller('viewSearchOptionController',viewSearchOptionController);
 
