@@ -1,7 +1,7 @@
 <div layout="row" layout-fill layout-align="center center" ng-controller="FavoritesCtrl as ctrl">
     <md-content class="md-padding" flex-gt-sm="50">
         <div>
-            <md-card>
+            <md-card flex>
                 <md-card-title>
                     <md-card-title-text layout = "row"><span class="md-headline">Favorites</span></md-card-title-text>
                     <div layout-align="end center">
@@ -12,8 +12,8 @@
                         <md-menu-content width="2">
                           <md-menu-item ng-repeat="property in properties">
                             <md-button md-menu-align-target ng-click="ctrl.announceClick($index)">
-                                <div layout="row" flex="">
-                                  <p flex="">Sort by: {{property}}</p>
+                                <div layout="row">
+                                  <p>Sort by: {{property}}</p>
                                 </div>
                             </md-button>
                           </md-menu-item>
@@ -42,21 +42,21 @@
                       </th>
                     </tr>
                     <tr ng-repeat="recipe in recipes | orderBy:selectedProperty">
-                      <td>{{recipe.title}}</td>
-                      <td>{{getCuisineList(recipe)}}</td>
-                      <td>{{getCourseList(recipe)}}</td>
-                    	<td>
+                      <td "text-align: center">{{recipe.title}}</td>
+                      <td "text-align: center">{{getCuisineList(recipe)}}</td>
+                      <td "text-align: center">{{getCourseList(recipe)}}</td>
+                    	<td "text-align: center">
                         <md-button ng-click="deleteFavorite(recipe)" class="md-icon-button md-warn" aria-label="Unfavorite recipe" ng-mouseover="favHoverActive=true" ng-mouseleave="favHoverActive=false">
                           <md-icon>{{favHoverActive?'favorite_border':'favorite'}}</md-icon>
                         </md-button>
                       </td>
-                      <td>
+                      <td "text-align: center">
                         <md-button ng-click="showRecipeDialog($event, recipe)" class="md-icon-button {{viewHoverActive?'md-primary md-hue-3':'md-primary md-hue-1'}}" aria-label="View recipe" ng-mouseover="viewHoverActive=true" ng-mouseleave="viewHoverActive=false">
                           <md-icon>pageview</md-icon>
                         </md-button>
                       </td>
                     </tr>
-                  <table>
+                  </table>
                 </md-card-content>
             </md-card>
         </div>
