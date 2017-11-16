@@ -8,12 +8,19 @@ angular.module('s2n.viewPantry', ['ngRoute'])
     controller: 'PantryCtrl'
   });
 }])
-    .controller('PantryCtrl', ['$scope', '$http', '$mdDialog', function($scope, $http, $mdDialog) {
+    .controller('PantryCtrl', ['$scope', '$http', '$mdDialog', '$window', function($scope, $http, $mdDialog, $window) {
       angular.module('fabSpeedDialDemoBasicUsage', ['ngMaterial'])
 
       this.noCache = "true"
       this.querySearch = querySearch;
-
+      $scope.desktopTemplate = false;
+      $scope.mobileTemplate = false;
+      var screenWidth = $window.innerWidth;
+      if (screenWidth < 700){
+          $scope.mobileTemplate = true;
+      }else{
+          $scope.desktopTemplate = true;
+      }
       $scope.foods = [
         "celery stalks",
         "beet",

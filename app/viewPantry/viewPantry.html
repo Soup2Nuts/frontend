@@ -1,5 +1,5 @@
 <div layout="row" layout-fill layout-align="center center" ng-controller="PantryCtrl as ctrl">
-  <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" >
+  <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" ng-if="desktopTemplate">
     <md-fab-trigger>
       <md-button aria-label="menu" class="md-fab md-accent md-hue-3">
         <md-icon>menu</md-icon>
@@ -15,6 +15,21 @@
     </md-fab-actions>
   </md-fab-speed-dial>
   <md-content class="md-padding" flex-gt-sm="50">
+    <md-fab-speed-dial md-direction="left" class="md-fling md-fab-top-right" ng-if="mobileTemplate">
+      <md-fab-trigger>
+        <md-button aria-label="menu" class="md-fab md-accent md-hue-3">
+          <md-icon>menu</md-icon>
+        </md-button>
+      </md-fab-trigger>
+      <md-fab-actions>
+        <md-button href="#!/search" class="md-fab md-raised md-accent md-hue-2" aria-label="Search">
+          <md-icon>search</md-icon>
+        </md-button>
+        <md-button href="#!/favorites" class="md-fab md-raised md-accent md-hue-1" aria-label="Favorites">
+          <md-icon class="md-accent">favorite</md-icon>
+        </md-button>
+      </md-fab-actions>
+    </md-fab-speed-dial>
     <div>
       <md-card flex>
         <md-card-title>
@@ -23,7 +38,7 @@
         <md-divider></md-divider>
         <div class="md-padding" flex layout-align="right center" ng-cloak>
           <form name="addFood">
-            <md-autocomplete  md-no-cache="ctrl.noCache" required md-require-match="true" md-selected-item="selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)|orderBy:'toString()'" md-item-text="item" md-min-length="0" placeholder="Enter a food name">
+            <md-autocomplete md-no-cache="ctrl.noCache" required md-require-match="true" md-selected-item="selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)|orderBy:'toString()'" md-item-text="item" md-min-length="desktopTemplate?0:1" placeholder="Enter a food name">
               <md-item-template>
                 <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
               </md-item-template>
