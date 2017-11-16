@@ -1,5 +1,5 @@
 <div layout="row" layout-fill layout-align="center center" ng-controller="PantryCtrl as ctrl">
-  <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" ng-if="desktopTemplate">
+  <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" ng-if="desktopTemplate" md-open="false">
     <md-fab-trigger>
       <md-button aria-label="menu" class="md-fab md-accent md-hue-3">
         <md-icon>menu</md-icon>
@@ -15,7 +15,7 @@
     </md-fab-actions>
   </md-fab-speed-dial>
   <md-content class="md-padding" flex-gt-sm="50">
-    <md-fab-speed-dial md-direction="left" class="md-fling md-fab-top-right" ng-if="mobileTemplate">
+    <md-fab-speed-dial md-direction="left" class="md-fling md-fab-top-right" ng-if="mobileTemplate" md-open="false">
       <md-fab-trigger>
         <md-button aria-label="menu" class="md-fab md-accent md-hue-3">
           <md-icon>menu</md-icon>
