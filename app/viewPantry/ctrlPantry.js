@@ -8,16 +8,19 @@ angular.module('s2n.viewPantry', ['ngRoute'])
     controller: 'PantryCtrl'
   });
 }])
-    .controller('PantryCtrl', ['$scope', '$http', '$mdDialog', function($scope, $http, $mdDialog) {
+    .controller('PantryCtrl', ['$scope', '$http', '$mdDialog', '$window', function($scope, $http, $mdDialog, $window) {
       angular.module('fabSpeedDialDemoBasicUsage', ['ngMaterial'])
-      this.topDirections = ['left', 'up'];
-      this.bottomDirections = ['down', 'right'];
-      this.isOpen = false;
-      this.selectedDirection = 'up';
 
       this.noCache = "true"
       this.querySearch = querySearch;
-
+      $scope.desktopTemplate = false;
+      $scope.mobileTemplate = false;
+      var screenWidth = $window.innerWidth;
+      if (screenWidth < 700){
+          $scope.mobileTemplate = true;
+      }else{
+          $scope.desktopTemplate = true;
+      }
       $scope.foods = [
         "celery stalks",
         "beet",
@@ -62,14 +65,11 @@ angular.module('s2n.viewPantry', ['ngRoute'])
      //    });
      //  };
 
-
+     //Filters the list of foods removing foods that are currently in the pantry and foods that do not contain the query/searchText
      function querySearch (query) {
        return $scope.foods.filter(createFilterFor(query) );
-       //return query ? $scope.foods.filter(createFilterFor(query) ) : $scope.foods;
      }
-    /**
-     * Create filter function for search text
-     */
+      //Create filter function for search text
     function createFilterFor(query) {
       var lowercaseQuery = angular.lowercase(query);
 
@@ -78,18 +78,26 @@ angular.module('s2n.viewPantry', ['ngRoute'])
       };
     }
 
+    //Add the selected food to the pantry if it is in the list of known foods and not in the pantry currently
+    //clears the selectedItem/searchText
     $scope.addToPantry = function(){
-      if($scope.foods.includes($scope.selectedItem) && !$scope.pantryItems.includes($scope.selectedItem)){
-        $scope.pantryItems.push($scope.selectedItem);
+      var lowercaseItem = angular.lowercase($scope.selectedItem);
+      if($scope.foods.includes(lowercaseItem) && !$scope.pantryItems.includes(lowercaseItem)){
+        $scope.pantryItems.push(lowercaseItem);
         $scope.selectedItem = "";
       }
-    }
+    };
 
+    //Removes the specified item from the pantry, if it is in the pantry
       $scope.deletePantryItem = function($item) {
         var index = $scope.pantryItems.indexOf($item)
-        $scope.pantryItems.splice(index, 1);
-      }
+        if(index >= 0){
+          $scope.pantryItems.splice(index, 1);
+        }
+      };
 
+    //Prompts the user with a dialog to confirm whether they want to delete all pantry Items
+    //Deletes all pantry items upon user confirmation
       $scope.confirmDeleteAll = function(ev) {
         var confirm = $mdDialog.confirm()
               .title('Would you like to delete all of the items in your pantry?')
