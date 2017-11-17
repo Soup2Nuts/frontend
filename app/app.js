@@ -5,7 +5,7 @@ angular.module('s2n', [
     'ngMaterial',
     'ngRoute',
     's2n.services',
-   /* 's2n.apiService',*/
+    's2n.apiService',
     's2n.viewToolbar',
     's2n.viewAbout',
     's2n.viewAccount',

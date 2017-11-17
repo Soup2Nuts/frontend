@@ -22,10 +22,10 @@ angular.module('s2n.viewTemplate', ['ngRoute', 's2n.services'])
   });
 }])
 
-    .controller('TemplateCtrl', ['ApiService', function(ApiService) {
+    .controller('TemplateCtrl', ['apiService', function(apiService) {
 
-        //this.ingredients = [];
+        this.ingredients = [];
 
         //call the service to get all the ingredients for the page
-        //this.ingredients = apiService.getIngredients();
+        this.ingredients = apiService.getIngredients();
 }]);

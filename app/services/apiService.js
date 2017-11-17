@@ -1,7 +1,6 @@
-/*
  angular.module('s2n.apiService', [])
 
- .factory('apiService' ['$http', function($http){
+ .factory('apiService', ['$http', function($http){
 
  var apiService = {};
 
@@ -15,4 +14,4 @@
 
  return apiService;
 
- }]);*/
+ }]);
