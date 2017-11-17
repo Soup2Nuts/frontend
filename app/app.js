@@ -4,6 +4,8 @@
 angular.module('s2n', [
     'ngMaterial',
     'ngRoute',
+    's2n.services',
+   /* 's2n.apiService',*/
     's2n.viewToolbar',
     's2n.viewAbout',
     's2n.viewAccount',
@@ -13,7 +15,7 @@ angular.module('s2n', [
     's2n.viewRegister',
     's2n.viewLogin',
     's2n.viewPantry',
-    's2n.viewFavorites'
+    's2n.viewFavorites',
 ]).
     config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');

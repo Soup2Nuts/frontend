@@ -2,7 +2,21 @@
 
 angular
     .module('s2n.services', ['ngRoute', 'ngCookies'])
+    .factory('ApiService' ['$http', function($http){
 
+        var apiService = {};
+
+        var urlBase = 'http://soup2nuts.us:90';
+        var jsonEnd = '?format=json';
+
+        //http://soup2nuts.us:90/ingredients/?format=json
+        apiService.getIngredients = function(){
+            return $http.get(urlBase + '/ingredients/' + jsonEnd);
+        }
+
+        return apiService;
+
+    }])
     .factory('AuthFactory', ['$http', '$cookies', '$location', function($http, $cookies, $location) {
         var authenticate = {}
 
@@ -82,7 +96,7 @@ angular
                 console.error('Logout Failed... ?')
             }
         }
-}]);
+    }]);
 
 
 

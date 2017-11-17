@@ -11,18 +11,21 @@ Rename anything with Template viewTemplate_tests.js file
 
 Add the route to the index.html page for the ctrlTemplate.js
 
-
-
 */
 
-angular.module('s2n.viewTemplate', ['ngRoute'])
+angular.module('s2n.viewTemplate', ['ngRoute', 's2n.services'])
 
-.config(['$routeProvider', function($routeProvider) {
+    .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/template', {
     templateUrl: ' viewTemplate/viewTemplate.html',
     controller: 'TemplateCtrl'
   });
 }])
-    .controller('TemplateCtrl', [function() {
 
+    .controller('TemplateCtrl', ['ApiService', function(ApiService) {
+
+        //this.ingredients = [];
+
+        //call the service to get all the ingredients for the page
+        //this.ingredients = apiService.getIngredients();
 }]);

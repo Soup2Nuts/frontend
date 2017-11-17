@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-    .module('s2n.viewRegister', ['ngRoute', 's2n.services'])
+    .module('s2n.viewRegister', ['ngRoute'])
 
     .config(['$routeProvider', function($routeProvider) {
         $routeProvider.when('/register', {
