@@ -22,10 +22,20 @@ angular.module('s2n.viewTemplate', ['ngRoute', 's2n.services'])
   });
 }])
 
-    .controller('TemplateCtrl', ['apiService', function(apiService) {
+    .controller('TemplateCtrl', ['$scope', '$timeout', 'apiService', function($scope, $timeout, apiService) {
 
-        this.ingredients = [];
+        $scope.ingredients = [];
 
-        //call the service to get all the ingredients for the page
-        this.ingredients = apiService.getIngredients();
+        //calling it on a delay as an example of not loading all at once
+        $timeout(function(){
+            //call the service to get all the ingredients for the page
+            apiService.getIngredients().then(function(result){
+                console.log(result.data);
+                $scope.ingredients = result.data;
+            });
+
+        }, 2000);
+
+
+
 }]);
