@@ -2,7 +2,6 @@
 
 angular
     .module('s2n.services', ['ngRoute', 'ngCookies'])
-
     .factory('AuthFactory', ['$http', '$cookies', '$location', function($http, $cookies, $location) {
         var authenticate = {}
 
@@ -82,7 +81,7 @@ angular
                 console.error('Logout Failed... ?')
             }
         }
-}]);
+    }]);
 
 
 

@@ -23,3 +23,17 @@
   content: "|";
   padding-right: 0.3em;
 }
+
+th, td {
+    padding: .8em;
+}
+
+.logo-image {
+    height: 100%;
+    width: 100%;
+}
+
+.md-button.logo {
+    height: 7rem;
+    width: 7rem;
+}

@@ -34,6 +34,8 @@
 
         <!-- The project Components -->
         <script src="app.js"></script>
+        <script src="services/authentication.service.js"></script>
+        <script src="services/apiService.js"></script>
         <script src="ctrlToolbar.js"></script>
         <script src="viewAbout/ctrlAbout.js"></script>
         <script src="viewAccount/ctrlAccount.js"></script>
@@ -43,8 +45,11 @@
         <script src="viewFavorites/ctrlFavorites.js"></script>
         <script src="viewRegister/ctrlRegister.js"></script>
         <script src="viewLogin/ctrlLogin.js"></script>
+<<<<<<< HEAD
         <script src="viewSearchOption/ctrlSearchOption.js"></script>
         <script src="services/authentication.service.js"></script>
+=======
+>>>>>>> master
         <script src="components/version/version.js"></script>
         <script src="components/version/version-directive.js"></script>
         <script src="components/version/interpolate-filter.js"></script>
@@ -58,6 +63,9 @@
 
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
+                <md-button class="md-icon-button" aria-label="Home" href="#!">
+                    <img src="media/soupLogo.png" class="logo-image"/>
+                </md-button>
                 <h2 flex md-truncate>Soup2Nuts</h2>
                 <md-menu>
                     <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdMenu, $event)">
