@@ -18,7 +18,7 @@ angular.module('s2n', [
     's2n.viewFavorites',
     's2n.viewSearchOption'
 ]).
-    config(['$locationProvider', '$routeProvider', function($locationProvider, $routeProvider) {
+    config(['$locationProvider', '$routeProvider',  function($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');
         $routeProvider.otherwise({redirectTo: '/pantry'});
     }]).
@@ -28,4 +28,8 @@ angular.module('s2n', [
             .accentPalette('orange')
             .warnPalette('red');
         //.backgroundPalette('light-green');
-    });
+    }).
+    run(['$http', '$cookies', function($http, $cookies) {
+      $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
+      $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
+    }]);

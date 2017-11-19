@@ -22,6 +22,7 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services'])
           $scope.desktopTemplate = true;
       }
       $scope.foods = [];
+      $scope.pantryItems = [];
 
       //calling it on a delay as an example of not loading all at once
       $timeout(function(){
@@ -34,40 +35,15 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services'])
 
       }, 2000);
 
-    //   $scope.foods = [
-    //     "celery stalks",
-    //     "beet",
-    //     "jicama",
-    //     "flat-leaf parsely",
-    //     "angel food cake mix",
-    //     "egg whites",
-    //     "head of cauliflower",
-    //     "container ricotta cheese",
-    //     "tomato puree",
-    //     "elbow macaroni",
-    //     "extra-sharp cheddar cheese",
-    //     "dry crunchy cereal",
-    //     "scallions",
-    //     "dried fruit",
-    //     "apple slices",
-    //     "bran cereal",
-    //     "frozen yogurt",
-    //     "pancake mix",
-    //     "dry milk powder",
-    //     "peach",
-    //     "lemon",
-    //     "vanilla",
-    //     "red wine vinegar",
-    //     "chopped pecans",
-    //     "frozen fruit juice concentrated"
-    // ];
-    //
-    $scope.pantryItems = [
-       'chopped pecans',
-       'frozen yogurt',
-       'dry crunchy cereal',
-       'red wine vinegar'
-     ];
+      $timeout(function(){
+          //call the service to get all the ingredients for the page
+          apiService.getPantry().then(function(result){
+              console.log(result.data);
+              for(var i = 0; i< result.data.length; i++)
+                $scope.pantryItems.push(result.data[i].name);
+          });
+
+      }, 2000);
 
      //Filters the list of foods removing foods that are currently in the pantry and foods that do not contain the query/searchText
      function querySearch (query) {

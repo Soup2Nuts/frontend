@@ -1,170 +1,92 @@
-'use strict';
+(function () {
+  'use strict';
 
-angular
+  angular
     .module('s2n.services', ['ngRoute', 'ngCookies'])
-    .factory('AuthFactory', ['$http', '$cookies', '$location', function($http, $cookies, $location) {
-        var authenticate = {}
+    .factory('Authentication', Authentication);
 
-        authenticate.login = login;
-        authenticate.register = register;
-        authenticate.logout = logout;
-        authenticate.getAuthenticatedAccount = getAuthenticatedAccount;
-        authenticate.setAuthenticatedAccount = setAuthenticatedAccount;
-        authenticate.isAuthenticated = isAuthenticated;
-        authenticate.unauthenticate = unauthenticate;
+  Authentication.$inject = ['$cookies', '$http', '$location'];
 
-        return authenticate;
+  function Authentication($cookies, $http, $location) {
+	var urlBase = 'http://127.0.0.1:8000/auth';
 
-        function register(password, username) {
-            return $http.post('/dummypath', { //TODO: update this!
-                username: username,
-                password: password
-            }).then(registerSuccessFn, registerFailureFn);
+    var Authentication = {
+      getAuthenticatedAccount: getAuthenticatedAccount,
+      isAuthenticated: isAuthenticated,
+      login: login,
+      register: register,
+      setAuthenticatedAccount: setAuthenticatedAccount,
+      unauthenticate: unauthenticate
+    };
 
-            function registerSuccessFn(data, status, headers, config) {
-                AuthenticationFactory.login(username, password);
-            }
+    function login(username, password) {
+      return $http.post(urlBase +'/token/create/', {
+        username: username, password: password
+      }).then(loginSuccessFn, loginErrorFn);
 
-            function registerFailureFn(data, status, headers, config) {
-                console.error('Comrade, your registration failed mother country...');
-                $location.path('/register');
-            }            
+      function loginSuccessFn(response) {
+        var token = response.headers().auth_token
+        $http.defaults.headers.common['Authorization'] = 'Token ' + token;
+        // Authentication.setAuthenticatedAccount(token);
+        $cookies.authenticatedAccount = data.auth_token;
+        $location.path('/');
+      }
+
+      function loginErrorFn(response) {
+        $location.path('/login');
+      }
+    }
+
+      function getAuthenticatedAccount() {
+        if (!$cookies.authenticatedAccount) {
+          return;
         }
 
-        function login(username, password) {
-            return $http.post('/dummypath', { //TODO: update this
-                username: username, 
-                password: password
-            } ).then(loginSuccessFn, loginFailureFn);
+        return JSON.parse($cookies.authenticatedAccount);
+      }
 
-            function loginSuccessFn(data, status, headers, config) {
-                AuthFactory.setAuthenticatedAccount(data.data);
-                $location.path('/');
-            }
+      function isAuthenticated() {
+        return !!$cookies.authenticatedAccount;
+      }
 
-            function loginFailureFn(data, status, headers, config) {
-                console.error('Your login failed mate...');
-                $location.path('/login');
-            }
-        }
+      function setAuthenticatedAccount(token) {
+        $cookies.authenticatedAccount = token;
+      }
 
-        function setAuthenticatedAccount() {
-            $cookies.authenticatedAccount = JSON.stringify(account);
-        }
-
-        function getAuthenticatedAccount() {
-            if(!$cookies.authenticatedAccount) {
-                return;
-            }
-
-            return JSON.parse($cookies.authenticatedAccount);
-        }
-        
-        function isAuthenticated() {
-            return !!$cookies.authenticatedAccount;
-        }
-
-        function unauthenticate() {
-            delete $cookies.authenticatedAccount;
-        }
+      function unauthenticate() {
+        delete $cookies.authenticatedAccount;
+      }
 
         function logout() {
-            return $http.post('/logoutpath') //TODO add this
+            return $http.post(urlBase + '/token/destroy/') //TODO add this
                 .then(logoutSuccessFn, logoutFailureFn);
 
             function logoutSuccessFn(data, status, headers, config) {
                 AuthFactory.unauthenticate();
-                $location.path('/');
+                $location.path('/home/');
             }
 
             function logoutFailureFn(data, status, headers, config) {
                 console.error('Logout Failed... ?')
             }
         }
-    }]);
+    return Authentication;
 
+    ////////////////////
 
+    function register(email, password, username) {
+      return $http.post(baseUrl+'/users/create/', {
+        username: username,
+        password: password,
+      }).then(registerSuccessFn, registerErrorFn);
 
-    // Base64 encoding service used by Authentication
-/*
-    var Base64 = {
+      function registerSuccessFn(data, status, headers, config) {
+        Authentication.login(username, password);
+      }
 
-        keyStr: 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=',
-
-        encode: function (input) {
-            var output = "";
-            var chr1, chr2, chr3 = "";
-            var enc1, enc2, enc3, enc4 = "";
-            var i = 0;
-
-            do {
-                chr1 = input.charCodeAt(i++);
-                chr2 = input.charCodeAt(i++);
-                chr3 = input.charCodeAt(i++);
-
-                enc1 = chr1 >> 2;
-                enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
-                enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
-                enc4 = chr3 & 63;
-
-                if (isNaN(chr2)) {
-                    enc3 = enc4 = 64;
-                } else if (isNaN(chr3)) {
-                    enc4 = 64;
-                }
-
-                output = output +
-                    this.keyStr.charAt(enc1) +
-                    this.keyStr.charAt(enc2) +
-                    this.keyStr.charAt(enc3) +
-                    this.keyStr.charAt(enc4);
-                chr1 = chr2 = chr3 = "";
-                enc1 = enc2 = enc3 = enc4 = "";
-            } while (i < input.length);
-
-            return output;
-        },
-
-        decode: function (input) {
-            var output = "";
-            var chr1, chr2, chr3 = "";
-            var enc1, enc2, enc3, enc4 = "";
-            var i = 0;
-
-            // remove all characters that are not A-Z, a-z, 0-9, +, /, or =
-            var base64test = /[^A-Za-z0-9\+\/\=]/g;
-            if (base64test.exec(input)) {
-                window.alert("There were invalid base64 characters in the input text.\n" +
-                    "Valid base64 characters are A-Z, a-z, 0-9, '+', '/',and '='\n" +
-                    "Expect errors in decoding.");
-            }
-            input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
-
-            do {
-                enc1 = this.keyStr.indexOf(input.charAt(i++));
-                enc2 = this.keyStr.indexOf(input.charAt(i++));
-                enc3 = this.keyStr.indexOf(input.charAt(i++));
-                enc4 = this.keyStr.indexOf(input.charAt(i++));
-
-                chr1 = (enc1 << 2) | (enc2 >> 4);
-                chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
-                chr3 = ((enc3 & 3) << 6) | enc4;
-
-                output = output + String.fromCharCode(chr1);
-
-                if (enc3 != 64) {
-                    output = output + String.fromCharCode(chr2);
-                }
-                if (enc4 != 64) {
-                    output = output + String.fromCharCode(chr3);
-                }
-
-                chr1 = chr2 = chr3 = "";
-                enc1 = enc2 = enc3 = enc4 = "";
-
-            } while (i < input.length);
-
-            return output;
-        }
-    };
-*/
+      function registerErrorFn(data, status, headers, config) {
+        console.error('Failed to register user');
+      }
+    }
+  }
+})();

@@ -7,16 +7,16 @@ angular
 	    $routeProvider.when('/login', {
 	        templateUrl: 'viewLogin/viewLogin.html',
 	        controller: 'LoginController',
-			controllerAs: 'vm'
+					controllerAs: 'vm'
 	    });
 	}])
 
-	.controller('LoginController', ['$location', 'AuthFactory', function($location, AuthFactory) {
+	.controller('LoginController', ['$location', 'Authentication', function($location, Authentication) {
 		var vm = this;
 
 		vm.username = "";
 		vm.password = "";
-		
+
 		vm.login = login;
 
 		vm.validInput = true;
@@ -24,13 +24,13 @@ angular
 		activate();
 
 		function activate() {
-			if(AuthFactory.isAuthenticated()) {
+			if(Authentication.isAuthenticated()) {
 				$location.path('/');
 			}
 		}
 
 		function login() {
-			AuthFactory.login(vm.username, vm.password);
+			Authentication.login(vm.username, vm.password);
 		}
 
 		vm.validateInput = function() {
