@@ -6,6 +6,7 @@ angular.module('s2n', [
     'ngRoute',
     'angular-storage',
     'angular-jwt',
+    /*'ngCookies',*/
     's2n.services',
     's2n.apiService',
     's2n.viewToolbar',
@@ -31,10 +32,13 @@ angular.module('s2n', [
             .warnPalette('red');
         //.backgroundPalette('light-green');
     }).
-    config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'jwtInterceptorProvider', function($stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider) {
-      jwtInterceptorProvider.tokenGetter = function(store) {
-        return store.get('token');
-      };
+    config(['$httpProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider', function($httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
+        jwtOptionsProvider.config({whiteListedDomains: ['soup2nuts.us']});
+
+
+        jwtInterceptorProvider.tokenGetter = function(store) {
+            return store.get('token');
+        };
       // Add a simple interceptor that will fetch all requests and add the jwt token to its authorization header.
     $httpProvider.interceptors.push('jwtInterceptor');
   }]);
