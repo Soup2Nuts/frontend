@@ -4,6 +4,8 @@
 angular.module('s2n', [
     'ngMaterial',
     'ngRoute',
+    'angular-storage',
+    'angular-jwt',
     's2n.services',
     's2n.apiService',
     's2n.viewToolbar',
@@ -16,9 +18,7 @@ angular.module('s2n', [
     's2n.viewLogin',
     's2n.viewPantry',
     's2n.viewFavorites',
-    's2n.viewSearchOption'
-    'angular-storage',
-    'angular-jwt'
+    's2n.viewSearchOption',
 ]).
     config(['$locationProvider', '$routeProvider',  function($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');
@@ -31,7 +31,10 @@ angular.module('s2n', [
             .warnPalette('red');
         //.backgroundPalette('light-green');
     }).
-    run(['$http', '$cookies', function($http, $cookies) {
-      $http.defaults.headers.post['X-CSRFToken'] = $cookies.csrftoken;
-      $http.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
-    }]);
+    config(['$stateProvider', '$urlRouterProvider', '$httpProvider', 'jwtInterceptorProvider', function($stateProvider, $urlRouterProvider, $httpProvider, jwtInterceptorProvider) {
+      jwtInterceptorProvider.tokenGetter = function(store) {
+        return store.get('token');
+      };
+      // Add a simple interceptor that will fetch all requests and add the jwt token to its authorization header.
+    $httpProvider.interceptors.push('jwtInterceptor');
+  }]);
