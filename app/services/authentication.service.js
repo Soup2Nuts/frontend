@@ -20,7 +20,7 @@
     };
 
     function login(username, password) {
-      return $http.post(urlBase +'/token/create/', {
+      return $http.post(urlBase +'/jwt/create/', {
         username: username, password: password
       }).then(loginSuccessFn, loginErrorFn);
 

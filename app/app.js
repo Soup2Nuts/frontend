@@ -17,6 +17,8 @@ angular.module('s2n', [
     's2n.viewPantry',
     's2n.viewFavorites',
     's2n.viewSearchOption'
+    'angular-storage',
+    'angular-jwt'
 ]).
     config(['$locationProvider', '$routeProvider',  function($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');
