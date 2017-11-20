@@ -36,25 +36,12 @@ angular.module('s2n', [
     // keep user logged in after page refresh
     if (localStorage.currentUser)
         $http.defaults.headers.common.Authorization = 'Bearer ' + localStorage.currentUser.token;
-    });
-
-    // // redirect to login page if not logged in and trying to access a restricted page
-    // $rootScope.$on('$locationChangeStart', function (event, next, current) {
-    //     var publicPages = ['/login'];
-    //     var restrictedPage = publicPages.indexOf($location.path()) === -1;
-    //     if (restrictedPage && !$localStorage.currentUser) {
-    //         $location.path('/login');
-    //     }
-  //   });
-  // }
-  //   config(['$httpProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider', function($httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
-  //       jwtOptionsProvider.config({whiteListedDomains: ['soup2nuts.us', '127.0.0.1:8887', '127.0.0.1:8000']});
-  //       jwtInterceptorProvider.tokenGetter = function(store) {
-  //           return localStorage.getItem('token');
-  //       };
-  //     // Add a simple interceptor that will fetch all requests and add the jwt token to its authorization header.
-  //   $httpProvider.interceptors.push('jwtInterceptor');
-  // }]).
-  //   run(function(authManager) {
-  //     authManager.checkAuthOnRefresh();
-  //   });
+    }).
+    config(['$httpProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider', function($httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
+        jwtOptionsProvider.config({whiteListedDomains: ['soup2nuts.us', '127.0.0.1:8887', '127.0.0.1:8000']});
+        jwtInterceptorProvider.tokenGetter = function(localStorage) {
+            return localStorage.currentUser;
+        };
+      // Add a simple interceptor that will fetch all requests and add the jwt token to its authorization header.
+    $httpProvider.interceptors.push('jwtInterceptor');
+  }]);
