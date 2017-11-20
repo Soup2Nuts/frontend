@@ -2,74 +2,46 @@
   'use strict';
 
   angular
-    .module('s2n.services', ['ngRoute', 'ngCookies'])
+    .module('s2n.services', ['ngRoute', 'angular-storage'])
     .factory('Authentication', Authentication);
 
-  Authentication.$inject = ['$cookies', '$http', '$location'];
+  Authentication.$inject = ['$http', '$location', 'localStorage'];
 
-  function Authentication($cookies, $http, $location) {
+  function Authentication($http, $location, localStorage) {
 	var urlBase = 'http://127.0.0.1:8000/auth';
 
     var Authentication = {
-      getAuthenticatedAccount: getAuthenticatedAccount,
-      isAuthenticated: isAuthenticated,
+      logout: logout,
       login: login,
       register: register,
-      setAuthenticatedAccount: setAuthenticatedAccount,
-      unauthenticate: unauthenticate
     };
-
     function login(username, password) {
       return $http.post(urlBase +'/jwt/create/', {
         username: username, password: password
       }).then(loginSuccessFn, loginErrorFn);
 
       function loginSuccessFn(response) {
-        var token = response.headers().auth_token
-        $http.defaults.headers.common['Authorization'] = 'Token ' + token;
-        // Authentication.setAuthenticatedAccount(token);
-        $cookies.authenticatedAccount = data.auth_token;
-        $location.path('/');
+        if (response.token) {
+          // store username and token in local storage to keep user logged in between page refreshes
+          localStorage.currentUser = { username: username, token: response.token };
+          // add jwt token to auth header for all requests made by the $http service
+          $http.defaults.headers.common.Authorization = 'Bearer ' + response.token;
+          $location.path('/pantry');
+        }
+        else {
+            $location.path('/login');
+        }
       }
-
       function loginErrorFn(response) {
         $location.path('/login');
       }
     }
-
-      function getAuthenticatedAccount() {
-        if (!$cookies.authenticatedAccount) {
-          return;
-        }
-
-        return JSON.parse($cookies.authenticatedAccount);
-      }
-
-      function isAuthenticated() {
-        return !!$cookies.authenticatedAccount;
-      }
-
-      function setAuthenticatedAccount(token) {
-        $cookies.authenticatedAccount = token;
-      }
-
-      function unauthenticate() {
-        delete $cookies.authenticatedAccount;
-      }
-
-        function logout() {
-            return $http.post(urlBase + '/token/destroy/') //TODO add this
-                .then(logoutSuccessFn, logoutFailureFn);
-
-            function logoutSuccessFn(data, status, headers, config) {
-                AuthFactory.unauthenticate();
-                $location.path('/home/');
-            }
-
-            function logoutFailureFn(data, status, headers, config) {
-                console.error('Logout Failed... ?')
-            }
-        }
+    function logout() {
+      if(localStorage.currentUser)
+        localStorage.currentUser.removeItem("username")
+      $http.defaults.headers.common.Authorization = '';
+      $location.path('/about');
+    }
     return Authentication;
 
     ////////////////////
@@ -79,12 +51,11 @@
         username: username,
         password: password,
       }).then(registerSuccessFn, registerErrorFn);
-
-      function registerSuccessFn(data, status, headers, config) {
+      function registerSuccessFn(response) {
         Authentication.login(username, password);
       }
 
-      function registerErrorFn(data, status, headers, config) {
+      function registerErrorFn(response) {
         console.error('Failed to register user');
       }
     }

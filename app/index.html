@@ -52,7 +52,6 @@
         <script src="components/version/interpolate-filter.js"></script>
         <script src="components/bower_components/angular-jwt/dist/angular-jwt.js"></script>
         <script src="components/bower_components/a0-angular-storage/dist/angular-storage.js"></script>
-
     </head>
 
     <body ng-app="s2n" ng-controller="ToolbarCtrl as ctrl" layout-fill ng-cloak>
@@ -94,6 +93,9 @@
                                 <md-icon md-menu-align-target>local_dining</md-icon>
                                 Pantry
                             </md-button>
+                        </md-menu-item>
+                        <md-menu-item>
+                            <md-button ng-click="ctrl.logout()">Logout</md-button>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item>

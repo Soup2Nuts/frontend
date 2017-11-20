@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('s2n.viewToolbar', ['ngRoute'])
-    .controller('ToolbarCtrl', [function($mdDialog, $location) {
+angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services'])
+    .controller('ToolbarCtrl', ['$mdDialog','$location', 'Authentication', function($mdDialog, $location, Authentication) {
 
         var originatorEv;
 
@@ -18,4 +18,7 @@ angular.module('s2n.viewToolbar', ['ngRoute'])
             $location.path('/account');
         };
 
+        this.logout = function(){
+            Authentication.logout()
+        };
     }]);

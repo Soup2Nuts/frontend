@@ -11,7 +11,7 @@ angular
 	    });
 	}])
 
-	.controller('LoginController', ['$location', 'Authentication', function($location, Authentication) {
+	.controller('LoginController', ['$location', 'Authentication', 'authManager', function($location, Authentication, authManager) {
 		var vm = this;
 
 		vm.username = "";
@@ -24,7 +24,7 @@ angular
 		activate();
 
 		function activate() {
-			if(Authentication.isAuthenticated()) {
+			if(localStorage.currentUser && localStorage.currentUser.token) {
 				$location.path('/');
 			}
 		}

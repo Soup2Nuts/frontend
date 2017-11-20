@@ -11,33 +11,33 @@ angular
         });
     }])
 
-    .controller('RegisterController', ['$location', 'AuthFactory', function($location, AuthFactory) {
+    .controller('RegisterController', ['$location', function($location) {
         var vm = this;
 
         vm.username = "";
         vm.password = "";
-        
+
         vm.register = register;
 
         vm.validInput = true;
-
-        activate();
-
-        function activate() {
-            if(AuthFactory.isAuthenticated()) {
-                $location.path('/');
-            }
-        }
-
-        function register() {
-            AuthFactory.register(vm.username, vm.password);
-        }
-
-        vm.validateInput = function() {
-            if(vm.username.length > 5 && vm.password.length > 5) {
-                vm.validInput = false;
-            } else {
-                vm.validInput = true;
-            }
-        }
+        //
+        // activate();
+        //
+        // function activate() {
+        //     if(AuthFactory.isAuthenticated()) {
+        //         $location.path('/');
+        //     }
+        // }
+        //
+        // function register() {
+        //     AuthFactory.register(vm.username, vm.password);
+        // }
+        //
+        // vm.validateInput = function() {
+        //     if(vm.username.length > 5 && vm.password.length > 5) {
+        //         vm.validInput = false;
+        //     } else {
+        //         vm.validInput = true;
+        //     }
+        // }
     }]);
