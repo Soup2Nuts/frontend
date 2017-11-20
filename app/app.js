@@ -42,6 +42,6 @@ angular.module('s2n', [
         jwtInterceptorProvider.tokenGetter = function(localStorage) {
             return localStorage.currentUser;
         };
-      // Add a simple interceptor that will fetch all requests and add the jwt token to its authorization header.
-    $httpProvider.interceptors.push('jwtInterceptor');
+        // Add a simple interceptor that will fetch all requests and add the jwt token to its authorization header.
+        $httpProvider.interceptors.push('jwtInterceptor');
   }]);

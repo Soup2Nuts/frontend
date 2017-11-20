@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('s2n.viewLogin', ['ngRoute', 's2n.services'])
+	.module('s2n.viewLogin', ['ngRoute', 's2n.services', 'angular-storage'])
 
 	.config(['$routeProvider', function($routeProvider, $locationProvider) {
 	    $routeProvider.when('/login', {
