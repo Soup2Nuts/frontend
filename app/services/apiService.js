@@ -33,7 +33,7 @@
    }
 
    apiService.getPantry = function(){
-       return $http.get(urlBase + '/pantry/list/' + jsonEnd,  localStorage.currentUser.token);
+       return $http.get(urlBase + '/pantry/list/' + jsonEnd,  localStorage.token);
      }
    return apiService;
  }]);

@@ -5,9 +5,9 @@
     .module('s2n.services', ['ngRoute', 'angular-storage'])
     .factory('Authentication', Authentication);
 
-  Authentication.$inject = ['$http', '$location', 'localStorage'];
+  Authentication.$inject = ['$http', '$location', 'store'];
 
-  function Authentication($http, $location, localStorage){
+  function Authentication($http, $location, store){
 	  var urlBase = 'http://127.0.0.1:8000/auth';
     var Authentication = {
       logout: logout,
@@ -22,9 +22,11 @@
       function loginSuccessFn(response) {
         if (response) {
           // store username and token in local storage to keep user logged in between page refreshes
-          localStorage.currentUser = {username: username, token: response};
+          //store.storage.set('sessionData', {'username': username, 'token': response.data.token});
+          store.storage.set('token', response.data.token);
+          store.storage.set('username', username);
           // add jwt token to auth header for all requests made by the $http service
-          $http.defaults.headers.common.Authorization = 'Bearer ' + response;
+          $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
           $location.path('/pantry');
         }
         else { // response did not have token
