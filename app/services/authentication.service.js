@@ -41,9 +41,12 @@
     }
     function authenticate()
     {
-      if($localStorage.token){
-        return true;
-      }
+        if($localStorage.token){
+            return true;
+        }
+
+      $localStorage.$reset();
+      $http.defaults.headers.common.Authorization = '';
       return false;
     }
     function logout() {

@@ -17,8 +17,17 @@ angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services'])
         this.routeAccount = function(){
             $location.path('/account');
         };
-
-        this.logout = function(){
-            Authentication.logout()
+        this.switchLogged = function(){
+            if(Authentication.authenticate()){
+              Authentication.logout();
+            }
+            else{
+              $location.path('/login');
+            }
         };
+        this.loggedIn = function(){
+          return Authentication.authenticate();
+        };
+
+
     }]);

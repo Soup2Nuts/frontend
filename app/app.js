@@ -34,9 +34,12 @@ angular.module('s2n', [
         //.backgroundPalette('light-green');
     }).
     run(function($rootScope, $http, $location, $localStorage) {
-    // keep user logged in after page refresh
-    if ($localStorage.token)
-        $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
+        var urlBase = 'http://127.0.0.1:8000/auth';
+        //Refresh the user token and keep user logged in after page refresh
+        if ($localStorage.token){
+            $localStorage.token = $http.post(urlBase +'/jwt/refresh/', {token : $localStorage.token});
+            $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
+        }
     }).
     config(['$httpProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider', function($httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
         jwtOptionsProvider.config({whiteListedDomains: ['soup2nuts.us', '127.0.0.1:8887', '127.0.0.1:8000']});

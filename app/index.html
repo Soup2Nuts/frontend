@@ -61,13 +61,13 @@
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
                 <md-button class="md-icon-button" aria-label="Home" href="#!">
                     <img src="media/soupLogo.png" class="logo-image"/>
                 </md-button>
                 <h2 flex md-truncate>Soup2Nuts</h2>
+                <md-button flex='10' aria-label="Login/Logout" ng-click="ctrl.switchLogged()">{{ctrl.loggedIn() ? "Logout":"Login"}}</md-button>
                 <md-menu>
                     <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdMenu, $event)">
                         <md-icon md-menu-origin>more_vert</md-icon>
@@ -96,9 +96,6 @@
                                 <md-icon md-menu-align-target>local_dining</md-icon>
                                 Pantry
                             </md-button>
-                        </md-menu-item>
-                        <md-menu-item>
-                            <md-button ng-click="ctrl.logout()">Logout</md-button>
                         </md-menu-item>
                         <md-menu-divider></md-menu-divider>
                         <md-menu-item>
