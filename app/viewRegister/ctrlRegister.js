@@ -21,7 +21,7 @@ angular
         activate();
 
         function activate() {
-    			if(localStorage.currentUser && localStorage.currentUser.token) {
+    			if(Authentication.authenticate()) {
     				$location.path('/');
     			}
     		}

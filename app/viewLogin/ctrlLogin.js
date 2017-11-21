@@ -1,7 +1,7 @@
 'use strict';
 
 angular
-	.module('s2n.viewLogin', ['ngRoute', 's2n.services', 'angular-storage'])
+	.module('s2n.viewLogin', ['ngRoute', 's2n.services'])
 
 	.config(['$routeProvider', function($routeProvider, $locationProvider) {
 	    $routeProvider.when('/login', {
@@ -19,7 +19,7 @@ angular
 		activate();
 
 		function activate() {
-			if(localStorage.currentUser && localStorage.currentUser.token) {
+			if(Authentication.authenticate()) {
 				$location.path('/');
 			}
 		}

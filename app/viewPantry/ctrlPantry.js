@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 'angular-storage'])
+angular.module('s2n.viewPantry', ['ngRoute', 's2n.services'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/pantry', {

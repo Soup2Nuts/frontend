@@ -2,17 +2,18 @@
   'use strict';
 
   angular
-    .module('s2n.services', ['ngRoute', 'angular-storage'])
+    .module('s2n.services', ['ngRoute', 'ngStorage'])
     .factory('Authentication', Authentication);
 
-  Authentication.$inject = ['$http', '$location', 'store'];
+  Authentication.$inject = ['$http', '$location', '$localStorage'];
 
-  function Authentication($http, $location, store){
+  function Authentication($http, $location, $localStorage){
 	  var urlBase = 'http://127.0.0.1:8000/auth';
     var Authentication = {
       logout: logout,
       login: login,
       register: register,
+      authenticate: authenticate,
     };
     function login(username, password) {
       return $http.post(urlBase +'/jwt/create/', {
@@ -23,8 +24,8 @@
         if (response) {
           // store username and token in local storage to keep user logged in between page refreshes
           //store.storage.set('sessionData', {'username': username, 'token': response.data.token});
-          store.storage.set('token', response.data.token);
-          store.storage.set('username', username);
+          $localStorage.token = response.data.token;
+          $localStorage.username = username;
           // add jwt token to auth header for all requests made by the $http service
           $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
           $location.path('/pantry');
@@ -38,9 +39,16 @@
         console.error('Failed to login user ' + response);
       }
     }
+    function authenticate()
+    {
+      if($localStorage.token){
+        return true;
+      }
+      return false;
+    }
     function logout() {
-      if(localStorage){
-        localStorage.currentUser = undefined;
+      if(authenticate()){
+        $localStorage.$reset();
       }
       $http.defaults.headers.common.Authorization = '';
       $location.path('/about');
