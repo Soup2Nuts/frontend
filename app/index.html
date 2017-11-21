@@ -67,7 +67,7 @@
                     <img src="media/soupLogo.png" class="logo-image"/>
                 </md-button>
                 <h2 flex md-truncate>Soup2Nuts</h2>
-                <md-button flex='10' aria-label="Login/Logout" ng-click="ctrl.switchLogged()">{{ctrl.loggedIn() ? "Logout":"Login"}}</md-button>
+                <md-button flex='10' aria-label="Login/Logout" ng-click="ctrl.switchLogged()">{{ctrl.loggedIn()?"Logout":"Login"}}</md-button>
                 <md-menu>
                     <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdMenu, $event)">
                         <md-icon md-menu-origin>more_vert</md-icon>

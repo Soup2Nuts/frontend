@@ -35,6 +35,7 @@ angular.module('s2n.viewFavorites', ['ngRoute', 's2n.services', 's2n.apiService'
     }
     $scope.deleteFavorite = function($recipe){
       var index = $scope.recipes.indexOf($recipe)
+      apiService.deleteFavorite($scope.recipes[index].title);
       $scope.recipes.splice(index, 1);
     };
 

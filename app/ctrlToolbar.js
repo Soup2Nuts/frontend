@@ -1,11 +1,9 @@
 'use strict';
 
-angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services'])
-    .controller('ToolbarCtrl', ['$mdDialog','$location', 'Authentication', function($mdDialog, $location, Authentication) {
+angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services', 'ngStorage'])
+    .controller('ToolbarCtrl', ['$mdDialog','$location', 'Authentication', '$localStorage', function($mdDialog, $location, Authentication, $localStorage) {
 
         var originatorEv;
-        var loggedIn = false;
-        loggedIn = Authentication.authenticate();
         this.openMenu = function($mdMenu, ev) {
             originatorEv = ev;
             $mdMenu.open(ev);
@@ -26,8 +24,12 @@ angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services'])
               $location.path('/login');
             }
         };
+        //FIX LATER TO ALSO CHECK IF TOKEN IS VALID
         this.loggedIn = function(){
-          return loggedIn;
+          if($localStorage.token){
+            return true;
+          }
+          return false;
         };
 
 

@@ -51,7 +51,7 @@
      return $http.delete(urlBase + '/favorites/delete', {params: {recipe_name: recipe_name}}); //FIX ME
    }
 
-   apiService.addPantryItem = function(recipe_name){
+   apiService.addFavorite = function(recipe_name){
      $http({
           url: urlBase + '/favorites/put' + jsonEnd,
           method: "POST",
