@@ -83,7 +83,7 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
         var index = $scope.pantryItems.indexOf($item)
         if(index >= 0){
           $scope.pantryItems.splice(index, 1);
-          apiService.deletePantryItem('1');
+          apiService.deletePantryItem($item);
         }
       };
 

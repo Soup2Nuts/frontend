@@ -27,10 +27,10 @@
      return $http.get(urlBase + '/pantry/' + jsonEnd);
    }
 
-   apiService.deletePantryItem = function(pk){
-     return $http.delete(urlBase + '/pantry/delete/' + pk); //FIX ME
+   apiService.deletePantryItem = function(food_name){
+     return $http.delete(urlBase + '/pantry/delete', {params: {food_name: food_name}}); //FIX ME
    }
-   
+
    apiService.addPantryItem = function(food_item){
      $http({
           url: urlBase + '/pantry/put' + jsonEnd,
