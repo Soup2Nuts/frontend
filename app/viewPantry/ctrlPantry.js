@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('s2n.viewPantry', ['ngRoute'])
+angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/pantry', {
@@ -8,7 +8,7 @@ angular.module('s2n.viewPantry', ['ngRoute'])
     controller: 'PantryCtrl'
   });
 }])
-    .controller('PantryCtrl', ['$scope', '$http', '$mdDialog', '$window', function($scope, $http, $mdDialog, $window) {
+    .controller('PantryCtrl', ['$scope', '$http', '$mdDialog', '$window', '$timeout', 'apiService', function($scope, $http, $mdDialog, $window, $timeout, apiService) {
       angular.module('fabSpeedDialDemoBasicUsage', ['ngMaterial'])
 
       this.noCache = "true"
@@ -21,49 +21,36 @@ angular.module('s2n.viewPantry', ['ngRoute'])
       }else{
           $scope.desktopTemplate = true;
       }
-      $scope.foods = [
-        "celery stalks",
-        "beet",
-        "jicama",
-        "flat-leaf parsely",
-        "angel food cake mix",
-        "egg whites",
-        "head of cauliflower",
-        "container ricotta cheese",
-        "tomato puree",
-        "elbow macaroni",
-        "extra-sharp cheddar cheese",
-        "dry crunchy cereal",
-        "scallions",
-        "dried fruit",
-        "apple slices",
-        "bran cereal",
-        "frozen yogurt",
-        "pancake mix",
-        "dry milk powder",
-        "peach",
-        "lemon",
-        "vanilla",
-        "red wine vinegar",
-        "chopped pecans",
-        "frozen fruit juice concentrated"
-    ];
+      $scope.foods = [];
+      $scope.pantryItems = [];
 
-    $scope.pantryItems = [
-       'chopped pecans',
-       'frozen yogurt',
-       'dry crunchy cereal',
-       'red wine vinegar'
-     ];
+      // //calling it on a delay as an example of not loading all at once
+      // $timeout(function(){
+      //     //call the service to get all the ingredients for the page
+      //     apiService.getFoods().then(function(result){
+      //         console.log(result.data);
+      //         for(var i = 0; i< result.data.length; i++)
+      //           $scope.foods.push(result.data[i].name);
+      //     });
+      //
+      // }, 2000);
 
-     // $scope.querySearch = function(query) {
-     //    return $http
-     //    .get(BACKEND_URL + '/items/' + query)
-     //    .then(function(data) {
-     //    // Map the response object to the data object.
-     //      return data;
-     //    });
-     //  };
+      //call the service to get all the ingredients for the page
+      apiService.getFoods().then(function(result){
+          console.log(result.data);
+          for(var i = 0; i< result.data.length; i++){
+            $scope.foods.push(result.data[i].name);
+          }
+      });
+
+      //call the service to get all the users pantry for the page
+      apiService.getPantry().then(function(result){
+        console.log(result.data);
+        for(var i = 0; i < result.data.length; i++){
+            $scope.pantryItems.push(result.data[i].item);
+        }
+      });
+
 
      //Filters the list of foods removing foods that are currently in the pantry and foods that do not contain the query/searchText
      function querySearch (query) {
@@ -85,6 +72,8 @@ angular.module('s2n.viewPantry', ['ngRoute'])
       if($scope.foods.includes(lowercaseItem) && !$scope.pantryItems.includes(lowercaseItem)){
         $scope.pantryItems.push(lowercaseItem);
         $scope.selectedItem = "";
+        //call the service to add the item to the database
+        apiService.addPantryItem(lowercaseItem);
       }
     };
 
@@ -93,11 +82,13 @@ angular.module('s2n.viewPantry', ['ngRoute'])
         var index = $scope.pantryItems.indexOf($item)
         if(index >= 0){
           $scope.pantryItems.splice(index, 1);
+          apiService.deletePantryItem($item);
         }
       };
 
     //Prompts the user with a dialog to confirm whether they want to delete all pantry Items
     //Deletes all pantry items upon user confirmation
+    //THIS COULD BE DONE BETTER WITH A CLEAR ALL END POINT
       $scope.confirmDeleteAll = function(ev) {
         var confirm = $mdDialog.confirm()
               .title('Would you like to delete all of the items in your pantry?')
@@ -107,6 +98,9 @@ angular.module('s2n.viewPantry', ['ngRoute'])
               .ok('Yes, I\'m sure.')
               .cancel('No, thank you.');
         $mdDialog.show(confirm).then(function() {
+          for(var i = 0; i < $scope.pantryItems.length; i++){
+            apiService.deletePantryItem($scope.pantryItems[i]);
+          }
           $scope.pantryItems = []
         }, function() {
         });

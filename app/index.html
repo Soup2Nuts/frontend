@@ -16,8 +16,8 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
         <!-- In production use:-->
-            <!--script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
-            <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script-->
+        <!--script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script-->
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular-route.min.js"></script>
 
@@ -31,6 +31,9 @@
 
         <!-- Angular Material Library -->
         <script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.1.4/angular-material.min.js"></script>
+
+        <!--  Web storage module -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.10/ngStorage.min.js"></script>
 
         <!-- The project Components -->
         <script src="app.js"></script>
@@ -46,24 +49,26 @@
         <script src="viewRegister/ctrlRegister.js"></script>
         <script src="viewLogin/ctrlLogin.js"></script>
         <script src="viewSearchOption/ctrlSearchOption.js"></script>
+        <script src="viewResults/ctrlResults.js"></script>
         <script src="services/authentication.service.js"></script>
         <script src="components/version/version.js"></script>
         <script src="components/version/version-directive.js"></script>
         <script src="components/version/interpolate-filter.js"></script>
-
+        <script src="components/bower_components/angular-jwt/dist/angular-jwt.js"></script>
+        <!-- <script src="components/bower_components/a0-angular-storage/dist/angular-storage.js"></script> -->
     </head>
 
     <body ng-app="s2n" ng-controller="ToolbarCtrl as ctrl" layout-fill ng-cloak>
         <!--[if lt IE 7]>
             <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
         <md-toolbar class="md-hue-2">
             <div class="md-toolbar-tools">
                 <md-button class="md-icon-button" aria-label="Home" href="#!">
                     <img src="media/soupLogo.png" class="logo-image"/>
                 </md-button>
                 <h2 flex md-truncate>Soup2Nuts</h2>
+                <md-button flex='10' aria-label="Login/Logout" ng-click="ctrl.switchLogged()">{{ctrl.loggedIn()?"Logout":"Login"}}</md-button>
                 <md-menu>
                     <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdMenu, $event)">
                         <md-icon md-menu-origin>more_vert</md-icon>

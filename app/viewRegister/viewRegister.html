@@ -1,35 +1,27 @@
 <div layout="row" layout-fill  layout-align="center center">
-  <md-content class="md-padding" layout-fill layout="row" layout-align="center center">
+  <md-content class="md-padding" layout="row" layout-align="center center">
     <md-card flex>
       <md-card-title>
         <md-card-title-text>
           <span class="md-headline">Account Registration</span>
         </md-card-title-text>
       </md-card-title>
-
-
+      <md-divider></md-divider>
       <md-card-actions layout="column">
           <form role="form" ng-submit="vm.register()">
             <md-input-container>
               <label>Username</label>
-              <input type="text" ng-model="vm.username" ng-change="vm.validateInput()" placeholder="ex. n00bsl4yer69" />
+              <input type="text" ng-model="username"  placeholder="ex. n00bsl4yer69" />
             </md-input-container>
-
             <md-input-container>
               <label>Password</label>
-              <input type="password" ng-model="vm.password"  ng-change="vm.validateInput()" placeholder="ex. dank420password" />
+              <input type="password" ng-model="password" placeholder="ex. dank420password" />
             </md-input-container>
-
             <div class="form-group">
-              <md-button ng-disabled="vm.validInput" type="submit" class="md-raised md-warn">
-                Submit
-              </md-button>
+              <md-button ng-disabled="(password.length>=8 && username.length>= 5)?false:true" type="submit" class="md-raised md-warn">Submit</md-button>
             </div>
           </form>
       </md-card-actions>
-
-
-
     <md-card>
   <md-content>
 </div>

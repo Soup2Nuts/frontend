@@ -11,33 +11,22 @@ angular
         });
     }])
 
-    .controller('RegisterController', ['$location', 'AuthFactory', function($location, AuthFactory) {
+    .controller('RegisterController', ['$location', 'Authentication', '$scope', function($location, Authentication, $scope) {
         var vm = this;
 
-        vm.username = "";
-        vm.password = "";
-        
+        $scope.username = "";
+        $scope.password = "";
+
         vm.register = register;
-
-        vm.validInput = true;
-
         activate();
 
         function activate() {
-            if(AuthFactory.isAuthenticated()) {
-                $location.path('/');
-            }
-        }
+    			if(Authentication.authenticate()) {
+    				$location.path('/');
+    			}
+    		}
 
         function register() {
-            AuthFactory.register(vm.username, vm.password);
-        }
-
-        vm.validateInput = function() {
-            if(vm.username.length > 5 && vm.password.length > 5) {
-                vm.validInput = false;
-            } else {
-                vm.validInput = true;
-            }
+          Authentication.register($scope.username, $scope.password);
         }
     }]);
