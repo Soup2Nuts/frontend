@@ -20,6 +20,7 @@ angular.module('s2n', [
     's2n.viewPantry',
     's2n.viewFavorites',
     's2n.viewSearchOption',
+    's2n.viewResults',
 
 ]).
     config(['$locationProvider', '$routeProvider',  function($locationProvider, $routeProvider) {
@@ -35,9 +36,9 @@ angular.module('s2n', [
     }).
     run(function($rootScope, $http, $location, $localStorage) {
         var urlBase = 'http://127.0.0.1:8000/auth';
-        //Refresh the user token and keep user logged in after page refresh
+        //Keep user logged in after page refresh
         if ($localStorage.token){
-            $localStorage.token = $http.post(urlBase +'/jwt/refresh/', {token : $localStorage.token});
+            // $localStorage.token = $http.post(urlBase +'/jwt/refresh/', {token : $localStorage.token});
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
         }
     }).

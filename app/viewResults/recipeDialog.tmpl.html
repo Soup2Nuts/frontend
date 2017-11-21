@@ -1,0 +1,32 @@
+<md-dialog aria-label="Recipe page">
+  <form ng-cloak>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2>{{recipe.title}}</h2>
+        <span flex></span>
+        <md-button class="md-icon-button" ng-click="cancel()">
+          <md-icon aria-label="Close dialog">close</md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <h3>{{recipe.cuisines.length>1?"Cuisines":"Cuisine"}}</h3>
+          <p>{{recipe.cuisines.length==0?"None":getCuisineList()}}</p>
+        <br>
+        <h3>{{recipe.courses.length>1?"Courses":"Course"}}</h3>
+          <p>{{recipe.courses.length==0?"None":getCourseList()}}</p>
+        <br>
+        <h3>Ingredients</h3>
+        <ul>
+          <li ng-repeat="ingredient in getStringIngredients()">
+            {{ingredient}}
+          </li>
+        </ul>
+      </div>
+    </md-dialog-content>
+    <md-dialog-actions>
+      <md-button class="md-raised md-primary" href={{recipe.source}} target="_blank"><md-icon aria-label="Get drections">launch</md-icon>Get directions</md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>

@@ -55,7 +55,7 @@
      $http({
           url: urlBase + '/favorites/put' + jsonEnd,
           method: "POST",
-          data: JSON.stringify({recipe_name: recipe_name}),
+          data: {recipe_name: recipe_name},
       }).success(function (status) {
               return status;
           }).error(function (status) {
