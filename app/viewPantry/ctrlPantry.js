@@ -39,10 +39,9 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services'])
           //call the service to get all the ingredients for the page
           apiService.getPantry().then(function(result){
               console.log(result.data);
-              for(var i = 0; i< result.data.length; i++)
-                $scope.pantryItems.push(result.data[i].name);
+              for(var i = 0; i < result.data.length; i++)
+                $scope.pantryItems.push(result.data[i].item);
           });
-
       }, 2000);
 
      //Filters the list of foods removing foods that are currently in the pantry and foods that do not contain the query/searchText
