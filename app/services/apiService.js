@@ -24,8 +24,24 @@
    }
 
    apiService.getPantry = function(){
-       // return $http.get(urlBase + '/pantry/list/' + jsonEnd,  localStorage.token);
-       return $http.get(urlBase + '/pantry/' + jsonEnd);
-     }
+     return $http.get(urlBase + '/pantry/' + jsonEnd);
+   }
+
+   apiService.deletePantryItem = function(pk){
+     return $http.delete(urlBase + '/pantry/delete/' + pk); //FIX ME
+   }
+   
+   apiService.addPantryItem = function(food_item){
+     $http({
+          url: urlBase + '/pantry/put' + jsonEnd,
+          method: "POST",
+          data: JSON.stringify({food_name: food_item}),
+      }).success(function (status) {
+              return status;
+          }).error(function (status) {
+              return status;
+          });
+   }
+
    return apiService;
  }]);

@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('s2n.viewPantry', ['ngRoute', 's2n.services'])
+angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/pantry', {
@@ -24,25 +24,34 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services'])
       $scope.foods = [];
       $scope.pantryItems = [];
 
-      //calling it on a delay as an example of not loading all at once
-      $timeout(function(){
-          //call the service to get all the ingredients for the page
-          apiService.getFoods().then(function(result){
-              console.log(result.data);
-              for(var i = 0; i< result.data.length; i++)
-                $scope.foods.push(result.data[i].name);
-          });
+      // //calling it on a delay as an example of not loading all at once
+      // $timeout(function(){
+      //     //call the service to get all the ingredients for the page
+      //     apiService.getFoods().then(function(result){
+      //         console.log(result.data);
+      //         for(var i = 0; i< result.data.length; i++)
+      //           $scope.foods.push(result.data[i].name);
+      //     });
+      //
+      // }, 2000);
 
-      }, 2000);
+      //call the service to get all the ingredients for the page
+      apiService.getFoods().then(function(result){
+          console.log(result.data);
+          for(var i = 0; i< result.data.length; i++){
+            $scope.foods.push(result.data[i].name);
+          }
 
-      $timeout(function(){
-          //call the service to get all the ingredients for the page
-          apiService.getPantry().then(function(result){
-              console.log(result.data);
-              for(var i = 0; i < result.data.length; i++)
-                $scope.pantryItems.push(result.data[i].item);
-          });
-      }, 2000);
+      });
+
+      //call the service to get all the users pantry for the page
+      apiService.getPantry().then(function(result){
+        console.log(result.data);
+        for(var i = 0; i < result.data.length; i++){
+            $scope.pantryItems.push(result.data[i].item);
+        }
+      });
+
 
      //Filters the list of foods removing foods that are currently in the pantry and foods that do not contain the query/searchText
      function querySearch (query) {
@@ -64,6 +73,8 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services'])
       if($scope.foods.includes(lowercaseItem) && !$scope.pantryItems.includes(lowercaseItem)){
         $scope.pantryItems.push(lowercaseItem);
         $scope.selectedItem = "";
+        //call the service to add the item to the database
+        apiService.addPantryItem(lowercaseItem);
       }
     };
 
@@ -72,6 +83,7 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services'])
         var index = $scope.pantryItems.indexOf($item)
         if(index >= 0){
           $scope.pantryItems.splice(index, 1);
+          apiService.deletePantryItem('1');
         }
       };
 
