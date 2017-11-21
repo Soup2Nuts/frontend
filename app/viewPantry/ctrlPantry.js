@@ -41,7 +41,6 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
           for(var i = 0; i< result.data.length; i++){
             $scope.foods.push(result.data[i].name);
           }
-
       });
 
       //call the service to get all the users pantry for the page
@@ -89,6 +88,7 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
 
     //Prompts the user with a dialog to confirm whether they want to delete all pantry Items
     //Deletes all pantry items upon user confirmation
+    //THIS COULD BE DONE BETTER WITH A CLEAR ALL END POINT
       $scope.confirmDeleteAll = function(ev) {
         var confirm = $mdDialog.confirm()
               .title('Would you like to delete all of the items in your pantry?')
@@ -98,6 +98,9 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
               .ok('Yes, I\'m sure.')
               .cancel('No, thank you.');
         $mdDialog.show(confirm).then(function() {
+          for(var i = 0; i < $scope.pantryItems.length; i++){
+            apiService.deletePantryItem($scope.pantryItems[i]);
+          }
           $scope.pantryItems = []
         }, function() {
         });

@@ -43,5 +43,25 @@
           });
    }
 
+   apiService.getFavorites = function(){
+     return $http.get(urlBase + '/favorites/' + jsonEnd);
+   }
+
+   apiService.deleteFavorite = function(recipe_name){
+     return $http.delete(urlBase + '/favorites/delete', {params: {recipe_name: recipe_name}}); //FIX ME
+   }
+
+   apiService.addPantryItem = function(recipe_name){
+     $http({
+          url: urlBase + '/favorites/put' + jsonEnd,
+          method: "POST",
+          data: JSON.stringify({recipe_name: recipe_name}),
+      }).success(function (status) {
+              return status;
+          }).error(function (status) {
+              return status;
+          });
+   }
+
    return apiService;
  }]);

@@ -4,7 +4,8 @@ angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services'])
     .controller('ToolbarCtrl', ['$mdDialog','$location', 'Authentication', function($mdDialog, $location, Authentication) {
 
         var originatorEv;
-
+        var loggedIn = false;
+        loggedIn = Authentication.authenticate();
         this.openMenu = function($mdMenu, ev) {
             originatorEv = ev;
             $mdMenu.open(ev);
@@ -26,7 +27,7 @@ angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services'])
             }
         };
         this.loggedIn = function(){
-          return Authentication.authenticate();
+          return loggedIn;
         };
 
 

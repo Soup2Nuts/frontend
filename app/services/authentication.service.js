@@ -41,12 +41,13 @@
     }
     function authenticate()
     {
-        if($localStorage.token){
-            return true;
-        }
-
+      if($localStorage.token && $localStorage.token === $http.post(urlBase +'/jwt/verify/', {token : $localStorage.token})){
+          return true;
+      }
+      //If there is not a token stored or the token is not valid, send the user to the login page
       $localStorage.$reset();
       $http.defaults.headers.common.Authorization = '';
+      $location.path('/login');
       return false;
     }
     function logout() {

@@ -1,5 +1,5 @@
 'use strict';
-angular.module('s2n.viewFavorites', ['ngRoute'])
+angular.module('s2n.viewFavorites', ['ngRoute', 's2n.services', 's2n.apiService'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/favorites', {
@@ -7,7 +7,7 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
     controller: 'FavoritesCtrl'
   });
 }])
-    .controller('FavoritesCtrl', ['$scope', '$mdDialog', '$window', function($scope, $mdDialog, $window) {
+    .controller('FavoritesCtrl', ['$scope', '$mdDialog', '$window', '$timeout', 'apiService', function($scope, $mdDialog, $window, $timeout, apiService) {
     this.announceClick = announceClick;
     $scope.properties = ['title', 'cuisines', 'courses'];
     $scope.selectedProperty = 'title';
@@ -21,183 +21,14 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
         $scope.desktopTemplate = true;
     }
     //NOTE: recipe's courses and cuisines should be pre-sorted alphabetically
-    $scope.recipes = [
-          {
-              "title": "Banana Split Oatmeal",
-              "source": "https://whatscooking.fns.usda.gov/recipes/supplemental-nutrition-assistance-program-snap/banana-split-oatmeal",
-              "cuisines": ["American"],
-              "courses": [
-                  "Breakfast"
-              ],
-              "ingredients": [
-                  {
-                      "quantity": {
-                          "fraction": "1/3",
-                          "unit": "C"
-                      },
-                      "food": "oatmeal",
-                      "notes": "dry quick-cooking"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1/8",
-                          "unit": "tsp"
-                      },
-                      "food": "salt",
-                      "notes": ""
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "3/4",
-                          "unit": "C"
-                      },
-                      "food": "water",
-                      "notes": "very hot"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1/2",
-                          "unit": ""
-                      },
-                      "food": "banana",
-                      "notes": "sliced"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1/2",
-                          "unit": "C"
-                      },
-                      "food": "frozen yogurt",
-                      "notes": "non-fat"
-                  }
-              ]
-          },
-          {
-              "title": "Summer Fruit Salad",
-              "source": "https://whatscooking.fns.usda.gov/recipes/supplemental-nutrition-assistance-program-snap/summer-fruit-salad",
-              "cuisines": [],
-              "courses": [
-                  "Dessert",
-                  "Salad"
-              ],
-              "ingredients": [
-                  {
-                      "quantity": {
-                          "fraction": "1",
-                          "unit": "C"
-                      },
-                      "food": "strawberries",
-                      "notes": "diced fresh or frozen"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1",
-                          "unit": "C"
-                      },
-                      "food": "watermelon",
-                      "notes": "cubed"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1",
-                          "unit": "C"
-                      },
-                      "food": "pineapple chunks",
-                      "notes": "fresh or canned packed in natural juice and do not drain"
-                  }
-              ]
-          },
-          {
-              "title": "Chicken Vegetable Soup with Kale",
-              "source": "https://whatscooking.fns.usda.gov/recipes/supplemental-nutrition-assistance-program-snap/chicken-vegetable-soup-kale",
-              "cuisines": ["American"],
-              "courses": [
-                  "Soup"
-              ],
-              "ingredients": [
-                  {
-                      "quantity": {
-                          "fraction": "2",
-                          "unit": "tsp"
-                      },
-                      "food": "vegetable oil",
-                      "notes": ""
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1/2",
-                          "unit": "C"
-                      },
-                      "food": "onion",
-                      "notes": "chopped"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1/2",
-                          "unit": "C"
-                      },
-                      "food": "carrot",
-                      "notes": "chopped"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1",
-                          "unit": "tsp"
-                      },
-                      "food": "thyme",
-                      "notes": "ground"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "2",
-                          "unit": ""
-                      },
-                      "food": "garlic clove",
-                      "notes": "minced"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "2",
-                          "unit": "C"
-                      },
-                      "food": "water",
-                      "notes": "or chicken broth"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "3/4",
-                          "unit": "C"
-                      },
-                      "food": "tomatoes",
-                      "notes": "diced"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1",
-                          "unit": "C"
-                      },
-                      "food": "chicken",
-                      "notes": "cooked skinned and cubed"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1/2",
-                          "unit": "C"
-                      },
-                      "food": "brown rice",
-                      "notes": "cooked or white rice"
-                  },
-                  {
-                      "quantity": {
-                          "fraction": "1",
-                          "unit": "C"
-                      },
-                      "food": "kale",
-                      "notes": "chopped about one large leaf"
-                  }
-              ]
-          }
-    ];
+    $scope.recipes = [];
+    //call the service to get all the ingredients for the page
+    apiService.getFavorites().then(function(result){
+        for(var i = 0; i< result.data.length; i++){
+          $scope.recipes.push(result.data[i].recipe);
+          console.log(result.data[i].recipe);
+        }
+    });
 
     function announceClick($index){
       $scope.selectedProperty = $scope.properties[$index];
@@ -225,7 +56,7 @@ angular.module('s2n.viewFavorites', ['ngRoute'])
       $scope.getStringIngredients = function(){
           var results = [];
           $scope.recipe.ingredients.forEach(function(ingredient){
-            var s = ingredient.quantity.fraction + " " + ingredient.quantity.unit + " " + ingredient.food;
+            var s = ingredient.quantity + " " + ingredient.name;
             s += ingredient.notes.length==0? "": (" (" + ingredient.notes + ")");
             results.push(s);
           });
