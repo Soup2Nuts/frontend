@@ -27,7 +27,8 @@ angular.module('s2n.viewResults', ['ngRoute', 's2n.services', 's2n.apiService'])
     //NOTE: recipe's courses and cuisines should be pre-sorted alphabetically
     $scope.recipes = [];
     $scope.favs = [];
-    //call the service to get all the ingredients for the page
+
+    //call the service to get all the recipe results for the page
     //TODO!!!!
     apiService.getFavorites().then(function(result){
         for(var i = 0; i< result.data.length; i++){

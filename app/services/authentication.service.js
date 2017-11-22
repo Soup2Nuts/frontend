@@ -47,7 +47,6 @@
       //If there is not a token stored or the token is not valid, send the user to the login page
       $localStorage.$reset();
       $http.defaults.headers.common.Authorization = '';
-      $location.path('/login');
       return false;
     }
     function logout() {
