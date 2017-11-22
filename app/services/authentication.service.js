@@ -1,4 +1,3 @@
-// (function () {
   'use strict';
 
   angular
@@ -9,6 +8,7 @@
 
   function Authentication($http, $location, $localStorage){
 	  var urlBase = 'http://127.0.0.1:8000/auth';
+
     var Authentication = {
       logout: logout,
       login: login,
@@ -71,4 +71,3 @@
     }
     return Authentication;
   }
-// })();

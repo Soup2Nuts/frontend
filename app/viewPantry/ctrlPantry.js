@@ -24,11 +24,12 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
           $scope.desktopTemplate = true;
       }
 
+      //Recipe's and favorite recipes's courses and cuisines should be pre-sorted alphabetically
       $scope.foods = [];
       $scope.pantryItems = [];
       $scope.recipes = [];
 
-      //call the service to get all the ingredients for the page
+      //call the api service to get all the ingredients for the page
       apiService.getFoods().then(function(result){
           for(var i = 0; i< result.data.length; i++){
             $scope.foods.push(result.data[i].name);
@@ -42,7 +43,7 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
         }
       });
 
-      //Call the service to get the user's favorite recipes
+      //Call the api service to get the user's favorite recipes
       apiService.getFavorites().then(function(result){
           for(var i = 0; i< result.data.length; i++){
             $scope.recipes.push(result.data[i].recipe);
@@ -130,6 +131,7 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
         });
       };
 
+      //Controller for the custom recipe dialog
       function DialogController($scope, $mdDialog, recipe) {
         $scope.recipe = recipe;
         //Returns an array of the nicely formatted strings of the recipes ingredients

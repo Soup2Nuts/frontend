@@ -1,1 +1,92 @@
-search me.
+<div layout="row" layout-fill layout-align="center center" ng-controller="SearchCtrl as ctrl">
+    <md-content class="md-padding" flex-gt-md="50">
+        <div>
+            <md-card>
+              <md-card-title>
+                <md-card-title-text><span class="md-headline">Search Options</span></md-card-title-text>
+                <md-button href="#!/pantry" class="md-fab md-mini md-raised md-accent md-hue-2" aria-label="Pantry">
+                  <md-icon>local_dining</md-icon>
+                </md-button>
+              </md-card-title>
+              <md-divider></md-divider>
+              <md-card-content  layout={{desktopTemplate?"row":"column"}} layout-align="space-around center">
+                <md-truncate flex={{desktopTemplate?"":"50"}}>
+                  <md-input-container>
+                    <label>Cuisines</label>
+                    <md-select ng-model="selectedCuisines" multiple="">
+                      <md-optgroup label="Cuisines">
+                        <md-option ng-value="cuisine" ng-repeat="cuisine in cuisines">{{cuisine}}</md-option>
+                      </md-optgroup>
+                    </md-select>
+                  </md-input-container>
+                </md-truncate>
+                <md-truncate flex={{desktopTemplate?"":"50"}}>
+                  <md-input-container>
+                    <label>Courses</label>
+                    <md-select ng-model="selectedCourses" multiple="">
+                      <md-optgroup label="Courses">
+                        <md-option ng-value="course" ng-repeat="course in courses">{{course}}</md-option>
+                      </md-optgroup>
+                    </md-select>
+                  </md-input-container>
+                </md-truncate>
+                <md-button ng-click="ctrl.getResults()" class="md-raised md-primary"><md-icon>search</md-icon>Search</md-button>
+              </md-card-content>
+            </md-card>
+            <md-card>
+                <md-card-title flex>
+                    <md-card-title-text layout = "row"><span class="md-headline">Search Results</span></md-card-title-text>
+                    <div layout-align="end center">
+                      <md-menu>
+                        <md-button aria-label="sort menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+                          <md-icon md-menu-origin>sort</md-icon>
+                        </md-button>
+                        <md-menu-content width="2">
+                          <md-menu-item ng-repeat="property in properties">
+                            <md-button md-menu-align-target ng-click="ctrl.announceClick($index)">
+                                <div layout="row" flex="">
+                                  <p flex="">Sort by: {{property}}</p>
+                                </div>
+                            </md-button>
+                          </md-menu-item>
+                        </md-menu-content>
+                      </md-menu>
+                    </div>
+                </md-card-title>
+                <md-divider></md-divider>
+                <md-card-content flex>
+                  <table flex>
+                    <tr>
+                      <th>
+                        <span>Recipes</span>
+                      </th>
+                      <th>
+                        <span ng-if="desktopTemplate">Unfavorite?</span>
+                      </th>
+                      <th>
+                        <span ng-if="desktopTemplate">View Recipe</span>
+                      </th>
+                    </tr>
+                    <tr ng-repeat="recipe in recipes | orderBy:selectedProperty">
+                      <td>
+                        <h3>{{recipe.title}}</h3>
+                        <p><b>{{recipe.cuisines.length>1?"Cuisines: ":"Cuisine: "}}</b>{{recipe.cuisines.length==0?"None":getCuisineList(recipe)}}</p>
+                        <p><b>{{recipe.courses.length>1?"Courses: ":"Course: "}}</b>{{recipe.courses.length==0?"None":getCourseList(recipe)}}</p>
+                      </td>
+                    	<td>
+                        <md-button ng-click="ctrl.toggleFavorite(recipe)" class="md-icon-button md-warn" aria-label="Toggle favoriting recipe">
+                          <md-icon>{{ctrl.isFav(recipe)?'favorite':'favorite_border'}}</md-icon>
+                        </md-button>
+                      </td>
+                      <td>
+                        <md-button ng-click="showRecipeDialog($event, recipe)" class="md-icon-button {{viewHoverActive?'md-primary md-hue-3':'md-primary md-hue-1'}}" aria-label="View recipe" ng-mouseover="viewHoverActive=true" ng-mouseleave="viewHoverActive=false">
+                          <md-icon>pageview</md-icon>
+                        </md-button>
+                      </td>
+                    </tr>
+                  </table>
+                </md-card-content>
+            </md-card>
+        </div>
+    </md-content>
+</div>
