@@ -14,7 +14,7 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
     this.toggleFavorite = toggleFavorite;
     this.getResults = getResults;
 
-    $scope.properties = ['title', 'cuisines', 'courses']; //add substitutions/favorite
+    $scope.properties = ['title', 'cuisines', 'courses']; //add substitutions
     $scope.selectedProperty = 'title';
 
     $scope.desktopTemplate = false; //Boolean used in modifying the view to support small screens
@@ -25,6 +25,7 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
     }else{
         $scope.desktopTemplate = true;
     }
+    
     //Recipe's and favorite recipes's courses and cuisines should be pre-sorted alphabetically
     $scope.recipes = [];
     $scope.favs = [];
