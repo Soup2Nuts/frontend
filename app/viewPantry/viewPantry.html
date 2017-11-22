@@ -1,62 +1,104 @@
 <div layout="row" layout-fill layout-align="center center" ng-controller="PantryCtrl as ctrl">
-  <md-fab-speed-dial md-direction="up" class="md-fling md-fab-bottom-right" ng-if="desktopTemplate">
-    <md-fab-trigger>
-      <md-button aria-label="menu" class="md-fab md-accent md-hue-3">
-        <md-icon>menu</md-icon>
-      </md-button>
-    </md-fab-trigger>
-    <md-fab-actions>
-      <md-button href="#!/search" class="md-fab md-raised md-accent md-hue-2" aria-label="Search">
-        <md-icon>search</md-icon>
-      </md-button>
-      <md-button href="#!/favorites" class="md-fab md-raised md-accent md-hue-1" aria-label="Favorites">
-        <md-icon class="md-accent">favorite</md-icon>
-      </md-button>
-    </md-fab-actions>
-  </md-fab-speed-dial>
-  <md-content class="md-padding" flex-gt-sm="50">
-      <md-card flex>
-        <md-card-title>
-          <md-card-title-text><span class="md-headline">Manage Pantry</span></md-card-title-text>
-          <md-button href="#!/search" class="md-fab md-mini md-raised md-accent md-hue-2" aria-label="Search" ng-if="mobileTemplate">
-            <md-icon>search</md-icon>
-          </md-button>
-          <md-button href="#!/favorites" class="md-fab md-mini md-raised md-accent md-hue-1" aria-label="Favorites" ng-if="mobileTemplate">
-            <md-icon class="md-accent">favorite</md-icon>
-          </md-button>
-        </md-card-title>
-        <md-divider></md-divider>
-        <div class="md-padding" flex layout-align="right center" ng-cloak>
-          <form name="addFood">
-            <md-autocomplete md-no-cache="ctrl.noCache" required md-require-match="true" md-selected-item="selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)|orderBy:'toString()'" md-item-text="item" md-min-length="desktopTemplate?0:1" placeholder="Enter a food name">
-              <md-item-template>
-                <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
-              </md-item-template>
-              <md-not-found>
-                No foods matching "{{ctrl.searchText}}" were found.
-              </md-not-found>
-            </md-autocomplete>
-            <md-button ng-disabled="addFood.$invalid" ng-click="addToPantry()" class="md-raised md-primary"><md-icon>add</md-icon>Add item</md-button>
-          </form>
-        </div>
-      </md-card>
-      <br>
+  <md-content class="md-padding" flex-gt-sm="50" layout="column" style="overflow-y: hidden">
+    <md-card flex>
+      <md-card-title>
+        <md-card-title-text><span class="md-headline">Manage Pantry</span></md-card-title-text>
+        <md-button href="#!/search" class="md-fab md-mini md-raised md-accent md-hue-2" aria-label="Search">
+          <md-icon>search</md-icon>
+        </md-button>
+      </md-card-title>
+      <md-divider></md-divider>
+      <div class="md-padding" flex layout-align="start center" ng-cloak>
+        <form name="addFood">
+          <md-autocomplete md-no-cache="ctrl.noCache" required md-require-match="true" md-selected-item="selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)|orderBy:'toString()'" md-item-text="item" md-min-length="desktopTemplate?0:1" placeholder="Enter a food name">
+            <md-item-template>
+              <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
+            </md-item-template>
+            <md-not-found>
+              No foods matching "{{ctrl.searchText}}" were found.
+            </md-not-found>
+          </md-autocomplete>
+          <md-button ng-disabled="addFood.$invalid" ng-click="addToPantry()" class="md-raised md-primary"><md-icon>add</md-icon>Add item</md-button>
+        </form>
+      </div>
+    </md-card>
+    <div layout={{desktopTemplate?"row":"column"}}>
       <md-card>
-        <md-card-title>
-          <md-card-title-text><span class="md-headline">Current Pantry Items</span></md-card-title-text>
-          <md-button ng-disabled="pantryItems.length == 0" ng-click="confirmDeleteAll($event)" class="md-icon-button md-warn" aria-label="Delete">
-            <md-icon class="md-accent">delete_forever</md-icon>
-          </md-button>
-        </md-card-title>
-        <md-divider></md-divider>
-        <md-list flex>
-          <md-list-item flex = "100" ng-repeat="item in pantryItems|orderBy: 'toString()'" ng-style="hoverActive?{'background-color':'LightGray'}:{}">
+        <div>
+          <md-card-title>
+            <md-card-title-text><span class="md-headline">Current Pantry Items</span></md-card-title-text>
+            <md-button ng-disabled="pantryItems.length == 0" ng-click="confirmDeleteAll($event)" class="md-icon-button md-warn" aria-label="Delete">
+              <md-icon class="md-accent">delete_forever</md-icon>
+            </md-button>
+          </md-card-title>
+          <md-divider></md-divider>
+        </div>
+        <md-list flex layout-fill>
+          <md-list-item ng-repeat="item in pantryItems|orderBy: 'toString()'" ng-style="hoverActive?{'background-color':'LightGray'}:{}">
             <p>{{ item }}</p>
             <md-button ng-click="deletePantryItem(item)" class="md-icon-button md-warn" aria-label="Delete" ng-mouseover="hoverActive=true" ng-mouseleave="hoverActive=false">
               <md-icon class="md-accent">delete</md-icon>
             </md-button>
           </md-list-item>
         </md-list>
+      </md-card>
+      <md-card>
+          <div>
+            <md-card-title>
+                <md-card-title-text layout = "row"><span class="md-headline">Favorite Recipes</span></md-card-title-text>
+                <div layout-align="center end">
+                  <md-menu>
+                    <md-button aria-label="sort menu" class="md-icon-button" ng-click="$mdMenu.open($event)">
+                      <md-icon md-menu-origin>sort</md-icon>
+                    </md-button>
+                    <md-menu-content width="2">
+                      <md-menu-item ng-repeat="property in properties">
+                        <md-button md-menu-align-target ng-click="ctrl.announceClick($index)">
+                            <div layout="row" flex="">
+                              <p flex="">Sort by: {{property}}</p>
+                            </div>
+                        </md-button>
+                      </md-menu-item>
+                    </md-menu-content>
+                  </md-menu>
+                </div>
+            </md-card-title>
+            <md-divider></md-divider>
+          </div>
+          <div flex layout-fill>
+            <md-card-content flex>
+              <table flex>
+                <tr>
+                  <th>
+                    <span>Recipes</span>
+                  </th>
+                  <th>
+                    <span ng-if="desktopTemplate">Remove?</span>
+                  </th>
+                  <th>
+                    <span ng-if="desktopTemplate">View Recipe</span>
+                  </th>
+                </tr>
+                <tr ng-repeat="recipe in recipes | orderBy:selectedProperty">
+                  <td>
+                    <h3>{{recipe.title}}</h3>
+                    <p><b>{{recipe.cuisines.length>1?"Cuisines: ":"Cuisine: "}}</b>{{recipe.cuisines.length==0?"None":getCuisineList(recipe)}}</p>
+                    <p><b>{{recipe.courses.length>1?"Courses: ":"Course: "}}</b>{{recipe.courses.length==0?"None":getCourseList(recipe)}}</p>
+                  </td>
+                  <td>
+                    <md-button ng-click="deleteFavorite(recipe)" class="md-icon-button md-warn" aria-label="Unfavorite recipe" ng-mouseover="favHoverActive=true" ng-mouseleave="favHoverActive=false">
+                      <md-icon>{{favHoverActive?'favorite_border':'favorite'}}</md-icon>
+                    </md-button>
+                  </td>
+                  <td>
+                    <md-button ng-click="showRecipeDialog($event, recipe)" class="md-icon-button {{viewHoverActive?'md-primary md-hue-3':'md-primary md-hue-1'}}" aria-label="View recipe" ng-mouseover="viewHoverActive=true" ng-mouseleave="viewHoverActive=false">
+                      <md-icon>pageview</md-icon>
+                    </md-button>
+                  </td>
+                </tr>
+              </table>
+            </md-card-content>
+          </div>
       </md-card>
     </div>
   </md-content>
