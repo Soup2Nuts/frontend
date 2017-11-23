@@ -17,6 +17,8 @@ angular
         $scope.username = "";
         $scope.password = "";
 
+        $scope.failedToRegister = false;
+
         vm.register = register;
         activate();
 
@@ -28,5 +30,6 @@ angular
 
         function register() {
           Authentication.register($scope.username, $scope.password);
+          $scope.failedToRegister = true;
         }
     }]);

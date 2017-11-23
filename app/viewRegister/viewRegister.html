@@ -11,16 +11,29 @@
           <form role="form" ng-submit="vm.register()">
             <md-input-container>
               <label>Username</label>
-              <input type="text" ng-model="username"  placeholder="ex. n00bsl4yer69" />
+              <input md-minlength="5" required="true" md-no-asterisk="" name="username" ng-model="username">
+              <div ng-messages="form.username.$error">
+                <div ng-message="required">Username is required.</div>
+                <div ng-message="md-minlength">Username must be at least 5 characters long.</div>
+              </div>
             </md-input-container>
             <md-input-container>
               <label>Password</label>
-              <input type="password" ng-model="password" placeholder="ex. dank420password" />
+              <input md-minlength="8" required="true" md-no-asterisk="" type="password" name="password" ng-model="password">
+              <div ng-messages="form.password.$error">
+                <div ng-message="required">Password is required.</div>
+                <div ng-message="md-minlength">Password must be at least 8 characters long.</div>
+              </div>
             </md-input-container>
             <div class="form-group">
-              <md-button ng-disabled="(password.length>=8 && username.length>= 5)?false:true" type="submit" class="md-raised md-warn">Submit</md-button>
+              <md-button ng-disabled="" type="submit" class="md-raised md-warn">Submit</md-button>
             </div>
           </form>
+          <br>
+          <md-button class="md-warn" href="#!/login">
+            Already have an account? Click to here to login.
+          </md-button>
+          <p style="font-size:.8em;" ng-if="failedToRegister">Registration failed.</p>
       </md-card-actions>
     <md-card>
   <md-content>

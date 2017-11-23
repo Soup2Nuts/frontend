@@ -25,7 +25,7 @@ angular.module('s2n', [
     }]).
     config(function($mdThemingProvider){
         $mdThemingProvider.theme('default')
-            .primaryPalette('indigo')
+            .primaryPalette('green')
             .accentPalette('orange')
             .warnPalette('red');
         //.backgroundPalette('light-green');

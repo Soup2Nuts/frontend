@@ -66,7 +66,8 @@
         Authentication.login(username, password);
       }
       function registerErrorFn(response) {
-        console.error('Failed to register user');
+        console.log(response);
+        return false;
       }
     }
     return Authentication;
