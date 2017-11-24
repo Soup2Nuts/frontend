@@ -4,8 +4,7 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
 
     .config(['$routeProvider', function ($routeProvider) {
         $routeProvider.when('/pantry', {
-            templateUrl: ' viewPantry/viewPantry.html',
-            controller: 'PantryCtrl'
+            templateUrl: ' viewPantry/viewPantry.html'
         });
     }])
     .controller('PantryCtrl', ['$scope', '$http', '$mdDialog', '$window', '$timeout', 'apiService', function ($scope, $http, $mdDialog, $window, $timeout, apiService) {
