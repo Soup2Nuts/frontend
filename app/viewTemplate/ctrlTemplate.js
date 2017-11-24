@@ -33,9 +33,5 @@ angular.module('s2n.viewTemplate', ['ngRoute', 's2n.services'])
                 console.log(result.data);
                 $scope.ingredients = result.data;
             });
-
         }, 2000);
-
-
-
 }]);

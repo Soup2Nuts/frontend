@@ -29,8 +29,14 @@
      return $http.get(urlBase + '/cuisines/' + jsonEnd);
    };
 
+         //this will authenticate the current users token to see if they're logged in
+         //if they're not it'll redirect to the login screen, if they are, carry on.
    apiService.getPantry = function(){
-     return $http.get(urlBase + '/pantry/' + jsonEnd);
+       var promise = $http.get(urlBase + '/pantry/' + jsonEnd). then(function(response){
+           return response;
+       });
+
+       return promise;
    };
 
    apiService.deletePantryItem = function(food_name){
@@ -41,7 +47,7 @@
      $http({
           url: urlBase + '/pantry/put' + jsonEnd,
           method: "POST",
-          data: JSON.stringify({food_name: food_item}),
+          data: JSON.stringify({food_name: food_item})
       }).success(function (status) {
               return status;
           }).error(function (status) {
@@ -61,7 +67,7 @@
      $http({
           url: urlBase + '/favorites/put' + jsonEnd,
           method: "POST",
-          data: {recipe_name: recipe_name},
+          data: {recipe_name: recipe_name}
       }).success(function (status) {
               return status;
           }).error(function (status) {
