@@ -42,10 +42,10 @@
                           <md-icon md-menu-origin>sort</md-icon>
                         </md-button>
                         <md-menu-content width="2">
-                          <md-menu-item ng-repeat="property in properties">
+                          <md-menu-item ng-repeat="key in keys">
                             <md-button md-menu-align-target ng-click="ctrl.announceClick($index)">
                                 <div layout="row" flex="">
-                                  <p flex="">Sort by: {{property}}</p>
+                                  <p flex="">Sort by: {{key}}</p>
                                 </div>
                             </md-button>
                           </md-menu-item>
@@ -69,9 +69,10 @@
                     </tr>
                     <tr ng-repeat="recipe in recipes | orderBy:selectedProperty">
                       <td>
-                        <h3>{{recipe.title}}</h3>
+                        <h4>{{recipe.title}}</h4>
                         <p><b>{{recipe.cuisines.length>1?"Cuisines: ":"Cuisine: "}}</b>{{recipe.cuisines.length==0?"None":getCuisineList(recipe)}}</p>
                         <p><b>{{recipe.courses.length>1?"Courses: ":"Course: "}}</b>{{recipe.courses.length==0?"None":getCourseList(recipe)}}</p>
+                        <p><b>Substitutions: </b>{{recipe.numberOfSubstitutions}}</p>
                       </td>
                     	<td>
                         <md-button ng-click="ctrl.toggleFavorite(recipe)" class="md-icon-button md-warn" aria-label="Toggle favoriting recipe">
