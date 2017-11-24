@@ -6,22 +6,18 @@ angular.module('s2n', [
     'ngRoute',
     'angular-jwt',
     'ngStorage',
-    /*'ngCookies',*/
     's2n.services',
     's2n.apiService',
+    's2n.version',
     's2n.viewToolbar',
     's2n.viewAbout',
     's2n.viewAccount',
     's2n.viewSearch',
     's2n.viewTemplate',
-    's2n.version',
     's2n.viewRegister',
     's2n.viewLogin',
     's2n.viewPantry',
-    's2n.viewFavorites',
     's2n.viewSearchOption',
-    's2n.viewResults',
-
 ]).
     config(['$locationProvider', '$routeProvider',  function($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');
@@ -35,10 +31,8 @@ angular.module('s2n', [
         //.backgroundPalette('light-green');
     }).
     run(function($rootScope, $http, $location, $localStorage) {
-        var urlBase = 'http://127.0.0.1:8000/auth';
         //Keep user logged in after page refresh
         if ($localStorage.token){
-            // $localStorage.token = $http.post(urlBase +'/jwt/refresh/', {token : $localStorage.token});
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
         }
     }).

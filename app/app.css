@@ -37,3 +37,8 @@ th, td {
     height: 7rem;
     width: 7rem;
 }
+
+.error {
+  font-size: .8em;
+  color: red;
+}

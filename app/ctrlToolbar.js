@@ -31,6 +31,4 @@ angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services', 'ngStorage'])
           }
           return false;
         };
-
-
     }]);

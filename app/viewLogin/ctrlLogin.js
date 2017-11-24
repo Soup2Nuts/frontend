@@ -15,6 +15,7 @@ angular
 		var vm = this;
 		$scope.username = "";
 		$scope.password = "";
+		$scope.failedToLogin = false;
 		vm.login = login;
 		activate();
 
@@ -26,6 +27,7 @@ angular
 
 		function login() {
 			Authentication.login($scope.username, $scope.password);
+			$scope.failedToLogin = true;
 		}
 
 	}]);

@@ -1,4 +1,3 @@
-// (function () {
   'use strict';
 
   angular
@@ -9,6 +8,7 @@
 
   function Authentication($http, $location, $localStorage){
 	  var urlBase = 'http://127.0.0.1:8000/auth';
+
     var Authentication = {
       logout: logout,
       login: login,
@@ -47,7 +47,6 @@
       //If there is not a token stored or the token is not valid, send the user to the login page
       $localStorage.$reset();
       $http.defaults.headers.common.Authorization = '';
-      $location.path('/login');
       return false;
     }
     function logout() {
@@ -67,9 +66,9 @@
         Authentication.login(username, password);
       }
       function registerErrorFn(response) {
-        console.error('Failed to register user');
+        console.log(response);
+        return false;
       }
     }
     return Authentication;
   }
-// })();
