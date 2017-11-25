@@ -9,9 +9,23 @@
    var urlBase = 'http://127.0.0.1:8000/api';
    var jsonEnd = '?format=json';
 
-   //TODO!!!!!!!
-   apiService.getSearchResults = function(courses, cuisines){
-     return courses; //Replace this when endpoint is setup
+   //FIX ME!!!
+   apiService.getSearchResults = function(cuisines, courses){
+     var defered = $q.defer();
+     var req = {
+          url: urlBase + '/search/' + jsonEnd,
+          method: "GET",
+          data: JSON.stringify({courses: courses, cuisines: cuisines}),
+      };
+      var onSuccess = function (response, status, headers, config){
+        console.log(response.value[0])
+        defered.resolve(response.value);
+      };
+      var onError = function (response, status, headers, config){
+        defered.resolve(status);
+      };
+      $http(req).success(onSuccess).error(onError);
+      return defered.promise;
    };
 
    apiService.getFoods = function(){

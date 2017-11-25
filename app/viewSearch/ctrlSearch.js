@@ -13,9 +13,9 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
     this.isFav = isFav;
     this.toggleFavorite = toggleFavorite;
     this.getResults = getResults;
-
-    $scope.properties = ['title', 'cuisines', 'courses']; //add substitutions
-    $scope.selectedProperty = 'title';
+    $scope.properties = {'Title':'title', 'Cuisines':'cuisines', 'Courses':'courses', 'Substitutions':'numberOfSubstitutions'};
+    $scope.selectedProperty = 'numberOfSubstitutions';
+    $scope.keys = Object.keys($scope.properties);
 
     $scope.desktopTemplate = false; //Boolean used in modifying the view to support small screens
     $scope.mobileTemplate = false;  //Boolean used in modifying the view to support small screens
@@ -25,7 +25,7 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
     }else{
         $scope.desktopTemplate = true;
     }
-    
+
     //Recipe's and favorite recipes's courses and cuisines should be pre-sorted alphabetically
     $scope.recipes = [];
     $scope.favs = [];
@@ -48,13 +48,15 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
         }
     });
 
+    //FIX ME!!!!
     //Call the service to get the search results
-    //TODO!!!!
     function getResults(){
-      result = apiService.getSearchResults($scope.selectedCourses, $scope.selectedCuisines);
-      for(var i = 0; i< result.data.length; i++){
-        $scope.recipes.push(result.data[i].recipe);
-      }
+      apiService.getSearchResults($scope.selectedCourses, $scope.selectedCuisines).then(function(recipes){
+        //$scope.recipes = recipes;
+      });
+      //console.log($scope.recipes)
+      //REMOVE THE CODE BELOW
+      $scope.recipes = [{"title": "Baked Chicken with Vegetables", "source": "https://whatscooking.fns.usda.gov/recipes/supplemental-nutrition-assistance-program-snap/baked-chicken-vegetables", "cuisines": ["American"], "courses": ["Main Dish"], "ingredients": [{"quantity": "4 ", "name": "potatoes", "notes": "sliced"}, {"quantity": "6 ", "name": "carrot", "notes": "sliced"}, {"quantity": "1 ", "name": "onion", "notes": "large quartered"}, {"quantity": "1 ", "name": "chicken", "notes": "raw - cut into pieces skin removed"}, {"quantity": "1/2 c", "name": "water", "notes": ""}, {"quantity": "1 tsp", "name": "thyme", "notes": ""}, {"quantity": "1/4 tsp", "name": "pepper", "notes": ""}], "substitutions": {"2": [{"quantity": "1", "name": "chives"}], "5": [{"quantity": "1 tsp", "name": "basil"}]}, "numberOfSubstitutions": 2}];
     }
 
     //Call the service to get the user's favorite recipes
@@ -75,7 +77,8 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
 
     //Used to change the property by the list of the user's favorite recipes is sorted
     function announceClick($index){
-      $scope.selectedProperty = $scope.properties[$index];
+      $scope.selectedProperty = $scope.keys[$index];
+      $scope.selectedProperty = $scope.properties[$scope.selectedProperty];
     }
 
     //If the specified recipe is part of the user's favorite recipes, removes the specified recipe from the user's favorite recipes
@@ -111,11 +114,25 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
       //Returns an array of the nicely formatted strings of the recipes ingredients
       $scope.getStringIngredients = function(){
           var results = [];
-          $scope.recipe.ingredients.forEach(function(ingredient){
+          var subs = $scope.recipe.substitutions;
+          var k = Object.keys(subs);
+          for(var i = 0; i < $scope.recipe.ingredients.length; i++){
+            var ingredient = $scope.recipe.ingredients[i];
             var s = ingredient.quantity + " " + ingredient.name;
             s += ingredient.notes.length==0? "": (" (" + ingredient.notes + ")");
+            if(k.includes(""+i)){
+              var sub_foods = subs[""+i];
+              var t = "";
+              for(var j = 0; j < sub_foods.length; j++){
+                t+= sub_foods[j].quantity + " " + sub_foods[j].name
+                if(j < (sub_foods.length-1)){
+                  t += ", ";
+                }
+                s = t + ' [substituted for: ' + s + ']'
+              }
+            }
             results.push(s);
-          });
+          }
           return results;
       };
       //Formats the specified recipe's courses into a comma separated string
