@@ -1,7 +1,8 @@
 'use strict';
  angular.module('s2n.apiService', ['ngStorage'])
 
- .factory('apiService', ['$http', '$localStorage', function($http, $localStorage){
+ .factory('apiService', ['$http', '$localStorage', '$location',
+         function($http, $localStorage, $location){
    var apiService = {};
 
    //var urlBase = 'http://soup2nuts.us:90';
@@ -32,9 +33,13 @@
          //this will authenticate the current users token to see if they're logged in
          //if they're not it'll redirect to the login screen, if they are, carry on.
    apiService.getPantry = function(){
-       var promise = $http.get(urlBase + '/pantry/' + jsonEnd). then(function(response){
-           return response;
-       });
+       var promise = $http.get(urlBase + '/pantry/' + jsonEnd).
+           then(function(response){
+                return response;
+           }, function errorCallback(response){
+                console.log("User was not logged in");
+               $location.path('/login');
+            });
 
        return promise;
    };
@@ -56,7 +61,16 @@
    };
 
    apiService.getFavorites = function(){
-     return $http.get(urlBase + '/favorites/' + jsonEnd);
+       var promise = $http.get(urlBase + '/favorites/' + jsonEnd).
+           then(function(response){
+               return response;
+           }, function errorCallback(response){
+               console.log("User was not logged in");
+               $location.path('/login');
+           });
+
+       return promise;
+
    };
 
    apiService.deleteFavorite = function(recipe_name){
