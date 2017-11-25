@@ -1,8 +1,8 @@
 'use strict';
  angular.module('s2n.apiService', ['ngStorage'])
 
- .factory('apiService', ['$http', '$localStorage', '$location',
-         function($http, $localStorage, $location){
+ .factory('apiService', ['$http', '$localStorage', '$location', '$q',
+         function($http, $localStorage, $location, $q){
    var apiService = {};
 
    //var urlBase = 'http://soup2nuts.us:90';
