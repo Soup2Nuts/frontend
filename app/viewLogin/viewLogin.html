@@ -6,29 +6,35 @@
           <span class="md-headline">Account Login</span>
         </md-card-title-text>
       </md-card-title>
-      <md-divider></md-divider>
+        <md-card-content>
+            <form name="loginForm" ng-submit="vm.login()">
+                <div layout="row">
+                    <md-input-container>
+                        <label>Username</label>
+                        <input ng-change="unChanged()" required="true" md-no-asterisk="" ng-model="username" name="username"/>
+                        <div role="alert">
+                            <span class="error" ng-show="loginForm.username.$error.required && usernameChanged">Username is required.</span>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Password</label>
+                        <input  ng-change="pwChanged()" required="true" md-no-asterisk="" type="password" name="password" ng-model="password"/>
+                        <div role="alert">
+                            <span class="error" ng-show="loginForm.password.$error.required && passwordChanged">Password is required.</span>
+                        </div>
+                    </md-input-container>
+                </div>
+                <md-button flex ng-disabled="(password.length>0 && username.length>0)?false:true" type="submit" class="md-raised md-accent md-hue-1">Login</md-button>
+                <span class="error" ng-if="failedToLogin">Login failed.</span>
+            </form>
+        </md-card-content>
       <md-card-actions layout="column">
-          <form name="loginForm" ng-submit="vm.login()">
-            <div layout="row">
-              <md-input-container>
-                <label>Username</label>
-                <input required="true" md-no-asterisk="" ng-model="username" name="username"/>
-                <div role="alert">
-                  <span class="error" ng-show="loginForm.username.$error.required">Username is required.</span>
-                </div>
-              </md-input-container>
-              <md-input-container>
-                <label>Password</label>
-                <input required="true" md-no-asterisk="" type="password" name="password" ng-model="password"/>
-                <div role="alert">
-                  <span class="error" ng-show="loginForm.password.$error.required">Password is required.</span>
-                </div>
-              </md-input-container>
-            </div>
-            <md-button ng-disabled="(password.length>0 && username.length>0)?false:true" type="submit" class="md-raised md-accent md-hue-1">Submit</md-button>
-          </form>
-          <md-button class="md-accent md-hue-2" href="#!/register">Don't have an account?<br>Click here to sign up.</md-button>
-          <span class="error" ng-if="failedToLogin">Login failed.</span>
+          <md-divider></md-divider>
+          <br>
+            <label>Don't have an account?</label>
+          <br>
+          <md-button class="md-alert md-raised" href="#!/register">Sign Up</md-button>
+
       </md-card-actions>
     </md-card>
   </md-content>

@@ -14,7 +14,9 @@ angular
 	.controller('LoginController', ['$location', 'Authentication', '$scope', function($location, Authentication, $scope) {
 		var vm = this;
 		$scope.username = "";
+        $scope.usernameChanged = 0;
 		$scope.password = "";
+        $scope.passwordChanged = 0;
 		$scope.failedToLogin = false;
 		vm.login = login;
 		activate();
@@ -30,4 +32,11 @@ angular
 			$scope.failedToLogin = true;
 		}
 
+        $scope.unChanged = function(){
+            $scope.usernameChanged = 1;
+        }
+
+        $scope.pwChanged = function() {
+            $scope.passwordChanged = 1;
+        }
 	}]);
