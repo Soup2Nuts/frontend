@@ -3,8 +3,8 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
 
 .config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/search', {
-    templateUrl: ' viewSearch/viewSearch.html',
-    controller: 'SearchCtrl',
+    templateUrl: ' viewSearch/viewSearch.html'
+    /*controller: 'SearchCtrl',*/
   });
 }])
     .controller('SearchCtrl', ['$scope', '$mdDialog', '$window', '$timeout', 'apiService', function($scope, $mdDialog, $window, $timeout, apiService) {
