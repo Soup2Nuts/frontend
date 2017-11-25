@@ -75,6 +75,5 @@ function Authentication($http, $location, $localStorage) {
             return false;
         }
     }
-
     return Authentication;
 }

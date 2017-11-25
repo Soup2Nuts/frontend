@@ -74,19 +74,19 @@
                                 About
                             </md-button>
                         </md-menu-item>
-                        <md-menu-item>
+                        <md-menu-item ng-if="ctrl.loggedIn()">
                             <md-button href="#!/account">
                                 <md-icon md-menu-align-target>account_circle</md-icon>
                                 Account Settings
                             </md-button>
                         </md-menu-item>
-                        <md-menu-item>
+                        <md-menu-item ng-if="ctrl.loggedIn()">
                           <md-button href="#!/pantry">
                               <md-icon md-menu-align-target>local_dining</md-icon>
                               Pantry
                           </md-button>
                       </md-menu-item>
-                      <md-menu-item>
+                      <md-menu-item ng-if="ctrl.loggedIn()">
                         <md-button href="#!/search">
                             <md-icon md-menu-align-target>search</md-icon>
                             Search Recipe
