@@ -126,8 +126,8 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
                 if(j < (sub_foods.length-1)){
                   t += ", ";
                 }
-                s = t + ' [substituted for: ' + s + ']'
               }
+              s = t + ' [substituted for: ' + s + ']'
             }
             results.push(s);
           }
