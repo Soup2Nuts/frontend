@@ -48,15 +48,13 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
         }
     });
 
-    //FIX ME!!!!
     //Call the service to get the search results
     function getResults(){
-      apiService.getSearchResults($scope.selectedCourses, $scope.selectedCuisines).then(function(recipes){
-        //$scope.recipes = recipes;
+      apiService.getSearchResults($scope.selectedCourses, $scope.selectedCuisines).then(function(result){
+        $scope.recipes = result.data.value;
       });
-      //console.log($scope.recipes)
-      //REMOVE THE CODE BELOW
-      $scope.recipes = [{"title": "Baked Chicken with Vegetables", "source": "https://whatscooking.fns.usda.gov/recipes/supplemental-nutrition-assistance-program-snap/baked-chicken-vegetables", "cuisines": ["American"], "courses": ["Main Dish"], "ingredients": [{"quantity": "4 ", "name": "potatoes", "notes": "sliced"}, {"quantity": "6 ", "name": "carrot", "notes": "sliced"}, {"quantity": "1 ", "name": "onion", "notes": "large quartered"}, {"quantity": "1 ", "name": "chicken", "notes": "raw - cut into pieces skin removed"}, {"quantity": "1/2 c", "name": "water", "notes": ""}, {"quantity": "1 tsp", "name": "thyme", "notes": ""}, {"quantity": "1/4 tsp", "name": "pepper", "notes": ""}], "substitutions": {"2": [{"quantity": "1", "name": "chives"}], "5": [{"quantity": "1 tsp", "name": "basil"}]}, "numberOfSubstitutions": 2}];
+      console.log($scope.recipes);
+      // $scope.recipes = [{"title": "Baked Chicken with Vegetables", "source": "https://whatscooking.fns.usda.gov/recipes/supplemental-nutrition-assistance-program-snap/baked-chicken-vegetables", "cuisines": ["American"], "courses": ["Main Dish"], "ingredients": [{"quantity": "4 ", "name": "potatoes", "notes": "sliced"}, {"quantity": "6 ", "name": "carrot", "notes": "sliced"}, {"quantity": "1 ", "name": "onion", "notes": "large quartered"}, {"quantity": "1 ", "name": "chicken", "notes": "raw - cut into pieces skin removed"}, {"quantity": "1/2 c", "name": "water", "notes": ""}, {"quantity": "1 tsp", "name": "thyme", "notes": ""}, {"quantity": "1/4 tsp", "name": "pepper", "notes": ""}], "substitutions": {"2": [{"quantity": "1", "name": "chives"}], "5": [{"quantity": "1 tsp", "name": "basil"}]}, "numberOfSubstitutions": 2}];
     }
 
     //Call the service to get the user's favorite recipes

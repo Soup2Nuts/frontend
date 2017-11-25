@@ -1,31 +1,29 @@
 'use strict';
  angular.module('s2n.apiService', ['ngStorage'])
 
- .factory('apiService', ['$http', '$localStorage', '$location', '$q',
-         function($http, $localStorage, $location, $q){
+ .factory('apiService', ['$http', '$localStorage', '$location',
+         function($http, $localStorage, $location){
    var apiService = {};
 
    //var urlBase = 'http://soup2nuts.us:90';
    var urlBase = 'http://127.0.0.1:8000/api';
    var jsonEnd = '?format=json';
 
-   //FIX ME!!!
    apiService.getSearchResults = function(cuisines, courses){
-     var defered = $q.defer();
      var req = {
           url: urlBase + '/search/' + jsonEnd,
           method: "GET",
           data: JSON.stringify({courses: courses, cuisines: cuisines}),
       };
-      var onSuccess = function (response, status, headers, config){
-        console.log(response.value[0])
-        defered.resolve(response.value);
+      var onSuccess = function (response){
+        return response;
       };
-      var onError = function (response, status, headers, config){
-        defered.resolve(status);
+      var errorCallback = function (response){
+        console.log("User was not logged in");
+        $location.path('/login');;
       };
-      $http(req).success(onSuccess).error(onError);
-      return defered.promise;
+      var promise = $http(req).success(onSuccess).error(errorCallback);
+      return promise;
    };
 
    apiService.getFoods = function(){
