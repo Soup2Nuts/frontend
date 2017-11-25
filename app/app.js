@@ -13,11 +13,9 @@ angular.module('s2n', [
     's2n.viewAbout',
     's2n.viewAccount',
     's2n.viewSearch',
-    's2n.viewTemplate',
     's2n.viewRegister',
     's2n.viewLogin',
     's2n.viewPantry',
-    's2n.viewSearchOption',
 ]).
     config(['$locationProvider', '$routeProvider',  function($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');
