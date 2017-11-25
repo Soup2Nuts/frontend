@@ -61,7 +61,18 @@ angular.module('s2n.apiService', ['ngStorage'])
             };
 
             apiService.deletePantryItem = function (food_name) {
-                return $http.delete(urlBase + '/pantry/delete', {params: {food_name: food_name}}); //FIX ME
+                //return $http.delete(urlBase + '/pantry/delete', {params: {food_name: food_name}}); //FIX ME
+                var promise = $http.delete(urlBase + '/pantry/delete', {params: {food_name: food_name}}).
+                    then(function (response) {
+                        return response;
+                    }, function errorCallback(response) {
+                        if (response.status = 403) {
+                            console.log("User was not logged in");
+                            $location.path('/login');
+                        }
+                    });
+
+                return promise;
             };
 
             apiService.addPantryItem = function (food_item) {
@@ -97,7 +108,18 @@ angular.module('s2n.apiService', ['ngStorage'])
             };
 
             apiService.deleteFavorite = function (recipe_name) {
-                return $http.delete(urlBase + '/favorites/delete', {params: {recipe_name: recipe_name}});
+                //return $http.delete(urlBase + '/favorites/delete', {params: {recipe_name: recipe_name}});
+                var promise = $http.delete(urlBase + '/favorites/delete', {params: {recipe_name: recipe_name}}).
+                    then(function (response) {
+                        return response;
+                    }, function errorCallback(response) {
+                        if (response.status = 403) {
+                            console.log("User was not logged in");
+                            $location.path('/login');
+                        }
+                    });
+
+                return promise;
             };
 
             apiService.addFavorite = function (recipe_name) {
