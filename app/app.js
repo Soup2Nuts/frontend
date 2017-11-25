@@ -28,11 +28,12 @@ angular.module('s2n', [
             .warnPalette('red');
         //.backgroundPalette('light-green');
     }).
-    run(function($rootScope, $http, $location, $localStorage) {
+    run(function($rootScope, $http, $location, $localStorage, authManager) {
         //Keep user logged in after page refresh
         if ($localStorage.token){
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
         }
+         authManager.checkAuthOnRefresh();
     }).
     config(['$httpProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider', function($httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
         jwtOptionsProvider.config({whiteListedDomains: ['soup2nuts.us', '127.0.0.1:8887', '127.0.0.1:8000']});

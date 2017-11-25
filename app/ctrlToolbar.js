@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services', 'ngStorage'])
-    .controller('ToolbarCtrl', ['$mdDialog','$location', 'Authentication', '$localStorage', function($mdDialog, $location, Authentication, $localStorage) {
+angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services', 'ngStorage', 'angular-jwt'])
+    .controller('ToolbarCtrl', ['$mdDialog','$location', 'Authentication', '$localStorage', 'jwtHelper', function($mdDialog, $location, Authentication, $localStorage, jwtHelper) {
 
         var originatorEv;
         this.openMenu = function($mdMenu, ev) {
@@ -24,11 +24,10 @@ angular.module('s2n.viewToolbar', ['ngRoute', 's2n.services', 'ngStorage'])
               $location.path('/login');
             }
         };
-        //FIX LATER TO ALSO CHECK IF TOKEN IS VALID
         this.loggedIn = function(){
-          if($localStorage.token){
-            return true;
-          }
-          return false;
+            if($localStorage.token){
+              return !jwtHelper.isTokenExpired($localStorage.token);
+            }
+            return false;
         };
     }]);
