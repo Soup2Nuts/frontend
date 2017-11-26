@@ -17,7 +17,7 @@
                 <md-card-actions layout="column" layout-align="">
                     <md-input-container>
                         <label>New password</label>
-                        <input ng-model="account.changePassword" type="password">
+                        <input ng-model="account.changePassword" ng-change="validatepw()" type="password">
                     </md-input-container>
                     <md-input-container>
                         <label>Confirm new password</label>
