@@ -26,7 +26,6 @@ function Authentication($http, $location, $localStorage) {
         function loginSuccessFn(response) {
             if (response) {
                 // store username and token in local storage to keep user logged in between page refreshes
-                //store.storage.set('sessionData', {'username': username, 'token': response.data.token});
                 $localStorage.token = response.data.token;
                 $localStorage.username = username;
                 // add jwt token to auth header for all requests made by the $http service
