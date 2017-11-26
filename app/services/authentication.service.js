@@ -45,6 +45,7 @@ function Authentication($http, $location, $localStorage) {
         }
     }
 
+    //no tested yet.
     function updatePassword(new_pass,prev_pass){
         return $http.post(urlBase + '/auth/password/', {
             new_password: new_pass, current_password: prev_pass
