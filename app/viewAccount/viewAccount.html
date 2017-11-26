@@ -6,30 +6,26 @@
                         <span class="md-headline">Account Details</span>
                     </md-card-title-text>
                 </md-card-title>
+                <md-divider></md-divider>
                 <md-card-content layout="column">
                     <md-input-container>
-                        <label>Account Name</label>
+                        <label>Username</label>
                         <md-icon>person</md-icon>
                         <input ng-model="account.name" disabled>
-                    </md-input-container>
-                    <md-input-container>
-                        <label>Email</label>
-                        <md-icon>email</md-icon>
-                        <input ng-model="account.email" type="email" disabled>
                     </md-input-container>
                 </md-card-content>
                 <md-card-actions layout="column" layout-align="">
                     <md-input-container>
-                        <label>Change Password</label>
-                        <input ng-model="account.changePassword" type="password">
+                        <label>New password</label>
+                        <input ng-model="account.changePassword" ng-change="validatepw()" type="password">
                     </md-input-container>
                     <md-input-container>
-                        <label>Confirm Password</label>
+                        <label>Confirm new password</label>
                         <input ng-model="account.confirmPassword" ng-change="validatepw()" type="password">
                     </md-input-container>
-                    <md-button ng-disabled="validpw" class="md-raised md-warn">
+                    <md-button ng-disabled="invalidpw" class="md-raised md-warn">
                         <md-icon>settings</md-icon>
-                        Change Password
+                        Change password
                     </md-button>
                 </md-card-actions>
             </md-card>
