@@ -19,7 +19,7 @@ angular.module('s2n.apiService', ['ngStorage'])
                     return response;
                 };
                 var errorCallback = function (response) {
-                    if (response.status = 403) {
+                    if (response.status == 403) {
                         console.log("User was not logged in");
                         $location.path('/login');
                     }
@@ -51,7 +51,7 @@ angular.module('s2n.apiService', ['ngStorage'])
                     then(function (response) {
                         return response;
                     }, function errorCallback(response) {
-                        if (response.status = 403) {
+                        if (response.status == 403) {
                             console.log("User was not logged in");
                             $location.path('/login');
                         }
@@ -66,7 +66,7 @@ angular.module('s2n.apiService', ['ngStorage'])
                     then(function (response) {
                         return response;
                     }, function errorCallback(response) {
-                        if (response.status = 403) {
+                        if (response.status == 403) {
                             console.log("User was not logged in");
                             $location.path('/login');
                         }
@@ -83,7 +83,7 @@ angular.module('s2n.apiService', ['ngStorage'])
                 }).success(function (status) {
                     return status;
                 }).error(function (status) {
-                    if (response.status = 403) {
+                    if (response.status == 403) {
                         console.log("User was not logged in");
                         $location.path('/login');
                     }
@@ -97,7 +97,7 @@ angular.module('s2n.apiService', ['ngStorage'])
                     then(function (response) {
                         return response;
                     }, function errorCallback(response) {
-                        if (response.status = 403) {
+                        if (response.status == 403) {
                             console.log("User was not logged in");
                             $location.path('/login');
                         }

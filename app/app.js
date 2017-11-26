@@ -21,6 +21,11 @@ angular.module('s2n', [
         $locationProvider.hashPrefix('!');
         $routeProvider.otherwise({redirectTo: '/pantry'});
     }]).
+    // config(function Config($httpProvider, jwtOptionsProvider) {
+    //   jwtOptionsProvider.config({
+    //     unauthenticatedRedirectPath: '/login'
+    //   });
+    // }).
     config(function($mdThemingProvider){
         $mdThemingProvider.theme('default')
             .primaryPalette('green')
@@ -34,6 +39,7 @@ angular.module('s2n', [
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
         }
          authManager.checkAuthOnRefresh();
+         // authManager.redirectWhenUnauthenticated();
     }).
     config(['$httpProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider', function($httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
         jwtOptionsProvider.config({whiteListedDomains: ['soup2nuts.us', '127.0.0.1:8887', '127.0.0.1:8000']});

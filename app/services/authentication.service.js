@@ -43,19 +43,32 @@ function Authentication($http, $location, $localStorage) {
     }
 
     function authenticate() {
-        if ($localStorage.token && $localStorage.token === $http.post(urlBase + '/jwt/verify/', {token: $localStorage.token})) {
-            return true;
-        }
-        //If there is not a token stored or the token is not valid, send the user to the login page
-        $localStorage.$reset();
-        $http.defaults.headers.common.Authorization = '';
-        return false;
+      if ($localStorage.token){
+        var req = {
+            url: urlBase + '/jwt/verify/',
+            method: "POST",
+            data: {token: $localStorage.token}
+        };
+        var onSuccess = function (response) {
+            //The token is valid
+            return response.data.token === $localStorage.token;
+        };
+        var onError = function (response) {
+          //The token was invalid or expired
+          $localStorage.$reset();
+          $http.defaults.headers.common.Authorization = '';
+          return false;
+        };
+        return $http.post(urlBase + '/jwt/verify/', {token: $localStorage.token}).then(onSuccess, onError);
+      }
+      //There is not a token stored
+      $localStorage.$reset();
+      $http.defaults.headers.common.Authorization = '';
+      return false;
     }
 
     function logout() {
-        if (authenticate()) {
-            $localStorage.$reset();
-        }
+        $localStorage.$reset();
         $http.defaults.headers.common.Authorization = '';
         $location.path('/about');
     }
