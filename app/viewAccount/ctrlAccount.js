@@ -11,23 +11,22 @@ angular.module('s2n.viewAccount', ['ngRoute'])
 
 .controller('ViewAccountCtrl', ['$scope', function($scope) {
 
-        $scope.validpw = true;
+        $scope.invalidpw = true;
 
         $scope.account = {
             "name": "Dora The Explorer",
-            "email": "dora@noswiping.com",
             "confirmPassword": "",
             "changePassword": ""
-        }
+        };
 
         $scope.validatepw = function () {
             if ($scope.account.confirmPassword == $scope.account.changePassword &&
-                $scope.account.confirmPassword.length > 5
+                $scope.account.confirmPassword.length >= 8
             ) {
-                $scope.validpw = false;
+                $scope.invalidpw = false;
             } else {
-                $scope.validpw = true;
+                $scope.invalidpw = true;
             }
-        }
+        };
 
 }]);
