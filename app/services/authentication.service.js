@@ -13,7 +13,8 @@ function Authentication($http, $location, $localStorage) {
         logout: logout,
         login: login,
         register: register,
-        authenticate: authenticate
+        authenticate: authenticate,
+        setPassword: setPassword
     };
 
     function login(username, password) {
@@ -44,11 +45,6 @@ function Authentication($http, $location, $localStorage) {
 
     function authenticate() {
       if ($localStorage.token){
-        var req = {
-            url: urlBase + '/jwt/verify/',
-            method: "POST",
-            data: {token: $localStorage.token}
-        };
         var onSuccess = function (response) {
             //The token is valid
             return response.data.token === $localStorage.token;
@@ -88,5 +84,16 @@ function Authentication($http, $location, $localStorage) {
             return false;
         }
     }
+
+    function setPassword(new_password, current_password) {
+        var onSuccess = function (response) {
+            console.log(response);
+        };
+        var onError = function (response) {
+          console.log(response);
+        };
+        return $http.post(urlBase + '/password/', {new_password: new_password, current_password: current_password}).then(onSuccess, onError);
+    }
+
     return Authentication;
 }

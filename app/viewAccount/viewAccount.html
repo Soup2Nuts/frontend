@@ -23,7 +23,11 @@
                         <label>Confirm new password</label>
                         <input ng-model="account.confirmPassword" ng-change="validatepw()" type="password">
                     </md-input-container>
-                    <md-button ng-disabled="invalidpw" class="md-raised md-warn">
+                    <md-input-container>
+                        <label>Current password</label>
+                        <input ng-model="account.currentPassword" type="password">
+                    </md-input-container>
+                    <md-button ng-disabled="invalidpw" class="md-raised md-warn" ng-click="changePassword()">
                         <md-icon>settings</md-icon>
                         Change password
                     </md-button>
