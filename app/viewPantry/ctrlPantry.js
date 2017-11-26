@@ -7,7 +7,10 @@ angular.module('s2n.viewPantry', ['ngRoute', 's2n.services', 's2n.apiService'])
             templateUrl: ' viewPantry/viewPantry.html'
         });
     }])
-    .controller('PantryCtrl', ['$scope', '$http', '$mdDialog', '$window', '$timeout', 'apiService', function ($scope, $http, $mdDialog, $window, $timeout, apiService) {
+    .controller('PantryCtrl', ['$scope', '$http', '$mdDialog', '$window', '$timeout', 'apiService', 'Authentication' ,function ($scope, $http, $mdDialog, $window, $timeout, apiService , Authentication) {
+        //console.log(Authentication.authenticate());
+        //$scope.done = Authentication.authenticate();
+        console.log($scope.done);
         this.noCache = "true"
         this.querySearch = querySearch
         this.announceClick = announceClick;
