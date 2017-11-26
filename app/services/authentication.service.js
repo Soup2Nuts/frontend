@@ -25,13 +25,16 @@ function Authentication($http, $location, $localStorage) {
             if (response) {
                 // store username and token in local storage to keep user logged in between page refreshes
                 //store.storage.set('sessionData', {'username': username, 'token': response.data.token});
+                console.log('login success');
                 $localStorage.token = response.data.token;
                 $localStorage.username = username;
+                console.log($localStorage.token);
                 // add jwt token to auth header for all requests made by the $http service
                 $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                 $location.path('/pantry');
             }
             else { // response did not have token
+                console.log('login failed');
                 loginErrorFn(response)
             }
         }
@@ -40,6 +43,28 @@ function Authentication($http, $location, $localStorage) {
             $location.path('/login');
             console.error('Failed to login user ' + response);
         }
+    }
+
+    function updatePassword(new_pass,prev_pass){
+        return $http.post(urlBase + '/auth/password/', {
+            new_password: new_pass, current_password: prev_pass
+        }).then(updateSuccess, updateFailure);
+
+        function updateSuccess(response) {
+            if (response) {
+                console.log('password udpated success');
+                $location.path('/account');
+            }
+            else { 
+                console.log('Update Failed');
+                updateFailure(response)
+            }
+        }
+        function updateFailure(response) {
+            $location.path('/account');
+            console.error('Failed to update password ' + response);
+        }
+
     }
 
     function authenticate() {
@@ -61,12 +86,14 @@ function Authentication($http, $location, $localStorage) {
     }
 
     function register(username, password) {
+        console.log('authenticate');
         return $http.post(urlBase + '/users/create/', {
             email: username + '@TEMP.com',
             username: username,
             password: password
         }).then(registerSuccessFn, registerErrorFn);
         function registerSuccessFn(response) {
+            console.log('authentication SUCCESS');
             Authentication.login(username, password);
         }
 

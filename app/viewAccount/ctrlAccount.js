@@ -9,11 +9,11 @@ angular.module('s2n.viewAccount', ['ngRoute'])
   });
 }])
 
-.controller('ViewAccountCtrl', ['$scope', 'Authentication', function($scope,Authentication,) {
+.controller('ViewAccountCtrl', ['$scope', 'Authentication', '$localStorage' ,function($scope,Authentication,$localStorage) {
 
         $scope.invalidpw = true;
 
-        //console.log($localStorage.token);
+        console.log($localStorage.token);
 
         $scope.isvalid = Authentication.authenticate();
 
