@@ -13,11 +13,9 @@ angular.module('s2n', [
     's2n.viewAbout',
     's2n.viewAccount',
     's2n.viewSearch',
-    's2n.viewTemplate',
     's2n.viewRegister',
     's2n.viewLogin',
     's2n.viewPantry',
-    's2n.viewSearchOption',
 ]).
     config(['$locationProvider', '$routeProvider',  function($locationProvider, $routeProvider) {
         $locationProvider.hashPrefix('!');
@@ -30,11 +28,12 @@ angular.module('s2n', [
             .warnPalette('red');
         //.backgroundPalette('light-green');
     }).
-    run(function($rootScope, $http, $location, $localStorage) {
+    run(function($rootScope, $http, $location, $localStorage, authManager) {
         //Keep user logged in after page refresh
         if ($localStorage.token){
             $http.defaults.headers.common.Authorization = 'Bearer ' + $localStorage.token;
         }
+         authManager.checkAuthOnRefresh();
     }).
     config(['$httpProvider', 'jwtInterceptorProvider', 'jwtOptionsProvider', function($httpProvider, jwtInterceptorProvider, jwtOptionsProvider) {
         jwtOptionsProvider.config({whiteListedDomains: ['soup2nuts.us', '127.0.0.1:8887', '127.0.0.1:8000']});

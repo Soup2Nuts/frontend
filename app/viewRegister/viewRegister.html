@@ -7,31 +7,34 @@
         </md-card-title-text>
       </md-card-title>
       <md-divider></md-divider>
-      <md-card-actions layout="column">
-          <form name="registerForm" ng-submit="vm.register()">
-            <div layout="row">
-              <md-input-container>
-                <label>Username</label>
-                <input ng-minlength="5" required="true" md-no-asterisk="" name="username" ng-model="username">
-                <div role="alert">
-                  <span class="error" ng-show="registerForm.username.$error.required">Username is required.</span>
-                  <span class="error" ng-show="registerForm.username.$error.minlength">Username is too short.</span>
+        <md-card-content>
+            <form name="registerForm" ng-submit="vm.register()">
+                <div layout="row">
+                    <md-input-container>
+                        <label>Username</label>
+                        <input ng-change="unChanged()" ng-minlength="5" required="true" md-no-asterisk="" name="username" ng-model="username">
+                        <div role="alert">
+                            <span class="error" ng-show="registerForm.username.$error.required && usernameChanged">Username is required.</span>
+                            <span class="error" ng-show="registerForm.username.$error.minlength">Username is too short.</span>
+                        </div>
+                    </md-input-container>
+                    <md-input-container>
+                        <label>Password</label>
+                        <input ng-change="pwChanged()" ng-minlength="8" required="true" md-no-asterisk="" type="password" name="password" ng-model="password">
+                        <div role="alert">
+                            <span class="error" ng-show="registerForm.password.$error.required && passwordChanged">Password is required.</span>
+                            <span class="error" ng-show="registerForm.password.$error.minlength">Password is too short.</span>
+                        </div>
+                    </md-input-container>
                 </div>
-              </md-input-container>
-              <md-input-container>
-                <label>Password</label>
-                <input ng-minlength="8" required="true" md-no-asterisk="" type="password" name="password" ng-model="password">
-                <div role="alert">
-                  <span class="error" ng-show="registerForm.password.$error.required">Password is required.</span>
-                  <span class="error" ng-show="registerForm.password.$error.minlength">Password is too short.</span>
-                </div>
-              </md-input-container>
-            </div>
-            <md-button ng-disabled="(password.length>=8 && username.length>= 5)?false:true" type="submit" class="md-raised md-accent md-hue-1">Submit</md-button>
-          </form>
-          <md-button class="md-accent md-hue-2" href="#!/login">Already have an account?<br>Click to here to login.</md-button>
-          <span class="error" ng-if="failedToRegister">Registration failed.</span>
+                <md-button ng-disabled="(password.length>=8 && username.length>= 5)?false:true" type="submit" class="md-raised md-accent md-hue-1">Submit</md-button>
+                <span class="error" ng-if="failedToRegister">Registration failed.</span>
+            </form>
+        </md-card-content>
+
+        <md-card-actions layout="column">
+            <md-button class="md-raised" href="#!/login">Have an account?<b> Login</b></md-button>
       </md-card-actions>
-    <md-card>
-  <md-content>
+    </md-card>
+  </md-content>
 </div>
