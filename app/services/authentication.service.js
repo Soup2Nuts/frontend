@@ -86,13 +86,20 @@ function Authentication($http, $location, $localStorage) {
     }
 
     function setPassword(new_password, current_password) {
+        var req = {
+            url: urlBase + '/password/',
+            method: "POST",
+            data: JSON.stringify({new_password: new_password, current_password: current_password})
+        };
         var onSuccess = function (response) {
-            console.log(response);
+            console.log('Successfully changed password.');
+            return response;
         };
         var onError = function (response) {
-          console.log(response);
+            console.log('Failed to change password.');
+            return response;
         };
-        return $http.post(urlBase + '/password/', {new_password: new_password, current_password: current_password}).then(onSuccess, onError);
+        return $http(req).success(onSuccess).error(onError);
     }
 
     return Authentication;

@@ -11,8 +11,7 @@ angular.module('s2n.viewAccount', ['ngRoute', 's2n.services', 'angular-jwt', 'ng
 
 .controller('ViewAccountCtrl', ['$scope', 'Authentication', 'jwtHelper', '$localStorage', function($scope, Authentication, jwtHelper, $localStorage) {
 
-        $scope.invalidpw = true;
-
+        $scope.failedToChangePw = false;
         $scope.account = {
             "name": "Dora The Explorer",
             "confirmPassword": "",
@@ -21,18 +20,17 @@ angular.module('s2n.viewAccount', ['ngRoute', 's2n.services', 'angular-jwt', 'ng
         };
         $scope.account.name = jwtHelper.decodeToken($localStorage.token).username;
 
-        $scope.validatepw = function () {
-            if ($scope.account.confirmPassword == $scope.account.changePassword &&
-                $scope.account.confirmPassword.length >= 8
-            ) {
-                $scope.invalidpw = false;
-            } else {
-                $scope.invalidpw = true;
-            }
-        };
-
         $scope.changePassword = function(){
-          Authentication.setPassword($scope.account.changePassword, $scope.account.currentPassword);
+          var onSuccess = function (response) {
+              $scope.failedToChangePw = false;
+              $scope.account.confirmPassword = "";
+              $scope.account.currentPassword = "";
+              $scope.account.changePassword = "";
+          };
+          var onError = function (response) {
+              $scope.failedToChangePw = true;
+          };
+          Authentication.setPassword($scope.account.changePassword, $scope.account.currentPassword).success(onSuccess).error(onError);
         }
 
 

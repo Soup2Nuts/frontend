@@ -17,20 +17,22 @@
                 <md-card-actions layout="column" layout-align="">
                     <md-input-container>
                         <label>New password</label>
-                        <input ng-model="account.changePassword" ng-change="validatepw()" type="password">
+                        <input ng-model="account.changePassword" type="password">
                     </md-input-container>
                     <md-input-container>
                         <label>Confirm new password</label>
-                        <input ng-model="account.confirmPassword" ng-change="validatepw()" type="password">
+                        <input ng-model="account.confirmPassword" type="password">
                     </md-input-container>
                     <md-input-container>
                         <label>Current password</label>
                         <input ng-model="account.currentPassword" type="password">
                     </md-input-container>
-                    <md-button ng-disabled="invalidpw" class="md-raised md-warn" ng-click="changePassword()">
+                    <md-button ng-disabled="(account.changePassword != account.confirmPassword)||(account.changePassword.length<8)||(account.currentPassword.length<1)" class="md-raised md-warn" ng-click="changePassword()">
                         <md-icon>settings</md-icon>
                         Change password
                     </md-button>
+                    <br>
+                    <span class="error" ng-if="failedToChangePw">Password change failed.</span>
                 </md-card-actions>
             </md-card>
     </md-content>
