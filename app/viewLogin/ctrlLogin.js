@@ -14,9 +14,9 @@ angular
 	.controller('LoginController', ['$location', 'Authentication', '$scope', function($location, Authentication, $scope) {
 		var vm = this;
 		$scope.username = "";
-        $scope.usernameChanged = 0;
+    $scope.usernameChanged = 0;
 		$scope.password = "";
-        $scope.passwordChanged = 0;
+    $scope.passwordChanged = 0;
 		$scope.failedToLogin = false;
 		vm.login = login;
 		activate();
