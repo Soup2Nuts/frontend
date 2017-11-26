@@ -31,8 +31,9 @@ function Authentication($http, $location, $localStorage) {
                 $http.defaults.headers.common.Authorization = 'Bearer ' + response.data.token;
                 $location.path('/pantry');
             }
-            else { // response did not have token
-                loginErrorFn(response)
+            else {
+                // response did not have token
+                loginErrorFn(response);
             }
         }
 

@@ -18,13 +18,14 @@ angular.module('s2n.apiService', ['ngStorage'])
                 var onSuccess = function (response) {
                     return response;
                 };
-                var errorCallback = function (response) {
-                    if (response.status == 403) {
+                var onError = function (response) {
+                    if (response.status == 403 || response.status == 401) {
                         console.log("User was not logged in");
                         $location.path('/login');
                     }
+                    return response.status;
                 };
-                var promise = $http(req).success(onSuccess).error(errorCallback);
+                var promise = $http(req).success(onSuccess).error(onError);
                 return promise;
             };
 
@@ -51,10 +52,11 @@ angular.module('s2n.apiService', ['ngStorage'])
                     then(function (response) {
                         return response;
                     }, function errorCallback(response) {
-                        if (response.status == 403) {
+                        if (response.status == 403 || response.status == 401) {
                             console.log("User was not logged in");
                             $location.path('/login');
                         }
+                        return response.status;
                     });
 
                 return promise;
@@ -66,12 +68,12 @@ angular.module('s2n.apiService', ['ngStorage'])
                     then(function (response) {
                         return response;
                     }, function errorCallback(response) {
-                        if (response.status == 403) {
+                        if (response.status == 403 || response.status == 401) {
                             console.log("User was not logged in");
                             $location.path('/login');
                         }
+                        return response.status;
                     });
-
                 return promise;
             };
 
@@ -83,12 +85,11 @@ angular.module('s2n.apiService', ['ngStorage'])
                 }).success(function (status) {
                     return status;
                 }).error(function (status) {
-                    if (response.status == 403) {
+                    if (status == 403 || status == 401) {
                         console.log("User was not logged in");
                         $location.path('/login');
                     }
                     return status;
-
                 });
             };
 
@@ -97,10 +98,11 @@ angular.module('s2n.apiService', ['ngStorage'])
                     then(function (response) {
                         return response;
                     }, function errorCallback(response) {
-                        if (response.status == 403) {
+                        if (response.status == 403 || response.status == 401) {
                             console.log("User was not logged in");
                             $location.path('/login');
                         }
+                        return response.status;
                     });
 
                 return promise;
@@ -113,10 +115,11 @@ angular.module('s2n.apiService', ['ngStorage'])
                     then(function (response) {
                         return response;
                     }, function errorCallback(response) {
-                        if (response.status = 403) {
+                        if (response.status = 403 || response.status == 401) {
                             console.log("User was not logged in");
                             $location.path('/login');
                         }
+                        return response.status;
                     });
 
                 return promise;
@@ -129,13 +132,13 @@ angular.module('s2n.apiService', ['ngStorage'])
                     data: {recipe_name: recipe_name}
                 }).success(function (status) {
                     return status;
-                }).error(function (status) {
-                    if (response.status = 403) {
+                }).error(function (response) {
+                    if (response.status = 403 || response.status == 401) {
                         console.log("User was not logged in");
                         $location.path('/login');
                     }
+                    return response.status;
                 });
             };
-
             return apiService;
         }]);
