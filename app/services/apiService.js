@@ -11,9 +11,9 @@ angular.module('s2n.apiService', ['ngStorage'])
 
             apiService.getSearchResults = function (cuisines, courses) {
                 var req = {
-                    url: urlBase + '/search/' + jsonEnd,
+                    url: urlBase + '/search',
                     method: "GET",
-                    data: JSON.stringify({courses: courses, cuisines: cuisines})
+                    params: {courses: courses, cuisines: cuisines}
                 };
                 var onSuccess = function (response) {
                     return response;
@@ -63,7 +63,6 @@ angular.module('s2n.apiService', ['ngStorage'])
             };
 
             apiService.deletePantryItem = function (food_name) {
-                //return $http.delete(urlBase + '/pantry/delete', {params: {food_name: food_name}}); //FIX ME
                 var promise = $http.delete(urlBase + '/pantry/delete', {params: {food_name: food_name}}).
                     then(function (response) {
                         return response;
