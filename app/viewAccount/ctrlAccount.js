@@ -9,9 +9,18 @@ angular.module('s2n.viewAccount', ['ngRoute', 's2n.services'])
   });
 }])
 
-.controller('ViewAccountCtrl', ['$scope', 'Authentication', function($scope, Authentication) {
+.controller('ViewAccountCtrl', ['$scope','$localStorage', 'Authentication', function($scope, $localStorage,Authentication) {
+
+        console.log($localStorage.token)
 
         $scope.invalidpw = true;
+
+        $scope.auth = Authentication.authenticate();
+        Authentication.authorizeMe();
+
+        Authentication.updatePassword("marinara123","spaghetti123");
+
+        console.log($scope.auth);
 
         $scope.account = {
             "name": "Dora The Explorer",

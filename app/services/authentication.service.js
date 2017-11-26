@@ -13,7 +13,9 @@ function Authentication($http, $location, $localStorage) {
         logout: logout,
         login: login,
         register: register,
-        authenticate: authenticate
+        authenticate: authenticate,
+        updatePassword : updatePassword,
+        authorizeMe : authorizeMe
     };
 
     function login(username, password) {
@@ -85,6 +87,36 @@ function Authentication($http, $location, $localStorage) {
         }
 
         function registerErrorFn(response) {
+            console.log(response);
+            return false;
+        }
+    }
+
+    function authorizeMe(){
+        console.log('try to authorize you ');
+        return $http.post(urlBase + '/me/' , {"token":$localStorage.token}).then(success, failure);
+        function success(response) {
+            console.log('success');
+        }
+
+        function failure(response) {
+            console.log(response);
+            return false;
+        }
+    }
+
+    function updatePassword(old_p,new_p){
+        console.log(old_p,new_p);
+        return $http.post(urlBase + '/password/', {
+            "new_password": new_p,
+            "current_password": old_p,
+            "token":$localStorage.token
+        } ).then(success, failure);
+        function success(response) {
+            console.log('success');
+        }
+
+        function failure(response) {
             console.log(response);
             return false;
         }
