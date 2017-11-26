@@ -97,7 +97,7 @@ angular.module('s2n.viewSearch', ['ngRoute', 's2n.apiService'])
     $scope.showRecipeDialog = function(ev, $recipe){
       $mdDialog.show({
         controller: DialogController,
-        templateUrl:'viewSearch/recipeDialog.tmpl.html',
+        templateUrl:'viewPantry/recipeDialog.tmpl.html',
         parent: angular.element(document.body),
         targetEvent: ev,
         clickOutsideToClose:true,
