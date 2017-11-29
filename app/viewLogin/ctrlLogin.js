@@ -19,7 +19,7 @@ angular
     $scope.passwordChanged = 0;
 		$scope.failedToLogin = false;
 		vm.login = login;
-		activate();
+		// activate();
 
 		function activate() {
 			if(Authentication.authenticate()) {
