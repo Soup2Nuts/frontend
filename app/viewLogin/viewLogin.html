@@ -25,12 +25,12 @@
                         </div>
                     </md-input-container>
                 </div>
-                <md-button flex ng-disabled="(password.length>0 && username.length>0)?false:true" type="submit" class="md-raised md-accent md-hue-1">Login</md-button>
+                <md-button id="login-button" flex ng-disabled="(password.length>0 && username.length>0)?false:true" type="submit" class="md-raised md-accent md-hue-1">Login</md-button>
                 <span class="error" ng-if="failedToLogin">Login failed.</span>
             </form>
         </md-card-content>
       <md-card-actions layout="column">
-          <md-button class="md-raised" href="#!/register">Don't have an account?<b> Sign Up</b></md-button>
+          <md-button id="signup-button" class="md-raised" href="#!/register">Don't have an account?<b> Sign Up</b></md-button>
       </md-card-actions>
     </md-card>
   </md-content>

@@ -3,15 +3,53 @@
 /* https://github.com/angular/protractor/blob/master/docs/toc.md */
 
 describe('my app', function() {
+  var currentUser = "testing" + Date.now();
+  var password = "password"+Date.now();
+  beforeEach(function() {
+    // browser.executeScript('window.sessionStorage.clear();');
+    browser.driver.manage().deleteAllCookies();
+  });
 
-
-  it('should automatically redirect to /view1 when location hash/fragment is empty', function() {
+  it('should automatically redirect to /login when it is not logged in', function() {
     browser.get('index.html');
-    expect(browser.getLocationAbsUrl()).toMatch("/view1");
+    expect(browser.getLocationAbsUrl()).toMatch("/login");
+  });
+
+  it('should not login when wrong username or password is given', function() {
+    browser.get('/');
+    element(by.model('username')).clear().sendKeys('testing');
+    element(by.model('password')).clear().sendKeys('testing');
+    expect(element(by.id('login-button')).isEnabled()).toBe(true);
+    element(by.id('login-button')).click();  
+    expect(element(by.css('form>span'))).not.toBeNull();
+    // expect(browser.getLocationAbsUrl()).toMatch("/login");
+  });
+
+  it('should redirect to signup page when signup button is clicked', function() {
+    browser.get('/');
+    element(by.id('signup-button')).click();
+    expect(browser.getLocationAbsUrl()).toMatch("/register");
+  });
+
+  it('should create a user in signup page and successfully login', function() {
+    browser.get('/');
+    element(by.id('signup-button')).click();
+    element(by.model('username')).clear().sendKeys(currentUser);
+    element(by.model('password')).clear().sendKeys(password);
+    expect(element(by.id('submit-button')).isEnabled()).toBe(true);
+    element(by.id('submit-button')).click();  
+    expect(browser.getLocationAbsUrl()).toMatch("/pantry");
+  });
+
+  it('should logout successfully even after refreshing the page', function() {
+    browser.get('/');
+    expect(browser.getLocationAbsUrl()).toMatch("/pantry");
+    element(by.id('login-button')).click();
+    expect(browser.getLocationAbsUrl()).toMatch("/about");
   });
 
 
-  describe('view1', function() {
+  /*describe('view1', function() {
 
     beforeEach(function() {
       browser.get('index.html#!/view1');
@@ -38,5 +76,5 @@ describe('my app', function() {
         toMatch(/partial for view 2/);
     });
 
-  });
+  });*/
 });
