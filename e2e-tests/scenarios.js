@@ -66,7 +66,7 @@ describe('my app', function() {
 
         expect(val).toEqual(currentUser);
 
-    })
+    });
 
 
     /*describe('view1', function() {

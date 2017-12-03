@@ -1,8 +1,8 @@
 describe("pantry-test", function(){
     describe("index", function(){
-
         beforeEach(function() {
-            // browser.executeScript('window.sessionStorage.clear();');
+            browser.executeScript('window.sessionStorage.clear();');
+            browser.executeScript('window.localStorage.clear();');
             browser.driver.manage().deleteAllCookies();
             browser.get('/#!');
         });
@@ -21,8 +21,10 @@ describe("pantry-test", function(){
               .mouseMove(element(by.id('ingredientSearch')))
               .perform().then(function(){
               browser.sleep(500);
+              
+              var itemIndex = 1; //want to select the first autocomplete item
               //Press the down arrow until you get to the first autocomplete item
-              for(i = 0; i < 2; i++){
+              for(i = 0; i < itemIndex; i++){
                   browser.actions().sendKeys(protractor.Key.ARROW_DOWN).perform();
               }
               browser.sleep(500);
@@ -34,7 +36,7 @@ describe("pantry-test", function(){
 
             expect(browser.getCurrentUrl()).toMatch("/pantry");
             element(by.id('login-logout-button')).click();
-        })
+        });
 
         it("login and delete everything in the users pantry using the delete all button", function(){
             element(by.model('username')).clear().sendKeys('supersoup');
@@ -46,8 +48,8 @@ describe("pantry-test", function(){
             expect(element.all(by.repeater('item in pantryItems')).count()).toEqual(0);
             element(by.id('login-logout-button')).click();
             expect(browser.getCurrentUrl()).toMatch("/about");
-        })
-    })
+        });
+    });
 
 
     /* Cool slowdown code
