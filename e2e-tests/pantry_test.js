@@ -7,21 +7,36 @@ describe("pantry-test", function(){
             browser.get('/#!');
         });
 
-/*        it("login and add everything from the search to the pantry", function(){
+        it("login and add everything from the search to the pantry", function(){
             element(by.model('username')).clear().sendKeys('supersoup');
             element(by.model('password')).clear().sendKeys('Bananaphone1!');
             element(by.id('login-button')).click();
             browser.waitForAngular();
-            element(by.css('.rightHere')).click();
-            //element(by.id('ingredientSearch md-autocomplete-wrap input')).click().sendKeys(protractor.Key.ARROW_DOWN);
-            //element(by.id('ingredientSearch md-autocomplete-wrap input')).click().sendKeys(protractor.Key.ARROW_DOWN);
-            //element(by.id('btnAddIngredient')).click();
+
+            //Enter 's' into the autocomplete
+            element(by.css("md-autocomplete input#autocompleteFoodInput")).clear().sendKeys('s');
+
+            //Move mouse to the autocomplete
+            browser.actions()
+              .mouseMove(element(by.id('ingredientSearch')))
+              .perform().then(function(){
+              browser.sleep(500);
+              //Press the down arrow until you get to the first autocomplete item
+              for(i = 0; i < 2; i++){
+                  browser.actions().sendKeys(protractor.Key.ARROW_DOWN).perform();
+              }
+              browser.sleep(500);
+              //Select the first autocomplete item
+              browser.actions().sendKeys(protractor.Key.ENTER).perform();
+            });
+            //Click the "ADD ITEM" button
+            element(by.id('btnAddIngredient')).click();
 
             expect(browser.getCurrentUrl()).toMatch("/pantry");
             element(by.id('login-logout-button')).click();
-        })*/
+        })
 
-      /*  it("login and delete everything in the users pantry using the delete all button", function(){
+        it("login and delete everything in the users pantry using the delete all button", function(){
             element(by.model('username')).clear().sendKeys('supersoup');
             element(by.model('password')).clear().sendKeys('Bananaphone1!');
             element(by.id('login-button')).click();
@@ -31,7 +46,7 @@ describe("pantry-test", function(){
             expect(element.all(by.repeater('item in pantryItems')).count()).toEqual(0);
             element(by.id('login-logout-button')).click();
             expect(browser.getCurrentUrl()).toMatch("/about");
-        })*/
+        })
     })
 
 

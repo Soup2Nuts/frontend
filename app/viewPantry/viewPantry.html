@@ -10,7 +10,7 @@
       <md-divider></md-divider>
       <div class="md-padding" flex layout-align="start center" ng-cloak>
         <form name="addFood">
-          <md-autocomplete id="ingredientSearch" class="rightHere" md-no-cache="ctrl.noCache" required md-require-match="true" md-selected-item="selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)|orderBy:'toString()'" md-item-text="item" md-min-length="desktopTemplate?0:1" placeholder="Enter a food name">
+          <md-autocomplete md-input-id="autocompleteFoodInput" id="ingredientSearch" md-no-cache="ctrl.noCache" required md-require-match="true" md-selected-item="selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)|orderBy:'toString()'" md-item-text="item" md-min-length="desktopTemplate?0:1" placeholder="Enter a food name">
             <md-item-template>
               <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
             </md-item-template>

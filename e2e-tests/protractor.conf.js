@@ -4,11 +4,10 @@ exports.config = {
   allScriptsTimeout: 11000,
 
   specs: [
-     //
-     // 'services/apiService_test.js',
-        '*.js',
-      //'*_test.js'
 
+        'services/apiService_test.js',
+        '*_test.js',
+    //  '*.js',
   ],
 
   capabilities: {
