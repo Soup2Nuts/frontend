@@ -44,7 +44,7 @@ describe('my app', function() {
   it('should logout successfully even after refreshing the page', function() {
     browser.get('/');
     expect(browser.getLocationAbsUrl()).toMatch("/pantry");
-    element(by.id('login-button')).click();
+    element(by.id('login-logout-button')).click();
     expect(browser.getLocationAbsUrl()).toMatch("/about");
   });
 
