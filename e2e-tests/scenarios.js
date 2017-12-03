@@ -8,8 +8,9 @@ describe('my app', function() {
   beforeEach(function() {
     // browser.executeScript('window.sessionStorage.clear();');
         browser.driver.manage().deleteAllCookies();
-        browser.get('/#!');
+        browser.get('#!/');
   });
+
 
   it('should automatically redirect to /login when it is not logged in', function() {
 
@@ -32,6 +33,7 @@ describe('my app', function() {
     expect(browser.getLocationAbsUrl()).toMatch("/register");
   });
 
+
   it('should create a user in signup page and successfully login', function() {
 
     element(by.id('signup-button')).click();
@@ -42,40 +44,57 @@ describe('my app', function() {
     expect(browser.getLocationAbsUrl()).toMatch("/pantry");
   });
 
-  it('should logout successfully even after refreshing the page', function() {
 
-    expect(browser.getLocationAbsUrl()).toMatch("/pantry");
-    element(by.id('login-logout-button')).click();
-    expect(browser.getLocationAbsUrl()).toMatch("/about");
-  });
+    it('should logout successfully even after refreshing the page', function() {
 
-
-  /*describe('view1', function() {
-
-    beforeEach(function() {
-      browser.get('index.html#!/view1');
+        expect(browser.getLocationAbsUrl()).toMatch("/pantry");
+        element(by.id('login-logout-button')).click();
+        expect(browser.getLocationAbsUrl()).toMatch("/about");
     });
 
 
-    it('should render view1 when user navigates to /view1', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 1/);
+    it(" should log in, navigate to account settings to confirm it loaded it's username properly", function(){
+        element(by.model('username')).clear().sendKeys(currentUser);
+        element(by.model('password')).clear().sendKeys(password);
+        expect(element(by.id('login-button')).isEnabled()).toBe(true);
+        element(by.id('login-button')).click();
+        element(by.id('btnMenu')).click();
+        element(by.id('btnMenuAccount')).click();
+        expect(browser.getCurrentUrl()).toMatch("/account");
+        var el = element(by.model('account.name'));
+        var val = el.getAttribute('value');
+
+        expect(val).toEqual(currentUser);
+
+    })
+
+
+    /*describe('view1', function() {
+
+      beforeEach(function() {
+        browser.get('index.html#!/view1');
+      });
+
+
+      it('should render view1 when user navigates to /view1', function() {
+        expect(element.all(by.css('[ng-view] p')).first().getText()).
+          toMatch(/partial for view 1/);
+      });
+
     });
 
-  });
+
+    describe('view2', function() {
+
+      beforeEach(function() {
+        browser.get('index.html#!/viewAccount');
+      });
 
 
-  describe('view2', function() {
+      it('should render viewAccount when user navigates to /viewAccount', function() {
+        expect(element.all(by.css('[ng-view] p')).first().getText()).
+          toMatch(/partial for view 2/);
+      });
 
-    beforeEach(function() {
-      browser.get('index.html#!/viewAccount');
-    });
-
-
-    it('should render viewAccount when user navigates to /viewAccount', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 2/);
-    });
-
-  });*/
+    });*/
 });

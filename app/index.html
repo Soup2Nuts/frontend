@@ -64,29 +64,29 @@
                 <h2 flex md-truncate>Soup2Nuts</h2>
                 <md-button id="login-logout-button" flex='10' aria-label="Login/Logout" ng-click="ctrl.switchLogged()">{{ctrl.loggedIn()?"Logout":"Login"}}</md-button>
                 <md-menu>
-                    <md-button aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdMenu, $event)">
+                    <md-button id="btnMenu" aria-label="Open phone interactions menu" class="md-icon-button" ng-click="ctrl.openMenu($mdMenu, $event)">
                         <md-icon md-menu-origin>more_vert</md-icon>
                     </md-button>
                     <md-menu-content width="4">
                         <md-menu-item>
-                            <md-button href="#!/about">
+                            <md-button id="btnMenuAbout" href="#!/about">
                                 <md-icon md-menu-align-target>info</md-icon>
                                 About
                             </md-button>
                         </md-menu-item>
                         <md-menu-item ng-if="ctrl.loggedIn()">
-                            <md-button href="#!/account">
+                            <md-button id="btnMenuAccount" href="#!/account">
                                 <md-icon md-menu-align-target>account_circle</md-icon>
                                 Account Settings
                             </md-button>
                         </md-menu-item>
                         <md-menu-item ng-if="ctrl.loggedIn()">
-                          <md-button href="#!/pantry">
+                          <md-button id="btnMenuPantry" href="#!/pantry">
                               <md-icon md-menu-align-target>local_dining</md-icon>
                               Pantry
                           </md-button>
                       </md-menu-item>
-                      <md-menu-item ng-if="ctrl.loggedIn()">
+                      <md-menu-item id="btnMenuSearch" ng-if="ctrl.loggedIn()">
                         <md-button href="#!/search">
                             <md-icon md-menu-align-target>search</md-icon>
                             Search Recipe

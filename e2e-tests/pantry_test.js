@@ -12,16 +12,16 @@ describe("pantry-test", function(){
             element(by.model('password')).clear().sendKeys('Bananaphone1!');
             element(by.id('login-button')).click();
             browser.waitForAngular();
-            element(by.id('ingredientSearch')).click();
-            element(by.id('ingredientSearch')).sendKeys(protractor.Key.ARROW_DOWN);
-                //.sendKeys(protractor.Key.ENTER);
-            element(by.id('btnAddIngredient')).click();
+            element(by.css('.rightHere')).click();
+            //element(by.id('ingredientSearch md-autocomplete-wrap input')).click().sendKeys(protractor.Key.ARROW_DOWN);
+            //element(by.id('ingredientSearch md-autocomplete-wrap input')).click().sendKeys(protractor.Key.ARROW_DOWN);
+            //element(by.id('btnAddIngredient')).click();
 
-            expect(browser.getLocationAbsUrl()).toMatch("/pantry");
+            expect(browser.getCurrentUrl()).toMatch("/pantry");
             element(by.id('login-logout-button')).click();
         })*/
 
-        it("login and delete everything in the users pantry using the delete all button", function(){
+      /*  it("login and delete everything in the users pantry using the delete all button", function(){
             element(by.model('username')).clear().sendKeys('supersoup');
             element(by.model('password')).clear().sendKeys('Bananaphone1!');
             element(by.id('login-button')).click();
@@ -30,10 +30,12 @@ describe("pantry-test", function(){
             element(by.css('body > div.md-dialog-container.ng-scope > md-dialog > md-dialog-actions > button.md-primary.md-confirm-button.md-button.md-ink-ripple.md-default-theme')).click();
             expect(element.all(by.repeater('item in pantryItems')).count()).toEqual(0);
             element(by.id('login-logout-button')).click();
-            expect(browser.getLocationAbsUrl()).toMatch("/about");
-        })
+            expect(browser.getCurrentUrl()).toMatch("/about");
+        })*/
     })
 
+
+    /* Cool slowdown code
     var origFn = browser.driver.controlFlow().execute;
 
     browser.driver.controlFlow().execute = function() {
@@ -45,6 +47,6 @@ describe("pantry-test", function(){
         });
 
         return origFn.apply(browser.driver.controlFlow(), args);
-    };
+    };*/
 
 });
