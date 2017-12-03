@@ -13,7 +13,7 @@ describe('my app', function() {
 
   it('should automatically redirect to /login when it is not logged in', function() {
 
-    expect(browser.getLocationAbsUrl()).toMatch("/login");
+    expect(browser.getCurrentUrl()).toMatch("/login");
   });
 
   it('should not login when wrong username or password is given', function() {
@@ -21,7 +21,7 @@ describe('my app', function() {
     element(by.model('username')).clear().sendKeys('testing');
     element(by.model('password')).clear().sendKeys('testing');
     expect(element(by.id('login-button')).isEnabled()).toBe(true);
-    element(by.id('login-button')).click();  
+    element(by.id('login-button')).click();
     expect(element(by.css('form>span'))).not.toBeNull();
     // expect(browser.getLocationAbsUrl()).toMatch("/login");
   });
@@ -29,7 +29,7 @@ describe('my app', function() {
   it('should redirect to signup page when signup button is clicked', function() {
 
     element(by.id('signup-button')).click();
-    expect(browser.getLocationAbsUrl()).toMatch("/register");
+    expect(browser.getCurrentUrl()).toMatch("/register");
   });
 
   it('should create a user in signup page and successfully login', function() {
@@ -38,15 +38,15 @@ describe('my app', function() {
     element(by.model('username')).clear().sendKeys(currentUser);
     element(by.model('password')).clear().sendKeys(password);
     expect(element(by.id('submit-button')).isEnabled()).toBe(true);
-    element(by.id('submit-button')).click();  
-    expect(browser.getLocationAbsUrl()).toMatch("/pantry");
+    element(by.id('submit-button')).click();
+    expect(browser.getCurrentUrl()).toMatch("/pantry");
   });
 
   it('should logout successfully even after refreshing the page', function() {
 
-    expect(browser.getLocationAbsUrl()).toMatch("/pantry");
+    expect(browser.getCurrentUrl()).toMatch("/pantry");
     element(by.id('login-logout-button')).click();
-    expect(browser.getLocationAbsUrl()).toMatch("/about");
+    expect(browser.getCurrentUrl()).toMatch("/about");
   });
 
 

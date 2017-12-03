@@ -5,7 +5,8 @@ exports.config = {
 
   specs: [
       'services/apiService_test.js',
-      '*.js'
+      'pantry_test.js'
+      // '*.js'
 
   ],
 
