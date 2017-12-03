@@ -10,7 +10,7 @@
       <md-divider></md-divider>
       <div class="md-padding" flex layout-align="start center" ng-cloak>
         <form name="addFood">
-          <md-autocomplete md-no-cache="ctrl.noCache" required md-require-match="true" md-selected-item="selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)|orderBy:'toString()'" md-item-text="item" md-min-length="desktopTemplate?0:1" placeholder="Enter a food name">
+          <md-autocomplete id="ingredientSearch" md-no-cache="ctrl.noCache" required md-require-match="true" md-selected-item="selectedItem" md-search-text="ctrl.searchText" md-items="item in ctrl.querySearch(ctrl.searchText)|orderBy:'toString()'" md-item-text="item" md-min-length="desktopTemplate?0:1" placeholder="Enter a food name">
             <md-item-template>
               <span md-highlight-text="ctrl.searchText" md-highlight-flags="^i">{{item}}</span>
             </md-item-template>
@@ -18,7 +18,7 @@
               No foods matching "{{ctrl.searchText}}" were found.
             </md-not-found>
           </md-autocomplete>
-          <md-button ng-disabled="addFood.$invalid" ng-click="addToPantry()" class="md-raised md-primary"><md-icon>add</md-icon>Add item</md-button>
+          <md-button id="btnAddIngredient" ng-disabled="addFood.$invalid" ng-click="addToPantry()" class="md-raised md-primary"><md-icon>add</md-icon>Add item</md-button>
         </form>
       </div>
     </md-card>
@@ -27,7 +27,7 @@
         <div>
           <md-card-title>
             <md-card-title-text><span class="md-headline">Current Pantry Items</span></md-card-title-text>
-            <md-button ng-disabled="pantryItems.length == 0" ng-click="confirmDeleteAll($event)" class="md-icon-button md-warn" aria-label="Delete">
+            <md-button id="deletePantry" ng-disabled="pantryItems.length == 0" ng-click="confirmDeleteAll($event)" class="md-icon-button md-warn" aria-label="Delete">
               <md-icon class="md-accent">delete_forever</md-icon>
             </md-button>
           </md-card-title>

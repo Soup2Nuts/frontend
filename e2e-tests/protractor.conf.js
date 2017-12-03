@@ -4,14 +4,16 @@ exports.config = {
   allScriptsTimeout: 11000,
 
   specs: [
-    '*.js'
+      'services/apiService_test.js',
+      '*.js'
+
   ],
 
   capabilities: {
     'browserName': 'chrome'
   },
 
-  baseUrl: 'http://localhost:8000/',
+  baseUrl: 'http://localhost:8887',
 
   framework: 'jasmine',
 
