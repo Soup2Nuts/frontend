@@ -11,7 +11,6 @@ describe('my app', function() {
         browser.get('#!/');
   });
 
-
   it('should automatically redirect to /login when it is not logged in', function() {
 
     expect(browser.getCurrentUrl()).toMatch("/login");
@@ -24,7 +23,6 @@ describe('my app', function() {
     expect(element(by.id('login-button')).isEnabled()).toBe(true);
     element(by.id('login-button')).click();
     expect(element(by.css('form>span'))).not.toBeNull();
-    // expect(browser.getLocationAbsUrl()).toMatch("/login");
   });
 
   it('should redirect to signup page when signup button is clicked', function() {
@@ -67,34 +65,4 @@ describe('my app', function() {
         expect(val).toEqual(currentUser);
 
     });
-
-
-    /*describe('view1', function() {
-
-      beforeEach(function() {
-        browser.get('index.html#!/view1');
-      });
-
-
-      it('should render view1 when user navigates to /view1', function() {
-        expect(element.all(by.css('[ng-view] p')).first().getText()).
-          toMatch(/partial for view 1/);
-      });
-
-    });
-
-
-    describe('view2', function() {
-
-      beforeEach(function() {
-        browser.get('index.html#!/viewAccount');
-      });
-
-
-      it('should render viewAccount when user navigates to /viewAccount', function() {
-        expect(element.all(by.css('[ng-view] p')).first().getText()).
-          toMatch(/partial for view 2/);
-      });
-
-    });*/
 });
